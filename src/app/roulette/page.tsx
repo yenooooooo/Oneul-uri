@@ -11,7 +11,6 @@ import { Plus, X, Loader2, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
-import { toast } from "sonner";
 
 /**
  * 데이트 룰렛 페이지 — /roulette
