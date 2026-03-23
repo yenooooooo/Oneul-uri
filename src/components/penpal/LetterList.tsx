@@ -49,8 +49,10 @@ export default function LetterList({
 }: LetterListProps) {
   if (letters.length === 0) {
     return (
-      <div className="text-center py-12">
-        <Mail className="w-12 h-12 text-coral-200 mx-auto mb-3" />
+      <div className="flex flex-col items-center justify-center text-center w-full py-20">
+        <div className="mb-4">
+          <Mail className="w-12 h-12 text-coral-200" />
+        </div>
         <p className="text-txt-secondary font-medium">
           {isReceived ? "아직 받은 편지가 없어요" : "아직 보낸 편지가 없어요"}
         </p>
