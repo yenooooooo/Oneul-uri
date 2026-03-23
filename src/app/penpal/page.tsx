@@ -74,7 +74,7 @@ export default function PenpalPage() {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="received">
+            <TabsContent value="received" className="mt-4">
               <LetterList
                 letters={received}
                 senderName={partnerNickname ?? "상대방"}
@@ -86,7 +86,7 @@ export default function PenpalPage() {
               />
             </TabsContent>
 
-            <TabsContent value="sent">
+            <TabsContent value="sent" className="mt-4">
               <LetterList
                 letters={sent}
                 senderName={partnerNickname ?? "상대방"}
