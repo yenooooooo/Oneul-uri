@@ -13,6 +13,7 @@ import AppLayout from "@/components/layout/AppLayout";
 import DdayCard from "@/components/common/DdayCard";
 import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
+import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import { Loader2, ChevronRight, PenSquare, Dices, Settings, ClipboardList } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
@@ -27,7 +28,9 @@ export default function HomePage() {
   const { user, loading: authLoading } = useAuth();
   const {
     couple, loading: coupleLoading,
-    myNickname, partnerNickname, isPartnerConnected, inviteCode,
+    myNickname, partnerNickname,
+    myEmoji, partnerEmoji, myStatus, partnerStatus,
+    isPartnerConnected, inviteCode,
   } = useCouple();
   const { upcoming, generateAutoAnniversaries } = useAnniversary();
   const { records, loading: recordsLoading } = useDateRecords();
@@ -60,22 +63,26 @@ export default function HomePage() {
   // 최근 데이트 기록 3개
   const recentRecords = records.slice(0, 3);
 
-  // 상단 인사 텍스트 — user2 미연결 시 닉네임만 표시
-  const greetingText = isPartnerConnected
-    ? `${myNickname} & ${partnerNickname}`
-    : `${myNickname}의 오늘우리`;
-
   return (
     <AppLayout>
       <div className="px-4 pt-6 space-y-4 animate-fade-up">
-        {/* 상단 인사 + 로그아웃 */}
-        <div className="flex items-center justify-between">
-          <div className="w-8" />
-          <p className="text-sm text-txt-secondary">{greetingText}</p>
+        {/* 상단 설정 버튼 */}
+        <div className="flex justify-end">
           <Link href="/settings" className="p-2 text-txt-tertiary hover:text-coral-400">
             <Settings className="w-4 h-4" />
           </Link>
         </div>
+
+        {/* 커플 프로필 카드 */}
+        <CoupleProfileCard
+          myEmoji={myEmoji ?? "💙"}
+          myNickname={myNickname ?? "나"}
+          myStatus={myStatus ?? ""}
+          partnerEmoji={partnerEmoji}
+          partnerNickname={partnerNickname}
+          partnerStatus={partnerStatus}
+          isPartnerConnected={isPartnerConnected}
+        />
 
         {/* user2 미연결 시 초대 배너 */}
         {!isPartnerConnected && inviteCode && (

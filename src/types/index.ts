@@ -65,6 +65,8 @@ export interface Couple {
   user2_emoji: string;
   user1_birthday: string | null; // user1 생일
   user2_birthday: string | null; // user2 생일
+  user1_status: string; // user1 상태 메시지 (오늘의 한마디)
+  user2_status: string; // user2 상태 메시지
   created_at: string;
 }
 

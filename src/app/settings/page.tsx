@@ -21,19 +21,24 @@ export default function SettingsPage() {
   const router = useRouter();
   const { signOut } = useAuth();
   const {
-    myNickname, myBirthday,
-    inviteCode, isPartnerConnected, updateBirthday,
+    myNickname, myBirthday, myEmoji, myStatus,
+    inviteCode, isPartnerConnected, updateBirthday, updateProfile,
   } = useCouple();
   const { upsertBirthday } = useAnniversary();
 
   const [birthday, setBirthday] = useState(""); // 생일 입력값
+  const [emoji, setEmoji] = useState(""); // 이모지 입력값
+  const [status, setStatus] = useState(""); // 상태 메시지 입력값
   const [saving, setSaving] = useState(false); // 저장 중
+  const [savingProfile, setSavingProfile] = useState(false); // 프로필 저장 중
   const [copied, setCopied] = useState(false); // 초대 코드 복사 상태
 
-  // myBirthday가 비동기 로드되면 입력값에 반영
+  // 비동기 로드 후 입력값 반영
   useEffect(() => {
     if (myBirthday) setBirthday(myBirthday);
-  }, [myBirthday]);
+    if (myEmoji) setEmoji(myEmoji);
+    if (myStatus) setStatus(myStatus);
+  }, [myBirthday, myEmoji, myStatus]);
 
   /** 생일 저장 — couples 테이블 + anniversaries 테이블 동시 업데이트 */
   const handleSaveBirthday = async () => {
@@ -79,6 +84,39 @@ export default function SettingsPage() {
           </button>
           <h1 className="text-lg font-bold text-txt-primary">설정</h1>
         </div>
+
+        {/* 프로필 — 이모지 + 상태 메시지 */}
+        <section className="bg-white rounded-2xl p-5 shadow-soft space-y-4">
+          <h2 className="font-semibold text-txt-primary">내 프로필</h2>
+          <div className="flex gap-3">
+            <div className="space-y-1.5 w-20">
+              <Label htmlFor="emoji">이모지</Label>
+              <Input id="emoji" value={emoji} maxLength={2}
+                onChange={(e) => setEmoji(e.target.value)}
+                className="rounded-xl text-center text-2xl" />
+            </div>
+            <div className="space-y-1.5 flex-1">
+              <Label htmlFor="status">오늘의 한마디</Label>
+              <Input id="status" placeholder="상태 메시지를 입력해보세요"
+                value={status} maxLength={30}
+                onChange={(e) => setStatus(e.target.value)}
+                className="rounded-xl" />
+            </div>
+          </div>
+          <Button
+            onClick={async () => {
+              setSavingProfile(true);
+              const ok = await updateProfile(emoji || undefined, status);
+              if (ok) toast.success("프로필이 저장되었어요!");
+              else toast.error("프로필 저장에 실패했어요.");
+              setSavingProfile(false);
+            }}
+            disabled={savingProfile}
+            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+          >
+            {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : "프로필 저장"}
+          </Button>
+        </section>
 
         {/* 생일 입력 */}
         <section className="bg-white rounded-2xl p-5 shadow-soft space-y-4">
