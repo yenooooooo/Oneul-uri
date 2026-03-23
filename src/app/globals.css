@@ -1,94 +1,117 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+/* ===== Pretendard 폰트 CDN ===== */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+
+/* ===== 손글씨 폰트 (펜팔 전용) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  :root {
+    /* 배경 — 웜 크림 */
+    --background: #FFF8F0;
+    --foreground: #2D2D2D;
+
+    /* 카드 */
+    --card: #FFFFFF;
+    --card-foreground: #2D2D2D;
+
+    /* 팝오버 */
+    --popover: #FFFFFF;
+    --popover-foreground: #2D2D2D;
+
+    /* 메인 — 코랄 핑크 */
+    --primary: #FF6B6B;
+    --primary-foreground: #FFFFFF;
+
+    /* 세컨더리 */
+    --secondary: #FFF0E8;
+    --secondary-foreground: #FF6B6B;
+
+    /* 뮤트 */
+    --muted: #FFF0E8;
+    --muted-foreground: #6B6B6B;
+
+    /* 액센트 */
+    --accent: #FFF0E8;
+    --accent-foreground: #2D2D2D;
+
+    /* 파괴적 액션 */
+    --destructive: #F44336;
+
+    /* 보더, 인풋, 링 */
+    --border: #FFD4D4;
+    --input: #FFD4D4;
+    --ring: #FF6B6B;
+
+    /* 라디우스 — 둥글둥글한 느낌 */
+    --radius: 1rem;
+
+    /* ===== 오늘우리 커스텀 컬러 ===== */
+    --coral-50: #FFF0F0;
+    --coral-100: #FFD4D4;
+    --coral-200: #FFB0B0;
+    --coral-300: #FF8A8A;
+    --coral-400: #FF6B6B;
+    --coral-500: #E85555;
+    --coral-600: #CC4444;
+
+    --blue-soft: #7EB8E0;
+    --pink-soft: #F5A0B8;
+    --yellow-warm: #FFD66B;
+    --green-soft: #7EC8A0;
+
+    --text-primary: #2D2D2D;
+    --text-secondary: #6B6B6B;
+    --text-tertiary: #9B9B9B;
+
+    --success: #4CAF50;
+    --warning: #FF9800;
+    --error: #F44336;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    background-color: #FFF8F0;
   }
 }
 
-@layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+/* ===== 손글씨 폰트 유틸리티 (펜팔 전용) ===== */
+.font-handwriting {
+  font-family: 'Nanum Pen Script', cursive;
+}
+
+/* ===== iOS Safe Area 대응 ===== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
   }
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom);
   }
-  .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-  }
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+}
+
+/* ===== 스크롤바 숨기기 (모바일 앱 느낌) ===== */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
