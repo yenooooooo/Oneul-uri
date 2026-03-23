@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/components/common/AuthProvider";
 import ServiceWorkerRegister from "@/components/common/ServiceWorkerRegister";
+import PullToRefresh from "@/components/common/PullToRefresh";
 
 /**
  * 오늘우리 앱의 메타데이터 설정
@@ -54,7 +55,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className="antialiased">
         <AuthProvider>
-          {children}
+          <PullToRefresh>
+            {children}
+          </PullToRefresh>
         </AuthProvider>
         {/* 토스트 알림 — 친절한 한글 메시지용 */}
         <Toaster position="top-center" richColors />
