@@ -43,8 +43,8 @@ export default function RecordWriteModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center">
-      <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-cream flex flex-col">
+      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto">
         {/* 헤더 */}
         <div className="flex items-center justify-between p-4 border-b border-coral-50">
           <h2 className="text-lg font-semibold text-txt-primary">
