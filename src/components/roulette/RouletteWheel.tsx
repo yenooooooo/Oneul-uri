@@ -23,18 +23,11 @@ export default function RouletteWheel({ items, onResult }: RouletteWheelProps) {
   const [rotation, setRotation] = useState(0); // 누적 회전 각도
   const [spinning, setSpinning] = useState(false); // 회전 중
 
-  if (items.length === 0) {
-    return (
-      <p className="text-sm text-txt-tertiary text-center py-8">
-        항목을 추가해주세요
-      </p>
-    );
-  }
-
-  const sliceAngle = 360 / items.length;
+  const sliceAngle = items.length > 0 ? 360 / items.length : 360;
 
   /** conic-gradient 문자열 생성 — 정확한 부채꼴 */
   const gradient = useMemo(() => {
+    if (items.length === 0) return "conic-gradient(#f0e8e0 0deg 360deg)";
     const stops = items.map((_, i) => {
       const color = COLORS[i % COLORS.length];
       const from = (i * sliceAngle).toFixed(2);
@@ -43,6 +36,15 @@ export default function RouletteWheel({ items, onResult }: RouletteWheelProps) {
     });
     return `conic-gradient(from 0deg, ${stops.join(", ")})`;
   }, [items, sliceAngle]);
+
+  // 항목 없으면 안내 표시
+  if (items.length === 0) {
+    return (
+      <p className="text-sm text-txt-tertiary text-center py-8">
+        항목을 추가해주세요
+      </p>
+    );
+  }
 
   /** 돌리기 — 5~8바퀴 + 랜덤 각도 */
   const handleSpin = () => {
