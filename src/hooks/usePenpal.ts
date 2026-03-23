@@ -94,6 +94,12 @@ export function usePenpal() {
       }
 
       toast.success("편지가 발송되었어요!");
+
+      // 상대방에게 푸시 알림 발송 (Edge Function 호출, 실패해도 무시)
+      supabase.functions.invoke("send-notifications", {
+        body: { type: "letter", receiver_id: receiverId },
+      }).catch(() => {});
+
       await fetchLetters();
       return true;
     } catch (error) {

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Cake, Copy, Check, LogOut, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import NotificationToggle from "@/components/common/NotificationToggle";
 
 /**
  * 설정 페이지 — /settings
@@ -97,6 +98,11 @@ export default function SettingsPage() {
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : "저장"}
           </Button>
+        </section>
+
+        {/* 알림 설정 */}
+        <section className="bg-white rounded-2xl p-5 shadow-soft">
+          <NotificationToggle />
         </section>
 
         {/* 초대 코드 */}
