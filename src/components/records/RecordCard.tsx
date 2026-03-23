@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MapPin, Calendar, Camera } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { MOOD_OPTIONS } from "@/types/record";
 import type { DateRecord } from "@/types";
 
 /** RecordCard 컴포넌트 props */
@@ -40,7 +41,14 @@ export default function RecordCard({ record }: RecordCardProps) {
 
         {/* 기록 정보 */}
         <div className="p-4">
-          <h3 className="font-semibold text-txt-primary mb-1">{record.title}</h3>
+          <div className="flex items-center gap-1.5 mb-1">
+            {record.mood && (
+              <span className="text-base">
+                {MOOD_OPTIONS.find((m) => m.value === record.mood)?.emoji}
+              </span>
+            )}
+            <h3 className="font-semibold text-txt-primary">{record.title}</h3>
+          </div>
           <div className="flex items-center gap-3 text-xs text-txt-tertiary">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />

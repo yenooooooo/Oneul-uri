@@ -6,6 +6,7 @@ import { ArrowLeft, MapPin, Calendar, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
 import type { DateRecord, UpdateDateRecord } from "@/types";
+import { MOOD_OPTIONS } from "@/types/record";
 import RecordWriteModal from "@/components/records/RecordWriteModal";
 
 /** RecordDetail 컴포넌트 props */
@@ -64,9 +65,14 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
 
       {/* 기록 정보 */}
       <div className="px-4 pt-2 pb-8 space-y-4 max-w-lg mx-auto">
-        <h1 className="text-2xl font-bold text-txt-primary">
-          {record.title}
-        </h1>
+        <div className="flex items-center gap-2">
+          {record.mood && (
+            <span className="text-2xl">
+              {MOOD_OPTIONS.find((m) => m.value === record.mood)?.emoji}
+            </span>
+          )}
+          <h1 className="text-2xl font-bold text-txt-primary">{record.title}</h1>
+        </div>
 
         <div className="flex items-center gap-4 text-sm text-txt-secondary">
           <span className="flex items-center gap-1">
@@ -128,6 +134,7 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
             date: record.date,
             location: record.location ?? "",
             memo: record.memo ?? "",
+            mood: record.mood ?? "",
             photos: record.photos,
           }}
           onSubmit={async (data) => {

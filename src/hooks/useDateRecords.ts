@@ -98,7 +98,8 @@ export function useDateRecords() {
           couple_id: coupleId, author_id: user.id,
           title: input.title, date: input.date,
           location: input.location || null,
-          memo: input.memo || null, photos: input.photos || [],
+          memo: input.memo || null, mood: input.mood || null,
+          photos: input.photos || [],
         })
         .select().single();
       if (error) { toast.error("기록 저장에 실패했어요."); return null; }
