@@ -38,14 +38,14 @@ export default function RoulettePage() {
     saveResult(category, label);
   };
 
-  /** 캘린더에 결과 추가 */
+  const [addingToCalendar, setAddingToCalendar] = useState(false); // 캘린더 추가 중복 방지
+
+  /** 캘린더에 결과 추가 — 중복 클릭 방지 */
   const handleAddToCalendar = async () => {
-    if (!result) return;
+    if (!result || addingToCalendar) return;
+    setAddingToCalendar(true);
     const today = new Date().toISOString().split("T")[0];
-    const success = await addEvent(result, today, "date");
-    if (success) {
-      toast.success("캘린더에 추가되었어요!");
-    }
+    await addEvent(result, today, "date");
   };
 
   /** 새 항목 추가 */
@@ -89,8 +89,9 @@ export default function RoulettePage() {
             {result && (
               <RouletteResult
                 result={result}
-                onRetry={() => setResult(null)}
+                onRetry={() => { setResult(null); setAddingToCalendar(false); }}
                 onAddToCalendar={handleAddToCalendar}
+                calendarAdded={addingToCalendar}
               />
             )}
 
