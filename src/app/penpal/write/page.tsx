@@ -40,15 +40,15 @@ function WriteLetterForm() {
   const replyPreview = searchParams.get("replyPreview"); // 원문 미리보기
 
   const { sendLetter } = usePenpal();
-  const { partnerNickname, isPartnerConnected } = useCouple();
+  const { partnerNickname, isPartnerConnected, loading: coupleLoading } = useCouple();
 
-  // user2 미연결 시 편지함으로 리다이렉트
+  // 커플 로딩 완료 후, user2 미연결이면 편지함으로 리다이렉트
   useEffect(() => {
-    if (!isPartnerConnected) {
+    if (!coupleLoading && !isPartnerConnected) {
       toast.error("상대방이 연결되어야 편지를 보낼 수 있어요.");
       router.replace("/penpal");
     }
-  }, [isPartnerConnected, router]);
+  }, [coupleLoading, isPartnerConnected, router]);
   const [content, setContent] = useState(""); // 편지 내용
   const [stationery, setStationery] = useState<StationeryType>("default"); // 편지지
   const [photoUrl, setPhotoUrl] = useState<string | null>(null); // 첨부 사진
