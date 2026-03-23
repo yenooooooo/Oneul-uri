@@ -124,6 +124,35 @@ export function useCalendar() {
   };
 
   /**
+   * 일정을 수정한다.
+   * @param id - 일정 ID
+   * @param updates - 수정할 필드 (title, date, category, time, memo)
+   * @returns 성공 여부
+   */
+  const updateEvent = async (
+    id: string,
+    updates: { title?: string; date?: string; category?: string; time?: string; memo?: string }
+  ): Promise<boolean> => {
+    try {
+      const { error } = await supabase
+        .from("calendar_events")
+        .update(updates)
+        .eq("id", id);
+      if (error) {
+        console.error("[useCalendar/updateEvent] 수정 실패:", error.message);
+        toast.error("일정 수정에 실패했어요.");
+        return false;
+      }
+      toast.success("일정이 수정되었어요!");
+      await fetchEvents();
+      return true;
+    } catch (error) {
+      console.error("[useCalendar/updateEvent] 예외 발생:", error);
+      return false;
+    }
+  };
+
+  /**
    * 특정 날짜의 일정을 반환한다.
    * @param date - 날짜 (YYYY-MM-DD)
    */
@@ -137,5 +166,5 @@ export function useCalendar() {
    */
   const eventDates = new Set(events.map((e) => e.date));
 
-  return { events, loading, eventDates, addEvent, deleteEvent, getEventsForDate };
+  return { events, loading, eventDates, addEvent, updateEvent, deleteEvent, getEventsForDate };
 }

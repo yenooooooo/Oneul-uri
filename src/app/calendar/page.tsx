@@ -9,6 +9,8 @@ import EventAddForm from "@/components/calendar/EventAddForm";
 import { useCalendar } from "@/hooks/useCalendar";
 import { useAnniversary } from "@/hooks/useAnniversary";
 import { useDatePlans } from "@/hooks/useDatePlans";
+import { useCouple } from "@/hooks/useCouple";
+import { useAuth } from "@/hooks/useAuth";
 import { Plus, Loader2, ClipboardList } from "lucide-react";
 import type { Anniversary } from "@/types";
 
@@ -19,18 +21,19 @@ const ANNIVERSARY_ICON: Record<string, string> = {
 
 /**
  * 공유 캘린더 페이지 — /calendar
- * 월간 캘린더 + 기념일 + 일정 + 데이트 플래너 연동
+ * 오늘 버튼 + 일정 수정 + 상대방 도트 구분 + 기념일/플래너 연동
  */
 export default function CalendarPage() {
-  const today = new Date();
-  const [year, setYear] = useState(today.getFullYear());
-  const [month, setMonth] = useState(today.getMonth());
-  const [selectedDate, setSelectedDate] = useState<string | null>(
-    today.toISOString().split("T")[0]
-  );
+  const now = new Date();
+  const todayStr = now.toISOString().split("T")[0];
+  const [year, setYear] = useState(now.getFullYear());
+  const [month, setMonth] = useState(now.getMonth());
+  const [selectedDate, setSelectedDate] = useState<string | null>(todayStr);
   const [showAdd, setShowAdd] = useState(false);
 
-  const { loading, eventDates, addEvent, deleteEvent, getEventsForDate } = useCalendar();
+  const { user } = useAuth();
+  const { couple } = useCouple();
+  const { loading, eventDates, addEvent, updateEvent, deleteEvent, getEventsForDate } = useCalendar();
   const { anniversaries } = useAnniversary();
   const { planDates, getPlanForDate } = useDatePlans();
 
@@ -49,7 +52,6 @@ export default function CalendarPage() {
     return map;
   }, [anniversaries, year]);
 
-  // 전체 마커 날짜 합치기
   const allMarkedDates = useMemo(() => {
     const dates = new Set(eventDates);
     anniversaryMap.forEach((_, d) => dates.add(d));
@@ -58,17 +60,24 @@ export default function CalendarPage() {
   }, [eventDates, anniversaryMap, planDates]);
 
   const anniversaryDates = useMemo(() => new Set(anniversaryMap.keys()), [anniversaryMap]);
-
-  // 선택된 날짜의 데이터
   const selectedEvents = selectedDate ? getEventsForDate(selectedDate) : [];
   const selectedAnniversaries = selectedDate ? (anniversaryMap.get(selectedDate) ?? []) : [];
   const selectedPlan = selectedDate ? getPlanForDate(selectedDate) : null;
 
+  /** 이전/다음 월 이동 */
   const handlePrevMonth = () => {
     if (month === 0) { setYear(year - 1); setMonth(11); } else setMonth(month - 1);
   };
   const handleNextMonth = () => {
     if (month === 11) { setYear(year + 1); setMonth(0); } else setMonth(month + 1);
+  };
+
+  /** 오늘 날짜로 이동 */
+  const handleGoToday = () => {
+    const t = new Date();
+    setYear(t.getFullYear());
+    setMonth(t.getMonth());
+    setSelectedDate(t.toISOString().split("T")[0]);
   };
 
   return (
@@ -92,17 +101,16 @@ export default function CalendarPage() {
                 onSelectDate={setSelectedDate}
                 onPrevMonth={handlePrevMonth}
                 onNextMonth={handleNextMonth}
+                onGoToday={handleGoToday}
               />
             </div>
 
-            {/* 데이트 플래너 영역 */}
+            {/* 플래너 영역 */}
             {selectedDate && (
               <div className="bg-white rounded-2xl p-4 shadow-soft">
                 {selectedPlan ? (
-                  <Link
-                    href={`/calendar/plan/${selectedPlan.id}`}
-                    className="flex items-center gap-3 active:scale-[0.98] transition-transform"
-                  >
+                  <Link href={`/calendar/plan/${selectedPlan.id}`}
+                    className="flex items-center gap-3 active:scale-[0.98] transition-transform">
                     <div className="w-10 h-10 bg-coral-100 rounded-full flex items-center justify-center">
                       <ClipboardList className="w-5 h-5 text-coral-400" />
                     </div>
@@ -114,10 +122,8 @@ export default function CalendarPage() {
                     </div>
                   </Link>
                 ) : (
-                  <Link
-                    href={`/calendar/plan/new?date=${selectedDate}`}
-                    className="flex items-center gap-3 text-coral-400 active:scale-[0.98] transition-transform"
-                  >
+                  <Link href={`/calendar/plan/new?date=${selectedDate}`}
+                    className="flex items-center gap-3 text-coral-400 active:scale-[0.98] transition-transform">
                     <div className="w-10 h-10 bg-coral-50 rounded-full flex items-center justify-center">
                       <ClipboardList className="w-5 h-5" />
                     </div>
@@ -139,10 +145,17 @@ export default function CalendarPage() {
               </div>
             )}
 
-            {/* 일정 목록 */}
+            {/* 일정 목록 — 수정/삭제 + 작성자 구분 */}
             {selectedDate && (
               <div className="bg-white rounded-3xl p-4 shadow-soft">
-                <DayEventList date={selectedDate} events={selectedEvents} onDelete={deleteEvent} />
+                <DayEventList
+                  date={selectedDate}
+                  events={selectedEvents}
+                  couple={couple}
+                  userId={user?.id}
+                  onUpdate={updateEvent}
+                  onDelete={deleteEvent}
+                />
               </div>
             )}
           </>
@@ -150,7 +163,8 @@ export default function CalendarPage() {
       </div>
 
       <button onClick={() => setShowAdd(true)} disabled={!selectedDate}
-        style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }} className="fixed right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40 disabled:opacity-40">
+        style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+        className="fixed right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40 disabled:opacity-40">
         <Plus className="w-6 h-6" />
       </button>
 

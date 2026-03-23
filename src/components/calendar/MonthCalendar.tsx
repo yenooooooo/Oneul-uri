@@ -14,6 +14,7 @@ interface MonthCalendarProps {
   onSelectDate: (date: string) => void;
   onPrevMonth: () => void;
   onNextMonth: () => void;
+  onGoToday?: () => void; // 오늘 날짜로 이동
 }
 
 /** 요일 헤더 */
@@ -33,6 +34,7 @@ export default function MonthCalendar({
   onSelectDate,
   onPrevMonth,
   onNextMonth,
+  onGoToday,
 }: MonthCalendarProps) {
   // 해당 월의 첫째 날과 마지막 날
   const firstDay = new Date(year, month, 1);
@@ -59,14 +61,24 @@ export default function MonthCalendar({
 
   return (
     <div>
-      {/* 월 헤더 — 이전/다음 월 이동 */}
+      {/* 월 헤더 — 이전/오늘/다음 월 이동 */}
       <div className="flex items-center justify-between mb-4">
         <button onClick={onPrevMonth} className="p-2 text-txt-secondary">
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h2 className="text-lg font-bold text-txt-primary">
-          {year}년 {month + 1}월
-        </h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-bold text-txt-primary">
+            {year}년 {month + 1}월
+          </h2>
+          {onGoToday && (
+            <button
+              onClick={onGoToday}
+              className="text-xs bg-coral-50 text-coral-400 px-2 py-0.5 rounded-full font-medium"
+            >
+              오늘
+            </button>
+          )}
+        </div>
         <button onClick={onNextMonth} className="p-2 text-txt-secondary">
           <ChevronRight className="w-5 h-5" />
         </button>
