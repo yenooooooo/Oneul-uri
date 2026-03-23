@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useCouple } from "@/hooks/useCouple";
 import { AUTO_ANNIVERSARIES } from "@/lib/constants";
-import { calculateDday } from "@/lib/utils";
+import { calculateDday, calculateAnniversaryDday, getNextRecurringDate } from "@/lib/utils";
 import type { Anniversary } from "@/types";
 import { toast } from "sonner";
 
@@ -194,15 +194,20 @@ export function useAnniversary() {
     }
   };
 
-  /** 다가오는 기념일 (오늘 이후, 최대 5개) */
+  /** 다가오는 기념일 — 반복 기념일은 다가오는 날짜 기준 */
   const upcoming = anniversaries
-    .filter((a) => calculateDday(a.date) <= 0)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .filter((a) => calculateAnniversaryDday(a.date, a.is_recurring) <= 0)
+    .sort((a, b) => {
+      // 반복 기념일은 다가오는 날짜 기준, 비반복은 원래 날짜 기준 정렬
+      const dateA = a.is_recurring ? getNextRecurringDate(a.date) : new Date(a.date);
+      const dateB = b.is_recurring ? getNextRecurringDate(b.date) : new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    })
     .slice(0, 5);
 
-  /** 지난 기념일 (오늘 이전) */
+  /** 지난 기념일 — 반복 기념일은 항상 "다가오는"이므로 여기 포함 안 됨 */
   const past = anniversaries
-    .filter((a) => calculateDday(a.date) > 0)
+    .filter((a) => !a.is_recurring && calculateDday(a.date) > 0)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return {

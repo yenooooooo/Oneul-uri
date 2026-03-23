@@ -31,6 +31,47 @@ export function calculateDday(startDate: string): number {
 }
 
 /**
+ * 반복 기념일의 다가오는 날짜를 계산한다.
+ * 올해 해당 월/일이 이미 지났으면 내년 날짜를 반환한다.
+ * @param originalDate - 원래 날짜 (YYYY-MM-DD)
+ * @returns 다가오는 날짜 (Date 객체)
+ */
+export function getNextRecurringDate(originalDate: string): Date {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const original = new Date(originalDate);
+
+  // 올해 해당 월/일로 설정
+  const thisYear = new Date(
+    today.getFullYear(), original.getMonth(), original.getDate()
+  );
+  thisYear.setHours(0, 0, 0, 0);
+
+  // 올해 날짜가 이미 지났으면 내년으로
+  if (thisYear.getTime() < today.getTime()) {
+    return new Date(today.getFullYear() + 1, original.getMonth(), original.getDate());
+  }
+  return thisYear;
+}
+
+/**
+ * 기념일의 D-day를 계산한다 (반복 기념일 대응).
+ * @param date - 원래 날짜 (YYYY-MM-DD)
+ * @param isRecurring - 매년 반복 여부
+ * @returns D-day 숫자 (양수: 지난 날, 음수: 남은 날)
+ */
+export function calculateAnniversaryDday(date: string, isRecurring: boolean): number {
+  if (!isRecurring) return calculateDday(date);
+
+  const next = getNextRecurringDate(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const diff = today.getTime() - next.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
+/**
  * 날짜를 한국어 형식으로 포맷팅한다.
  * @param dateString - 날짜 문자열 (YYYY-MM-DD)
  * @param format - 포맷 종류 ('long' | 'short' | 'dot')

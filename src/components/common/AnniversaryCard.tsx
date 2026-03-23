@@ -1,7 +1,7 @@
 "use client";
 
-import { calculateDday, formatDate } from "@/lib/utils";
-import { Gift, Trash2 } from "lucide-react";
+import { calculateAnniversaryDday } from "@/lib/utils";
+import { Gift, Cake, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Anniversary } from "@/types";
 
@@ -13,28 +13,48 @@ interface AnniversaryCardProps {
 }
 
 /**
- * 기념일 카드 — D-day 표시 + 제목 + 날짜
- * compact 모드는 홈 대시보드에서 간략하게 표시
+ * 기념일 카드 — D-day 표시 (반복 기념일 대응)
+ * 생일: 🎂 N번째 생일 + 매년 M월 D일
+ * 일반: 기존 날짜 표시
  */
 export default function AnniversaryCard({
   anniversary,
   onDelete,
   compact = false,
 }: AnniversaryCardProps) {
-  const dday = calculateDday(anniversary.date);
+  // 반복 기념일은 다가오는 날짜 기준 D-day 계산
+  const dday = calculateAnniversaryDday(anniversary.date, anniversary.is_recurring);
 
-  // D-day 텍스트 포맷팅
-  const ddayText = dday === 0 ? "D-DAY" : dday > 0 ? `D+${dday}` : `D${dday}`;
+  // D-day 텍스트
+  const ddayText = dday === 0 ? "D-DAY 🎉" : dday > 0 ? `D+${dday}` : `D${dday}`;
 
-  // D-day에 따른 강조 색상 (7일 이내면 코랄, 아니면 기본)
+  // 7일 이내 강조
   const isNear = dday >= -7 && dday <= 0;
+
+  // 생일이면 N번째 생일 계산
+  const isBirthday = anniversary.type === "birthday";
+  const birthdayAge = isBirthday
+    ? new Date().getFullYear() - new Date(anniversary.date).getFullYear()
+    : null;
+
+  // 반복 기념일 날짜 표시 (매년 M월 D일)
+  const origDate = new Date(anniversary.date);
+  const recurringLabel = anniversary.is_recurring
+    ? `매년 ${origDate.getMonth() + 1}월 ${origDate.getDate()}일`
+    : null;
+
+  // 아이콘 선택
+  const IconComponent = isBirthday ? Cake : Gift;
 
   if (compact) {
     return (
       <div className="flex items-center justify-between py-2">
         <div className="flex items-center gap-2">
-          <Gift className="w-4 h-4 text-coral-300" />
+          <IconComponent className="w-4 h-4 text-coral-300" />
           <span className="text-sm text-txt-primary">{anniversary.title}</span>
+          {isBirthday && birthdayAge && (
+            <span className="text-xs text-txt-tertiary">({birthdayAge}번째)</span>
+          )}
         </div>
         <Badge
           variant="secondary"
@@ -50,40 +70,35 @@ export default function AnniversaryCard({
     <div className="bg-white rounded-2xl p-4 shadow-soft flex items-center justify-between">
       <div className="flex items-center gap-3">
         {/* 아이콘 */}
-        <div
-          className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            isNear ? "bg-coral-100" : "bg-cream-dark"
-          }`}
-        >
-          <Gift className={`w-5 h-5 ${isNear ? "text-coral-400" : "text-txt-tertiary"}`} />
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+          isNear ? "bg-coral-100" : "bg-cream-dark"
+        }`}>
+          <IconComponent className={`w-5 h-5 ${isNear ? "text-coral-400" : "text-txt-tertiary"}`} />
         </div>
 
         {/* 기념일 정보 */}
         <div>
-          <p className="font-medium text-txt-primary">{anniversary.title}</p>
+          <p className="font-medium text-txt-primary">
+            {anniversary.title}
+            {isBirthday && birthdayAge ? ` (${birthdayAge}번째)` : ""}
+          </p>
           <p className="text-xs text-txt-tertiary">
-            {formatDate(anniversary.date, "long")}
+            {recurringLabel ?? `${origDate.getFullYear()}년 ${origDate.getMonth() + 1}월 ${origDate.getDate()}일`}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        {/* D-day 뱃지 */}
         <Badge
           variant="secondary"
-          className={`text-sm font-semibold ${
-            isNear ? "bg-coral-100 text-coral-500" : ""
-          }`}
+          className={`text-sm font-semibold ${isNear ? "bg-coral-100 text-coral-500" : ""}`}
         >
           {ddayText}
         </Badge>
 
-        {/* 삭제 버튼 (커스텀 기념일만) */}
         {onDelete && anniversary.type === "custom" && (
-          <button
-            onClick={() => onDelete(anniversary.id)}
-            className="p-1 text-txt-tertiary hover:text-error"
-          >
+          <button onClick={() => onDelete(anniversary.id)}
+            className="p-1 text-txt-tertiary hover:text-error">
             <Trash2 className="w-4 h-4" />
           </button>
         )}
