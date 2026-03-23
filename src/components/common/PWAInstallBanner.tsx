@@ -32,7 +32,10 @@ export default function PWAInstallBanner() {
   const isIOSDevice = isIOS();
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 z-40 animate-fade-up">
+    <div
+      className="fixed left-4 right-4 z-40 animate-fade-up"
+      style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+    >
       <div className="bg-white rounded-2xl p-4 shadow-float border border-coral-100 relative max-w-lg mx-auto">
         {/* 닫기 버튼 */}
         <button

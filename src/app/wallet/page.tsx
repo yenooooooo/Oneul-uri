@@ -132,7 +132,7 @@ export default function WalletPage() {
       {/* FAB — 새 목표 추가 */}
       {activeGoal && (
         <button onClick={() => setShowGoalForm(true)}
-          className="fixed bottom-20 right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
+          style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }} className="fixed right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
           <Plus className="w-6 h-6" />
         </button>
       )}
