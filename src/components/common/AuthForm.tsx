@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Heart, Loader2 } from "lucide-react";
+import PWAInstallBanner from "@/components/common/PWAInstallBanner";
 
 /** AuthForm 컴포넌트의 props 타입 */
 interface AuthFormProps {
@@ -123,6 +124,9 @@ export default function AuthForm({ mode, onSubmit, onToggleMode }: AuthFormProps
           </button>
         </p>
       </form>
+
+      {/* PWA 설치 유도 배너 */}
+      <PWAInstallBanner />
     </div>
   );
 }
