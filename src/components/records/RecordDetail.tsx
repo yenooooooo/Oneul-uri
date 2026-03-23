@@ -9,6 +9,7 @@ import type { DateRecord, UpdateDateRecord } from "@/types";
 import { MOOD_OPTIONS } from "@/types/record";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import RecordWriteModal from "@/components/records/RecordWriteModal";
+import CommentSection from "@/components/records/CommentSection";
 
 /** RecordDetail 컴포넌트 props */
 interface RecordDetailProps {
@@ -111,6 +112,11 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
             </p>
           </div>
         )}
+
+        {/* 댓글 섹션 */}
+        <div className="bg-white rounded-2xl p-4 shadow-soft">
+          <CommentSection recordId={record.id} />
+        </div>
       </div>
 
       {/* 삭제 확인 모달 */}
