@@ -132,6 +132,40 @@ export function useWallet() {
   /** 마일스톤 팝업 닫기 */
   const clearMilestone = () => setNewMilestone(null);
 
+  /** 목표 수정 (제목, 목표 금액, 목표 날짜) */
+  const updateGoal = async (
+    goalId: string,
+    updates: { title?: string; target_amount?: number; target_date?: string | null }
+  ): Promise<boolean> => {
+    try {
+      const { error } = await supabase.from("wallet_goals")
+        .update(updates).eq("id", goalId);
+      if (error) { toast.error("목표 수정에 실패했어요."); return false; }
+      toast.success("목표가 수정되었어요!");
+      await fetchData();
+      return true;
+    } catch (error) {
+      console.error("[useWallet/updateGoal] 예외:", error);
+      return false;
+    }
+  };
+
+  /** 목표 삭제 (연결된 거래 내역도 cascade 삭제는 안 됨 — 목표만 삭제) */
+  const deleteGoal = async (goalId: string): Promise<boolean> => {
+    try {
+      // 연결된 거래 내역 먼저 삭제
+      await supabase.from("wallet_transactions").delete().eq("goal_id", goalId);
+      const { error } = await supabase.from("wallet_goals").delete().eq("id", goalId);
+      if (error) { toast.error("목표 삭제에 실패했어요."); return false; }
+      toast.success("목표가 삭제되었어요.");
+      await fetchData();
+      return true;
+    } catch (error) {
+      console.error("[useWallet/deleteGoal] 예외:", error);
+      return false;
+    }
+  };
+
   /**
    * 거래 내역을 수정한다 — 금액/메모 변경 후 목표 금액 재계산
    * @param txId - 거래 ID
@@ -269,6 +303,7 @@ export function useWallet() {
   return {
     goals, transactions, activeGoal, achievedGoals, loading,
     newMilestone, clearMilestone,
-    createGoal, addTransaction, updateTransaction, deleteTransaction, analyzePace,
+    createGoal, updateGoal, deleteGoal,
+    addTransaction, updateTransaction, deleteTransaction, analyzePace,
   };
 }
