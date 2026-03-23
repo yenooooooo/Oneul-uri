@@ -8,32 +8,59 @@ const THRESHOLD = 80;
 
 /**
  * Pull-to-Refresh 컴포넌트 — iOS PWA standalone 모드 대응
- * 페이지 최상단에서 아래로 당기면 새로고침
- * children을 감싸서 사용
+ * 페이지 최상단에서 명확히 세로로 당길 때만 새로고침
+ * 가로 스와이프(사진 넘기기 등)는 무시
  */
 export default function PullToRefresh({ children }: { children: React.ReactNode }) {
-  const [pullDistance, setPullDistance] = useState(0); // 당긴 거리 (px)
+  const [pullDistance, setPullDistance] = useState(0); // 당긴 거리
   const [refreshing, setRefreshing] = useState(false); // 새로고침 중
-  const startY = useRef(0); // 터치 시작 Y 좌표
-  const pulling = useRef(false); // 당기기 진행 중
+  const startY = useRef(0); // 터치 시작 Y
+  const startX = useRef(0); // 터치 시작 X
+  const pulling = useRef(false); // 당기기 활성
+  const directionLocked = useRef(false); // 방향 결정 완료
+  const isVertical = useRef(false); // 세로 방향 확정
 
   useEffect(() => {
-    /** 터치 시작 — 스크롤이 최상단일 때만 당기기 시작 */
+    /** 터치 시작 — 좌표 기록만, 방향은 아직 미결정 */
     const onTouchStart = (e: TouchEvent) => {
       if (window.scrollY <= 0 && !refreshing) {
         startY.current = e.touches[0].clientY;
+        startX.current = e.touches[0].clientX;
         pulling.current = true;
+        directionLocked.current = false;
+        isVertical.current = false;
       }
     };
 
-    /** 터치 이동 — 당긴 거리 계산 */
+    /** 터치 이동 — 첫 10px 이동으로 가로/세로 방향 판별 */
     const onTouchMove = (e: TouchEvent) => {
       if (!pulling.current || refreshing) return;
 
-      const diff = e.touches[0].clientY - startY.current;
-      if (diff > 0) {
-        // 저항감 적용 (당길수록 느려지게)
-        setPullDistance(Math.min(diff * 0.4, THRESHOLD * 1.5));
+      const diffY = e.touches[0].clientY - startY.current;
+      const diffX = e.touches[0].clientX - startX.current;
+
+      // 방향 아직 미결정 → 첫 이동으로 판별
+      if (!directionLocked.current) {
+        const absDiffY = Math.abs(diffY);
+        const absDiffX = Math.abs(diffX);
+
+        // 최소 10px 이동해야 방향 결정
+        if (absDiffY < 10 && absDiffX < 10) return;
+
+        directionLocked.current = true;
+        // 세로 이동이 가로보다 1.5배 이상 크면 세로로 판정
+        isVertical.current = absDiffY > absDiffX * 1.5;
+
+        // 가로 스와이프 → 당기기 중단
+        if (!isVertical.current) {
+          pulling.current = false;
+          return;
+        }
+      }
+
+      // 세로 확정 + 아래로 당기는 경우만 처리
+      if (isVertical.current && diffY > 0) {
+        setPullDistance(Math.min(diffY * 0.4, THRESHOLD * 1.5));
       }
     };
 
@@ -41,10 +68,10 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
     const onTouchEnd = () => {
       if (!pulling.current) return;
       pulling.current = false;
+      directionLocked.current = false;
 
-      if (pullDistance >= THRESHOLD) {
+      if (isVertical.current && pullDistance >= THRESHOLD) {
         setRefreshing(true);
-        // 짧은 딜레이 후 새로고침 (스피너 보이도록)
         setTimeout(() => window.location.reload(), 300);
       } else {
         setPullDistance(0);
@@ -62,15 +89,13 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
     };
   }, [pullDistance, refreshing]);
 
-  // 당기기 진행률 (0~1)
   const progress = Math.min(pullDistance / THRESHOLD, 1);
 
   return (
     <>
-      {/* 새로고침 인디케이터 */}
       {(pullDistance > 10 || refreshing) && (
         <div
-          className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-transform"
+          className="fixed top-0 left-0 right-0 z-50 flex justify-center"
           style={{ transform: `translateY(${pullDistance - 40}px)` }}
         >
           <div className="w-10 h-10 bg-white rounded-full shadow-card flex items-center justify-center">
@@ -78,7 +103,7 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
               <Loader2 className="w-5 h-5 text-coral-400 animate-spin" />
             ) : (
               <Loader2
-                className="w-5 h-5 text-coral-300 transition-transform"
+                className="w-5 h-5 text-coral-300"
                 style={{ transform: `rotate(${progress * 360}deg)` }}
               />
             )}
@@ -86,7 +111,6 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
         </div>
       )}
 
-      {/* 콘텐츠 — 당기면 아래로 밀림 */}
       <div
         style={{
           transform: pullDistance > 10 ? `translateY(${pullDistance}px)` : "none",
