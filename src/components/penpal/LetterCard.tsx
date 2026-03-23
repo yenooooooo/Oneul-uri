@@ -53,6 +53,10 @@ export default function LetterCard({
           <p className="font-medium text-txt-primary truncate">
             {isReceived ? `${senderName}가 보낸 편지` : `${senderName}에게 보낸 편지`}
           </p>
+          {/* 답장 뱃지 */}
+          {letter.reply_to_id && (
+            <span className="text-xs bg-cream-dark text-txt-tertiary px-1.5 py-0.5 rounded-full flex-shrink-0">↩</span>
+          )}
           {/* 읽지 않은 편지 뱃지 */}
           {isUnread && (
             <span className="w-2 h-2 rounded-full bg-coral-400 flex-shrink-0" />

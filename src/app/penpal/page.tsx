@@ -114,7 +114,15 @@ export default function PenpalPage() {
 
       {/* 봉투 열기 오버레이 */}
       {openLetter && (
-        <EnvelopeOpener letter={openLetter} onClose={() => setOpenLetter(null)} />
+        <EnvelopeOpener
+          letter={openLetter}
+          onClose={() => setOpenLetter(null)}
+          onReply={(letter) => {
+            setOpenLetter(null);
+            const preview = encodeURIComponent(letter.content.slice(0, 50));
+            router.push(`/penpal/write?replyTo=${letter.id}&replyPreview=${preview}`);
+          }}
+        />
       )}
     </AppLayout>
   );

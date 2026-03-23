@@ -9,6 +9,7 @@ import type { PenpalLetter } from "@/types";
 interface EnvelopeOpenerProps {
   letter: PenpalLetter;
   onClose: () => void;
+  onReply?: (letter: PenpalLetter) => void; // 답장하기 콜백
 }
 
 /** 편지지 배경 스타일 매핑 */
@@ -26,7 +27,7 @@ const STATIONERY_STYLES: Record<string, string> = {
  * Step 2: 탭하면 편지지 슬라이드업
  * Step 3: 편지 내용 표시 (손글씨 폰트)
  */
-export default function EnvelopeOpener({ letter, onClose }: EnvelopeOpenerProps) {
+export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpenerProps) {
   const [isOpened, setIsOpened] = useState(false); // 봉투 열림 상태
 
   // 편지지 배경 클래스
@@ -95,13 +96,23 @@ export default function EnvelopeOpener({ letter, onClose }: EnvelopeOpenerProps)
               </div>
             )}
 
-            {/* 닫기 */}
-            <button
-              onClick={onClose}
-              className="mt-4 w-full py-2.5 bg-coral-400 text-white rounded-full text-sm font-medium active:scale-95 transition-transform"
-            >
-              닫기
-            </button>
+            {/* 답장 + 닫기 */}
+            <div className="mt-4 flex gap-2">
+              {onReply && (
+                <button
+                  onClick={() => onReply(letter)}
+                  className="flex-1 py-2.5 border border-coral-300 text-coral-400 rounded-full text-sm font-medium active:scale-95 transition-transform"
+                >
+                  ↩ 답장하기
+                </button>
+              )}
+              <button
+                onClick={onClose}
+                className="flex-1 py-2.5 bg-coral-400 text-white rounded-full text-sm font-medium active:scale-95 transition-transform"
+              >
+                닫기
+              </button>
+            </div>
           </div>
         </div>
       )}

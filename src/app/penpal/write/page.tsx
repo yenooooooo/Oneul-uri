@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePenpal } from "@/hooks/usePenpal";
 import { useCouple } from "@/hooks/useCouple";
 import StationeryPicker from "@/components/penpal/StationeryPicker";
@@ -20,12 +20,25 @@ const BG_STYLES: Record<string, string> = {
   craft: "bg-[#F5EDE0]",
 };
 
-/**
- * 편지 쓰기 페이지 — /penpal/write
- * 편지지 선택 + 손글씨 폰트로 작성 + 사진 첨부 + 발송
- */
+/** Suspense 래퍼 — useSearchParams 필요 */
 export default function WriteLetterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream" />}>
+      <WriteLetterForm />
+    </Suspense>
+  );
+}
+
+/**
+ * 편지 쓰기 폼 — /penpal/write?replyTo=ID&replyPreview=TEXT
+ * 답장 시 원문 미리보기 + reply_to_id 저장
+ */
+function WriteLetterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const replyToId = searchParams.get("replyTo"); // 답장 원본 ID
+  const replyPreview = searchParams.get("replyPreview"); // 원문 미리보기
+
   const { sendLetter } = usePenpal();
   const { partnerNickname, isPartnerConnected } = useCouple();
 
@@ -69,6 +82,7 @@ export default function WriteLetterPage() {
       content: content.trim(),
       stationery,
       photo_url: photoUrl ?? undefined,
+      reply_to_id: replyToId ?? undefined,
     });
 
     if (success) {
@@ -104,6 +118,16 @@ export default function WriteLetterPage() {
       <div className="px-4 mb-3">
         <StationeryPicker value={stationery} onChange={setStationery} />
       </div>
+
+      {/* 답장 원문 미리보기 */}
+      {replyPreview && (
+        <div className="mx-4 mb-2 bg-cream-dark rounded-xl px-4 py-2.5">
+          <p className="text-xs text-txt-tertiary mb-0.5">↩ 답장 원문</p>
+          <p className="text-sm text-txt-secondary line-clamp-2 font-handwriting">
+            {decodeURIComponent(replyPreview)}
+          </p>
+        </div>
+      )}
 
       {/* 편지 작성 영역 */}
       <div className={`flex-1 mx-4 mb-4 rounded-3xl ${bgClass} shadow-card p-5 flex flex-col`}>

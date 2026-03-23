@@ -106,6 +106,7 @@ export function usePenpal() {
         couple_id: couple.id, sender_id: user.id, receiver_id: receiverId,
         content: input.content, stationery: input.stationery || "default",
         photo_url: input.photo_url || null,
+        reply_to_id: input.reply_to_id || null,
       });
       if (error) { toast.error("편지 발송에 실패했어요."); return false; }
       toast.success("편지가 발송되었어요!");

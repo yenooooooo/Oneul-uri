@@ -15,6 +15,7 @@ export interface PenpalLetter {
   content: string; // 편지 내용
   stationery: StationeryType; // 편지지 종류
   photo_url: string | null; // 첨부 사진 URL
+  reply_to_id: string | null; // 답장 원본 편지 ID
   is_read: boolean; // 읽음 여부
   read_at: string | null; // 읽은 시간
   created_at: string;
@@ -25,4 +26,5 @@ export interface CreateLetter {
   content: string;
   stationery?: StationeryType;
   photo_url?: string;
+  reply_to_id?: string; // 답장 시 원본 편지 ID
 }
