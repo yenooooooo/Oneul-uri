@@ -11,7 +11,8 @@ import { useAnniversary } from "@/hooks/useAnniversary";
 import { useDatePlans } from "@/hooks/useDatePlans";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
-import { Plus, Loader2, ClipboardList } from "lucide-react";
+import { Plus, ClipboardList } from "lucide-react";
+import CalendarSkeleton from "@/components/common/CalendarSkeleton";
 import type { Anniversary } from "@/types";
 
 /** 기념일 타입별 아이콘 이모지 */
@@ -86,9 +87,7 @@ export default function CalendarPage() {
         <h1 className="text-2xl font-bold text-txt-primary">캘린더</h1>
 
         {loading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 className="w-6 h-6 animate-spin text-coral-400" />
-          </div>
+          <CalendarSkeleton />
         ) : (
           <>
             <div className="bg-white rounded-3xl p-4 shadow-soft">

@@ -2,6 +2,7 @@
 
 import RecordCard from "@/components/records/RecordCard";
 import RecordMiniCard from "@/components/records/RecordMiniCard";
+import RecordsSkeleton from "@/components/common/RecordsSkeleton";
 import { Loader2, PenSquare } from "lucide-react";
 import type { DateRecord } from "@/types";
 
@@ -61,11 +62,7 @@ export default function RecordList({
 }: RecordListProps) {
   // 초기 로딩
   if (loading) {
-    return (
-      <div className="flex justify-center py-12">
-        <Loader2 className="w-6 h-6 animate-spin text-coral-400" />
-      </div>
-    );
+    return <RecordsSkeleton />;
   }
 
   // 빈 상태

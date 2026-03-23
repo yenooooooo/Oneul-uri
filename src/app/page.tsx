@@ -15,6 +15,7 @@ import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
 import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import { Loader2, ChevronRight, PenSquare, Dices, Settings, ClipboardList, MapPin } from "lucide-react";
+import HomeSkeleton from "@/components/common/HomeSkeleton";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
 /**
@@ -52,9 +53,9 @@ export default function HomePage() {
   // 로딩 중 표시
   if (authLoading || coupleLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream">
-        <Loader2 className="w-8 h-8 animate-spin text-coral-400" />
-      </div>
+      <AppLayout>
+        <HomeSkeleton />
+      </AppLayout>
     );
   }
 
