@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/layout/AppLayout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LetterList from "@/components/penpal/LetterList";
 import EnvelopeOpener from "@/components/penpal/EnvelopeOpener";
 import InviteBanner from "@/components/common/InviteBanner";
 import { usePenpal } from "@/hooks/usePenpal";
 import { useCouple } from "@/hooks/useCouple";
 import { PenSquare, Loader2, UserPlus } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { PenpalLetter } from "@/types";
 
 /**
  * 편지함 페이지 — /penpal
- * 읽지 않은 편지 상단 고정 + 월별 그룹핑 + 무한 스크롤
+ * 수동 탭으로 레이아웃 충돌 방지
  */
 export default function PenpalPage() {
   const router = useRouter();
@@ -25,6 +25,7 @@ export default function PenpalPage() {
   } = usePenpal();
   const { partnerNickname, isPartnerConnected, inviteCode } = useCouple();
   const [openLetter, setOpenLetter] = useState<PenpalLetter | null>(null);
+  const [tab, setTab] = useState<"received" | "sent">("received"); // 수동 탭
 
   /** 편지 클릭 — 봉투 열기 + 읽음 처리 */
   const handleLetterClick = (letter: PenpalLetter, isReceived: boolean) => {
@@ -35,7 +36,7 @@ export default function PenpalPage() {
   return (
     <AppLayout>
       <div className="px-4 pt-6">
-        {/* 헤더 + 읽지 않은 편지 뱃지 */}
+        {/* 헤더 */}
         <div className="flex items-center gap-2 mb-4">
           <h1 className="text-2xl font-bold text-txt-primary">편지함</h1>
           {unreadCount > 0 && (
@@ -45,11 +46,11 @@ export default function PenpalPage() {
           )}
         </div>
 
-        {/* user2 미연결 시 — 초대 안내 */}
+        {/* user2 미연결 */}
         {!isPartnerConnected ? (
           <div className="space-y-6">
-            <div className="text-center py-8">
-              <UserPlus className="w-16 h-16 text-coral-200 mx-auto mb-4" />
+            <div className="flex flex-col items-center justify-center text-center py-16">
+              <UserPlus className="w-16 h-16 text-coral-200 mb-4" />
               <p className="font-medium text-txt-primary">
                 상대방을 초대하면 편지를 주고받을 수 있어요
               </p>
@@ -64,17 +65,35 @@ export default function PenpalPage() {
             <Loader2 className="w-6 h-6 animate-spin text-coral-400" />
           </div>
         ) : (
-          <Tabs defaultValue="received" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 rounded-full bg-cream-dark mb-4">
-              <TabsTrigger value="received" className="rounded-full">
+          <div>
+            {/* 수동 탭 버튼 */}
+            <div className="grid grid-cols-2 bg-cream-dark rounded-full p-1 mb-5">
+              <button
+                onClick={() => setTab("received")}
+                className={cn(
+                  "py-2 text-sm font-medium rounded-full transition-colors",
+                  tab === "received"
+                    ? "bg-white text-txt-primary shadow-sm"
+                    : "text-txt-tertiary"
+                )}
+              >
                 받은 편지
-              </TabsTrigger>
-              <TabsTrigger value="sent" className="rounded-full">
+              </button>
+              <button
+                onClick={() => setTab("sent")}
+                className={cn(
+                  "py-2 text-sm font-medium rounded-full transition-colors",
+                  tab === "sent"
+                    ? "bg-white text-txt-primary shadow-sm"
+                    : "text-txt-tertiary"
+                )}
+              >
                 보낸 편지
-              </TabsTrigger>
-            </TabsList>
+              </button>
+            </div>
 
-            <TabsContent value="received" className="mt-4">
+            {/* 탭 콘텐츠 */}
+            {tab === "received" && (
               <LetterList
                 letters={received}
                 senderName={partnerNickname ?? "상대방"}
@@ -84,9 +103,8 @@ export default function PenpalPage() {
                 onLoadMore={loadMoreReceived}
                 onLetterClick={(l) => handleLetterClick(l, true)}
               />
-            </TabsContent>
-
-            <TabsContent value="sent" className="mt-4">
+            )}
+            {tab === "sent" && (
               <LetterList
                 letters={sent}
                 senderName={partnerNickname ?? "상대방"}
@@ -96,12 +114,12 @@ export default function PenpalPage() {
                 onLoadMore={loadMoreSent}
                 onLetterClick={(l) => handleLetterClick(l, false)}
               />
-            </TabsContent>
-          </Tabs>
+            )}
+          </div>
         )}
       </div>
 
-      {/* FAB — 편지 쓰기 (user2 연결 시만) */}
+      {/* FAB */}
       {isPartnerConnected && (
         <button
           onClick={() => router.push("/penpal/write")}
@@ -112,7 +130,7 @@ export default function PenpalPage() {
         </button>
       )}
 
-      {/* 봉투 열기 오버레이 */}
+      {/* 봉투 열기 */}
       {openLetter && (
         <EnvelopeOpener
           letter={openLetter}
