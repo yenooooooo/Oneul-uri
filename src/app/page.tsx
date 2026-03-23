@@ -218,14 +218,23 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* 자주 가는 곳 바로가기 */}
-        <Link href="/places" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
-          <div className="flex items-center gap-3">
-            <MapPin className="w-5 h-5 text-coral-400" />
-            <p className="text-sm font-medium text-txt-primary flex-1">우리가 자주 가는 곳</p>
-            <ChevronRight className="w-4 h-4 text-txt-tertiary" />
-          </div>
-        </Link>
+        {/* 바로가기 링크들 */}
+        <div className="space-y-2">
+          <Link href="/places" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-coral-400" />
+              <p className="text-sm font-medium text-txt-primary flex-1">우리가 자주 가는 곳</p>
+              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+            </div>
+          </Link>
+          <Link href="/stats" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+            <div className="flex items-center gap-3">
+              <span className="text-lg">📊</span>
+              <p className="text-sm font-medium text-txt-primary flex-1">우리의 통계</p>
+              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+            </div>
+          </Link>
+        </div>
       </div>
     </AppLayout>
   );
