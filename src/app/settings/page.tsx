@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/layout/AppLayout";
 import { useCouple } from "@/hooks/useCouple";
@@ -26,9 +26,14 @@ export default function SettingsPage() {
   } = useCouple();
   const { upsertBirthday } = useAnniversary();
 
-  const [birthday, setBirthday] = useState(myBirthday ?? ""); // 생일 입력값
+  const [birthday, setBirthday] = useState(""); // 생일 입력값
   const [saving, setSaving] = useState(false); // 저장 중
   const [copied, setCopied] = useState(false); // 초대 코드 복사 상태
+
+  // myBirthday가 비동기 로드되면 입력값에 반영
+  useEffect(() => {
+    if (myBirthday) setBirthday(myBirthday);
+  }, [myBirthday]);
 
   /** 생일 저장 — couples 테이블 + anniversaries 테이블 동시 업데이트 */
   const handleSaveBirthday = async () => {
@@ -77,9 +82,17 @@ export default function SettingsPage() {
 
         {/* 생일 입력 */}
         <section className="bg-white rounded-2xl p-5 shadow-soft space-y-4">
-          <div className="flex items-center gap-2">
-            <Cake className="w-5 h-5 text-coral-400" />
-            <h2 className="font-semibold text-txt-primary">내 생일</h2>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Cake className="w-5 h-5 text-coral-400" />
+              <h2 className="font-semibold text-txt-primary">내 생일</h2>
+            </div>
+            {/* 저장된 생일 표시 */}
+            {myBirthday && (
+              <span className="text-xs bg-coral-50 text-coral-400 px-2.5 py-1 rounded-full font-medium">
+                🎂 {new Date(myBirthday).getMonth() + 1}월 {new Date(myBirthday).getDate()}일
+              </span>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="birthday">생일 날짜</Label>
@@ -93,10 +106,10 @@ export default function SettingsPage() {
           </div>
           <Button
             onClick={handleSaveBirthday}
-            disabled={saving || !birthday}
+            disabled={saving || !birthday || birthday === myBirthday}
             className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
           >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : "저장"}
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : myBirthday ? "수정" : "저장"}
           </Button>
         </section>
 
