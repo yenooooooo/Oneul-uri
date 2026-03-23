@@ -14,7 +14,7 @@ import DdayCard from "@/components/common/DdayCard";
 import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
 import CoupleProfileCard from "@/components/common/CoupleProfileCard";
-import { Loader2, ChevronRight, PenSquare, Dices, Settings, ClipboardList } from "lucide-react";
+import { Loader2, ChevronRight, PenSquare, Dices, Settings, ClipboardList, MapPin } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
 /**
@@ -217,6 +217,15 @@ export default function HomePage() {
             <p className="text-xs text-txt-tertiary">룰렛 돌리기</p>
           </Link>
         </div>
+
+        {/* 자주 가는 곳 바로가기 */}
+        <Link href="/places" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+          <div className="flex items-center gap-3">
+            <MapPin className="w-5 h-5 text-coral-400" />
+            <p className="text-sm font-medium text-txt-primary flex-1">우리가 자주 가는 곳</p>
+            <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+          </div>
+        </Link>
       </div>
     </AppLayout>
   );

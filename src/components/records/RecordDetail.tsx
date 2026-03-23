@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, MapPin, Calendar, Trash2, Pencil } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, Trash2, Pencil, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
 import type { DateRecord, UpdateDateRecord } from "@/types";
 import { MOOD_OPTIONS } from "@/types/record";
+import { useBookmarks } from "@/hooks/useBookmarks";
 import RecordWriteModal from "@/components/records/RecordWriteModal";
 
 /** RecordDetail 컴포넌트 props */
@@ -23,6 +24,7 @@ interface RecordDetailProps {
  */
 export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetailProps) {
   const router = useRouter();
+  const { bookmarkPlace, isBookmarked } = useBookmarks();
   const [showEdit, setShowEdit] = useState(false); // 수정 모달 표시
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // 삭제 확인
 
@@ -84,6 +86,20 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
               <MapPin className="w-4 h-4" />
               {record.location}
             </span>
+          )}
+          {/* 장소 북마크 버튼 */}
+          {record.location && (
+            <button
+              onClick={() => bookmarkPlace({ name: record.location! })}
+              className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full transition-colors ${
+                isBookmarked(record.location)
+                  ? "bg-coral-100 text-coral-400"
+                  : "bg-cream-dark text-txt-tertiary"
+              }`}
+            >
+              <Bookmark className="w-3 h-3" />
+              {isBookmarked(record.location) ? "저장됨" : "저장"}
+            </button>
           )}
         </div>
 
