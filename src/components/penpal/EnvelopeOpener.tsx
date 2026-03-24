@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import type { PenpalLetter } from "@/types";
@@ -29,6 +29,12 @@ const STATIONERY_STYLES: Record<string, string> = {
  */
 export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpenerProps) {
   const [isOpened, setIsOpened] = useState(false); // 봉투 열림 상태
+
+  // 오버레이 열릴 때 뒷배경 스크롤 방지
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
 
   // 편지지 배경 클래스
   const bgClass = STATIONERY_STYLES[letter.stationery] ?? STATIONERY_STYLES.default;
