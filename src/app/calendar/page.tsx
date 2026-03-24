@@ -83,7 +83,7 @@ export default function CalendarPage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6 space-y-4">
+      <div className="px-4 pt-6 space-y-4 animate-page-in">
         <h1 className="text-2xl font-bold text-txt-primary">캘린더</h1>
 
         {loading ? (

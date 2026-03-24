@@ -66,7 +66,7 @@ export default function HomePage() {
 
   return (
     <AppLayout>
-      <div className="px-5 pt-6 space-y-5 animate-fade-up">
+      <div className="px-5 pt-6 space-y-5 animate-page-in">
         {/* 상단 설정 버튼 */}
         <div className="flex justify-end">
           <Link href="/settings" className="p-2 text-txt-tertiary hover:text-coral-400">
@@ -155,22 +155,27 @@ export default function HomePage() {
                   href={`/records/${record.id}`}
                   className="flex-shrink-0 w-32"
                 >
-                  <div className="w-32 h-24 rounded-xl overflow-hidden bg-cream-dark mb-1.5">
+                  <div className="w-32 h-24 rounded-xl overflow-hidden bg-cream-dark mb-1.5 relative">
                     {record.photos?.[0] ? (
-                      <img
-                        src={record.photos[0]}
-                        alt={record.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <>
+                        <img src={record.photos[0]} alt={record.title}
+                          className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                        <p className="absolute bottom-1.5 left-2 right-2 text-[10px] font-medium text-white truncate">
+                          {record.title}
+                        </p>
+                      </>
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <PenSquare className="w-6 h-6 text-coral-200" />
                       </div>
                     )}
                   </div>
-                  <p className="text-xs font-medium text-txt-primary truncate">
-                    {record.title}
-                  </p>
+                  {!record.photos?.[0] && (
+                    <p className="text-xs font-medium text-txt-primary truncate">
+                      {record.title}
+                    </p>
+                  )}
                   <p className="text-xs text-txt-tertiary">
                     {formatDate(record.date, "short")}
                   </p>

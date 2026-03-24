@@ -64,10 +64,27 @@ export default function LetterCard({
             <span className="w-2 h-2 rounded-full bg-coral-400 flex-shrink-0" />
           )}
         </div>
-        <p className="text-xs text-txt-tertiary mt-0.5">
-          {formatDate(letter.created_at.split("T")[0], "short")}{" "}
-          {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
-        </p>
+        <div className="flex items-center gap-2 mt-0.5">
+          <p className="text-xs text-txt-tertiary">
+            {formatDate(letter.created_at.split("T")[0], "short")}{" "}
+            {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+          </p>
+          {/* 보낸 편지의 읽음 표시 */}
+          {!isReceived && (
+            letter.is_read ? (
+              <span className="text-[10px] text-blue-soft flex items-center gap-0.5">
+                ✓ 읽음
+                {letter.read_at && (
+                  <span className="text-txt-tertiary">
+                    · {new Date(letter.read_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                )}
+              </span>
+            ) : (
+              <span className="text-[10px] text-txt-tertiary">전송됨</span>
+            )
+          )}
+        </div>
         {/* 내용 미리보기 — 인용구 스타일 */}
         <p className="text-sm text-txt-secondary mt-1 truncate font-serif-ko italic">
           &ldquo;{letter.content}&rdquo;

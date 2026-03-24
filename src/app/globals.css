@@ -117,6 +117,15 @@
   }
 }
 
+/* ===== 페이지 전환 애니메이션 ===== */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-page-in {
+  animation: pageIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* ===== 스크롤바 숨기기 (모바일 앱 느낌) ===== */
 .scrollbar-hide {
   -ms-overflow-style: none;

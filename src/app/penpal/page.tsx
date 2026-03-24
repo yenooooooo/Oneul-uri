@@ -35,7 +35,7 @@ export default function PenpalPage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6">
+      <div className="px-4 pt-6 animate-page-in">
         {/* 헤더 */}
         <div className="flex items-center gap-2 mb-4">
           <h1 className="text-2xl font-bold text-txt-primary">편지함</h1>

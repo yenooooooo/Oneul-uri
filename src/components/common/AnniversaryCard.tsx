@@ -51,7 +51,7 @@ export default function AnniversaryCard({
       <div className="flex items-center justify-between py-2">
         <div className="flex items-center gap-2">
           <IconComponent className="w-4 h-4 text-coral-300" />
-          <span className="text-sm text-txt-primary">{anniversary.title}</span>
+          <span className="text-sm text-txt-primary font-serif-ko">{anniversary.title}</span>
           {isBirthday && birthdayAge && (
             <span className="text-xs text-txt-tertiary">({birthdayAge}번째)</span>
           )}
@@ -78,7 +78,7 @@ export default function AnniversaryCard({
 
         {/* 기념일 정보 */}
         <div>
-          <p className="font-medium text-txt-primary">
+          <p className="font-medium text-txt-primary font-serif-ko">
             {anniversary.title}
             {isBirthday && birthdayAge ? ` (${birthdayAge}번째)` : ""}
           </p>
