@@ -228,6 +228,13 @@ export default function HomePage() {
               <ChevronRight className="w-4 h-4 text-txt-tertiary" />
             </div>
           </Link>
+          <Link href="/memos" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+            <div className="flex items-center gap-3">
+              <span className="text-lg">📝</span>
+              <p className="text-sm font-medium text-txt-primary flex-1">메모장</p>
+              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+            </div>
+          </Link>
           <Link href="/stats" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-3">
               <span className="text-lg">📊</span>
