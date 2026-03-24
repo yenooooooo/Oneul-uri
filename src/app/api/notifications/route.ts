@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
           (today.getTime() - new Date(startDate).getTime()) / 86400000
         );
         await sendPush(sub, {
-          title: "오늘우리", body: `💕 오늘은 D+${diff}일이에요!`, url: "/",
+          title: "", body: `💕 오늘은 D+${diff}일이에요!`, url: "/",
         });
         sent++;
       }
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
             (s: { couple_id: string }) => s.couple_id === ann.couple_id
           );
           for (const sub of coupleSubs) {
-            await sendPush(sub, { title: "오늘우리", body: msg, url: "/anniversary" });
+            await sendPush(sub, { title: "", body: msg, url: "/anniversary" });
             sent++;
           }
         }
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
             (s: { couple_id: string }) => s.couple_id === evt.couple_id
           );
           for (const sub of evtSubs) {
-            await sendPush(sub, { title: "오늘우리", body: msg, url: "/calendar" });
+            await sendPush(sub, { title: "", body: msg, url: "/calendar" });
             sent++;
           }
         }
@@ -150,7 +150,7 @@ export async function POST(req: NextRequest) {
             (s: { couple_id: string }) => s.couple_id === plan.couple_id
           );
           for (const sub of planSubs) {
-            await sendPush(sub, { title: "오늘우리", body: msg, url: `/calendar/plan/${plan.id}` });
+            await sendPush(sub, { title: "", body: msg, url: `/calendar/plan/${plan.id}` });
             sent++;
           }
         }
@@ -164,7 +164,7 @@ export async function POST(req: NextRequest) {
       );
       for (const sub of testSubs) {
         await sendPush(sub, {
-          title: "오늘우리", body: "🔔 테스트 알림이에요! 정상 작동 중!", url: "/",
+          title: "", body: "🔔 테스트 알림이에요! 정상 작동 중!", url: "/",
         });
         sent++;
       }
@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
       );
       for (const sub of receiverSubs) {
         await sendPush(sub, {
-          title: "오늘우리", body: "💌 새로운 편지가 도착했어요", url: "/penpal",
+          title: "", body: "💌 새로운 편지가 도착했어요", url: "/penpal",
         });
         sent++;
       }
