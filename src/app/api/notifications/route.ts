@@ -105,6 +105,56 @@ export async function POST(req: NextRequest) {
           }
         }
       }
+
+      // 3. 캘린더 일정 리마인더 (오늘 + 내일)
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+      const { data: events } = await supabase
+        .from("calendar_events").select("*")
+        .in("date", [todayStr, tomorrowStr]);
+
+      if (events) {
+        for (const evt of events) {
+          const isToday = evt.date === todayStr;
+          const timeStr = evt.time ? ` ${evt.time.slice(0, 5)}` : "";
+          const msg = isToday
+            ? `📅 오늘 일정: ${evt.title}${timeStr}`
+            : `📅 내일 일정: ${evt.title}${timeStr}`;
+
+          const evtSubs = subscriptions.filter(
+            (s: { couple_id: string }) => s.couple_id === evt.couple_id
+          );
+          for (const sub of evtSubs) {
+            await sendPush(sub, { title: "오늘우리", body: msg, url: "/calendar" });
+            sent++;
+          }
+        }
+      }
+
+      // 4. 데이트 플래너 리마인더 (오늘 + 내일, planned만)
+      const { data: plans } = await supabase
+        .from("date_plans").select("*")
+        .eq("status", "planned")
+        .in("date", [todayStr, tomorrowStr]);
+
+      if (plans) {
+        for (const plan of plans) {
+          const isToday = plan.date === todayStr;
+          const msg = isToday
+            ? `📋 오늘 데이트! "${plan.title}" 플래너를 확인해보세요`
+            : `📋 내일 데이트가 있어요! "${plan.title}"`;
+
+          const planSubs = subscriptions.filter(
+            (s: { couple_id: string }) => s.couple_id === plan.couple_id
+          );
+          for (const sub of planSubs) {
+            await sendPush(sub, { title: "오늘우리", body: msg, url: `/calendar/plan/${plan.id}` });
+            sent++;
+          }
+        }
+      }
     }
 
     if (type === "letter" && body.receiver_id) {
