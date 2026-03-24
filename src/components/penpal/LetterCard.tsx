@@ -63,7 +63,8 @@ export default function LetterCard({
           )}
         </div>
         <p className="text-xs text-txt-tertiary mt-0.5">
-          {formatDate(letter.created_at.split("T")[0], "short")}
+          {formatDate(letter.created_at.split("T")[0], "short")}{" "}
+          {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
         </p>
         {/* 내용 미리보기 */}
         <p className="text-sm text-txt-secondary mt-1 truncate">
