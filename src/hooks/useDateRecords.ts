@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
+import { getCache, setCache, isCacheStale } from "@/lib/cache";
 import type { DateRecord, CreateDateRecord, UpdateDateRecord } from "@/types";
 import { toast } from "sonner";
 
@@ -25,11 +26,23 @@ export function useDateRecords() {
   const supabase = createClient();
   const coupleId = couple?.id;
 
-  /** 첫 페이지 조회 */
+  /** 첫 페이지 조회 — 캐시 우선, 백그라운드 갱신 */
   const fetchRecords = useCallback(async () => {
     if (!coupleId) return;
+
+    // 캐시에서 즉시 표시 (stale-while-revalidate)
+    const cacheKey = `records-${coupleId}`;
+    const cached = getCache<{ records: DateRecord[]; count: number }>(cacheKey);
+    if (cached) {
+      setRecords(cached.records);
+      setTotalCount(cached.count);
+      setLoading(false);
+      // 캐시가 신선하면 네트워크 요청 스킵
+      if (!isCacheStale(cacheKey)) return;
+    }
+
     try {
-      setLoading(true);
+      if (!cached) setLoading(true);
       // 전체 개수 조회
       const { count } = await supabase
         .from("date_records")
@@ -51,6 +64,8 @@ export function useDateRecords() {
       const fetched = (data as DateRecord[]) ?? [];
       setRecords(fetched);
       setHasMore(fetched.length >= PAGE_SIZE);
+      // 캐시에 저장
+      setCache(cacheKey, { records: fetched, count: count ?? 0 });
     } catch (error) {
       console.error("[useDateRecords/fetch] 예외:", error);
     } finally {

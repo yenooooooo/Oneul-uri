@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useCouple } from "@/hooks/useCouple";
 import { AUTO_ANNIVERSARIES } from "@/lib/constants";
 import { calculateDday, calculateAnniversaryDday, getNextRecurringDate } from "@/lib/utils";
+import { getCache, setCache, isCacheStale } from "@/lib/cache";
 import type { Anniversary } from "@/types";
 import { toast } from "sonner";
 
@@ -21,23 +22,28 @@ export function useAnniversary() {
   const supabase = createClient();
   const coupleId = couple?.id;
 
-  /** 기념일 목록을 조회한다 */
+  /** 기념일 목록을 조회한다 — 캐시 우선 */
   const fetchAnniversaries = useCallback(async () => {
     if (!coupleId) return;
+    const cacheKey = `anniversaries-${coupleId}`;
+    const cached = getCache<Anniversary[]>(cacheKey);
+    if (cached) {
+      setAnniversaries(cached);
+      setLoading(false);
+      if (!isCacheStale(cacheKey)) return;
+    }
     try {
-      setLoading(true);
+      if (!cached) setLoading(true);
       const { data, error } = await supabase
-        .from("anniversaries")
-        .select("*")
+        .from("anniversaries").select("*")
         .eq("couple_id", coupleId)
         .order("date", { ascending: true });
-      if (error) {
-        console.error("[useAnniversary/fetch] 조회 실패:", error.message);
-        return;
-      }
-      setAnniversaries((data as Anniversary[]) ?? []);
+      if (error) { console.error("[useAnniversary/fetch]:", error.message); return; }
+      const fetched = (data as Anniversary[]) ?? [];
+      setAnniversaries(fetched);
+      setCache(cacheKey, fetched);
     } catch (error) {
-      console.error("[useAnniversary/fetch] 예외 발생:", error);
+      console.error("[useAnniversary/fetch] 예외:", error);
     } finally {
       setLoading(false);
     }

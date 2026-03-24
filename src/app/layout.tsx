@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/components/common/AuthProvider";
+import { CoupleProvider } from "@/components/common/CoupleProvider";
 import ServiceWorkerRegister from "@/components/common/ServiceWorkerRegister";
 import PullToRefresh from "@/components/common/PullToRefresh";
 
@@ -55,9 +56,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className="antialiased">
         <AuthProvider>
-          <PullToRefresh>
-            {children}
-          </PullToRefresh>
+          <CoupleProvider>
+            <PullToRefresh>
+              {children}
+            </PullToRefresh>
+          </CoupleProvider>
         </AuthProvider>
         {/* 토스트 알림 — 친절한 한글 메시지용 */}
         <Toaster position="top-center" richColors />
