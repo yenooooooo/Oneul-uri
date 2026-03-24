@@ -157,8 +157,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    if (type === "test") {
+      // 테스트 알림 — 모든 구독자에게 발송
+      for (const sub of subscriptions) {
+        await sendPush(sub, {
+          title: "오늘우리", body: "🔔 테스트 알림이에요! 정상 작동 중!", url: "/",
+        });
+        sent++;
+      }
+    }
+
     if (type === "letter" && body.receiver_id) {
-      // 3. 새 편지 알림
+      // 새 편지 알림
       const receiverSubs = subscriptions.filter(
         (s: { user_id: string }) => s.user_id === body.receiver_id
       );
