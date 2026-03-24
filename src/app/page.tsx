@@ -66,7 +66,7 @@ export default function HomePage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6 space-y-4 animate-fade-up">
+      <div className="px-5 pt-6 space-y-5 animate-fade-up">
         {/* 상단 설정 버튼 */}
         <div className="flex justify-end">
           <Link href="/settings" className="p-2 text-txt-tertiary hover:text-coral-400">

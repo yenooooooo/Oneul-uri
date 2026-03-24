@@ -21,7 +21,7 @@ export default function RecordsPage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6 space-y-4">
+      <div className="px-5 pt-6 space-y-5">
         {/* 상단 요약 */}
         <RecordSummary totalCount={totalCount} />
 

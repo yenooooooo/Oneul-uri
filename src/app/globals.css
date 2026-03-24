@@ -4,6 +4,9 @@
 /* ===== 손글씨 폰트 (펜팔 전용) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
+/* ===== 감성 세리프 폰트 (타이틀/인용구용) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,6 +100,11 @@
 /* ===== 손글씨 폰트 유틸리티 (펜팔 전용) ===== */
 .font-handwriting {
   font-family: 'Nanum Pen Script', cursive;
+}
+
+/* ===== 감성 세리프 폰트 유틸리티 ===== */
+.font-serif-ko {
+  font-family: 'Noto Serif KR', serif;
 }
 
 /* ===== iOS Safe Area 대응 ===== */

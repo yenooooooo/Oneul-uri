@@ -29,8 +29,10 @@ export default function LetterCard({
     <button
       onClick={onClick}
       className={cn(
-        "w-full bg-white rounded-2xl p-4 shadow-soft flex items-center gap-3 text-left transition-shadow hover:shadow-card active:scale-[0.98]",
-        isUnread && "border border-coral-200"
+        "w-full rounded-2xl p-4 flex items-center gap-3 text-left active:scale-[0.98] transition-all",
+        isUnread
+          ? "bg-gradient-to-r from-coral-50 via-white to-pink-soft/20 shadow-card border border-coral-100"
+          : "bg-gradient-to-r from-cream to-white shadow-soft"
       )}
     >
       {/* 봉투 아이콘 */}
@@ -66,9 +68,9 @@ export default function LetterCard({
           {formatDate(letter.created_at.split("T")[0], "short")}{" "}
           {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
         </p>
-        {/* 내용 미리보기 */}
-        <p className="text-sm text-txt-secondary mt-1 truncate">
-          {letter.content}
+        {/* 내용 미리보기 — 인용구 스타일 */}
+        <p className="text-sm text-txt-secondary mt-1 truncate font-serif-ko italic">
+          &ldquo;{letter.content}&rdquo;
         </p>
       </div>
     </button>
