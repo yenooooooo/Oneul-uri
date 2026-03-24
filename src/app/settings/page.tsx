@@ -19,9 +19,9 @@ import NotificationToggle from "@/components/common/NotificationToggle";
  */
 export default function SettingsPage() {
   const router = useRouter();
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const {
-    myNickname, myBirthday, myEmoji, myStatus,
+    myNickname, myBirthday, myEmoji, myStatus, myRole,
     inviteCode, isPartnerConnected, updateBirthday, updateProfile,
   } = useCouple();
   const { upsertBirthday } = useAnniversary();
@@ -154,25 +154,27 @@ export default function SettingsPage() {
         {/* 알림 설정 */}
         <section className="bg-white rounded-2xl p-5 shadow-soft space-y-3">
           <NotificationToggle />
-          {/* 테스트 알림 버튼 */}
-          <button
-            onClick={async () => {
-              try {
-                const res = await fetch("/api/notifications", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ type: "test" }),
-                });
-                const data = await res.json();
-                toast.success(`테스트 알림 발송! (${data.sent ?? 0}건)`);
-              } catch {
-                toast.error("테스트 알림 발송에 실패했어요.");
-              }
-            }}
-            className="w-full py-2.5 text-sm text-coral-400 border border-coral-200 rounded-full"
-          >
-            테스트 알림 보내기
-          </button>
+          {/* 테스트 알림 버튼 — user1(관리자)만 표시 */}
+          {myRole === "user1" && (
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch("/api/notifications", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "test", user_id: user?.id }),
+                  });
+                  const data = await res.json();
+                  toast.success(`테스트 알림 발송! (${data.sent ?? 0}건)`);
+                } catch {
+                  toast.error("테스트 알림 발송에 실패했어요.");
+                }
+              }}
+              className="w-full py-2.5 text-sm text-coral-400 border border-coral-200 rounded-full"
+            >
+              테스트 알림 보내기
+            </button>
+          )}
         </section>
 
         {/* 초대 코드 */}

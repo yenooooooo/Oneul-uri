@@ -157,9 +157,12 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    if (type === "test") {
-      // 테스트 알림 — 모든 구독자에게 발송
-      for (const sub of subscriptions) {
+    if (type === "test" && body.user_id) {
+      // 테스트 알림 — 요청한 user_id에게만 발송
+      const testSubs = subscriptions.filter(
+        (s: { user_id: string }) => s.user_id === body.user_id
+      );
+      for (const sub of testSubs) {
         await sendPush(sub, {
           title: "오늘우리", body: "🔔 테스트 알림이에요! 정상 작동 중!", url: "/",
         });
