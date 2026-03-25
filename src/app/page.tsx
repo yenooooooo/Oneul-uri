@@ -15,12 +15,11 @@ import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
 import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import HomeSkeleton from "@/components/common/HomeSkeleton";
-import { Loader2, ChevronRight, PenSquare, Dices, Settings, ClipboardList, MapPin } from "lucide-react";
+import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
 /**
- * 홈 페이지 — Editorial Keepsake 스타일
- * 넓은 여백 + 큰 섹션 + 감정의 온도 차이
+ * 홈 — stitch(2) Editorial Keepsake 레이아웃
  */
 export default function HomePage() {
   const router = useRouter();
@@ -37,34 +36,36 @@ export default function HomePage() {
   const { upcomingPlan } = useDatePlans();
 
   useEffect(() => {
-    if (!authLoading && !coupleLoading && user && !couple) {
-      router.push("/couple");
-    }
+    if (!authLoading && !coupleLoading && user && !couple) router.push("/couple");
   }, [authLoading, coupleLoading, user, couple, router]);
 
-  useEffect(() => {
-    if (couple) generateAutoAnniversaries();
-  }, [couple]);
+  useEffect(() => { if (couple) generateAutoAnniversaries(); }, [couple]);
 
   if (authLoading || coupleLoading) {
     return <AppLayout><HomeSkeleton /></AppLayout>;
   }
-
   if (!couple) return null;
 
-  const recentRecords = records.slice(0, 3);
+  const recentRecords = records.slice(0, 5);
 
   return (
     <AppLayout>
-      <div className="px-6 pt-8 space-y-8 animate-page-in">
-        {/* 상단 설정 */}
-        <div className="flex justify-end -mb-4">
-          <Link href="/settings" className="p-2 text-txt-tertiary">
-            <Settings className="w-5 h-5" />
-          </Link>
-        </div>
+      {/* 상단 헤더 — fixed 글래스모피즘 */}
+      <header className="fixed top-0 w-full z-40 bg-white/70 backdrop-blur-2xl flex justify-between items-center px-6 py-4 max-w-lg mx-auto left-0 right-0">
+        <h1 className="text-2xl font-bold font-serif-ko text-coral-500">오늘우리</h1>
+        <Link href="/settings" className="p-2 text-txt-tertiary">
+          <Settings className="w-5 h-5" />
+        </Link>
+      </header>
 
-        {/* 커플 프로필 */}
+      <div className="pt-20 px-6 space-y-12 animate-page-in">
+        {/* 초대 배너 */}
+        {!isPartnerConnected && inviteCode && <InviteBanner inviteCode={inviteCode} />}
+
+        {/* D-day — 좌측 정렬 초대형 */}
+        <DdayCard startDate={couple.start_date} />
+
+        {/* 커플 프로필 — 이모지 겹침 + 그라데이션 */}
         <CoupleProfileCard
           myEmoji={myEmoji ?? "💙"} myNickname={myNickname ?? "나"}
           myStatus={myStatus ?? ""} partnerEmoji={partnerEmoji}
@@ -72,161 +73,150 @@ export default function HomePage() {
           isPartnerConnected={isPartnerConnected}
         />
 
-        {/* 초대 배너 */}
-        {!isPartnerConnected && inviteCode && (
-          <InviteBanner inviteCode={inviteCode} />
-        )}
-
-        {/* D-day — 감정의 중심 */}
-        <DdayCard startDate={couple.start_date} />
-
-        {/* 다가오는 플래너 */}
-        {upcomingPlan && (
-          <Link href={`/calendar/plan/${upcomingPlan.id}`}
-            className="block bg-surface-low rounded-3xl p-6 active:scale-[0.97] transition-transform">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-coral-100 rounded-2xl flex items-center justify-center">
-                <ClipboardList className="w-6 h-6 text-coral-500" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-coral-500 font-medium">다가오는 데이트</p>
-                <p className="font-serif-ko font-semibold text-txt-primary mt-0.5">
-                  {formatDate(upcomingPlan.date, "short")} {upcomingPlan.title}
+        {/* 플래너 + 기념일 — 2열 그리드 */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* 다음 데이트 */}
+          <div className="bg-white p-6 rounded-xl space-y-3">
+            <h3 className="text-sm font-bold text-txt-tertiary flex items-center gap-1.5">
+              <ClipboardList className="w-4 h-4 text-coral-500" />
+              다음 데이트
+            </h3>
+            {upcomingPlan ? (
+              <Link href={`/calendar/plan/${upcomingPlan.id}`}>
+                <p className="font-serif-ko font-bold leading-tight">
+                  {formatDate(upcomingPlan.date, "short")}<br />{upcomingPlan.title}
                 </p>
-              </div>
-              <ChevronRight className="w-5 h-5 text-txt-tertiary" />
-            </div>
-          </Link>
-        )}
+                <p className="text-coral-500 font-bold text-sm mt-2 flex items-center">
+                  자세히 보기 <ChevronRight className="w-4 h-4" />
+                </p>
+              </Link>
+            ) : (
+              <Link href="/calendar">
+                <p className="text-sm text-txt-tertiary">아직 계획이 없어요</p>
+                <p className="text-coral-500 font-bold text-sm mt-2">플래너 만들기</p>
+              </Link>
+            )}
+          </div>
 
-        {/* 다가오는 기념일 */}
-        <section className="bg-surface-low rounded-3xl p-6">
-          <Link href="/anniversary" className="flex items-center justify-between mb-4">
-            <h2 className="font-serif-ko text-lg font-semibold text-txt-primary">
-              다가오는 기념일
-            </h2>
-            <ChevronRight className="w-5 h-5 text-txt-tertiary" />
-          </Link>
-          {upcoming.length > 0 ? (
+          {/* 다가오는 기념일 */}
+          <div className="bg-surface-low p-6 rounded-xl space-y-3">
+            <h3 className="text-sm font-bold text-txt-tertiary flex items-center gap-1.5">
+              <Heart className="w-4 h-4 text-coral-500" />
+              기념일
+            </h3>
             <div className="space-y-2">
-              {upcoming.slice(0, 3).map((a) => (
-                <AnniversaryCard key={a.id} anniversary={a} compact />
-              ))}
+              {upcoming.length > 0 ? (
+                upcoming.slice(0, 3).map((a) => (
+                  <AnniversaryCard key={a.id} anniversary={a} compact />
+                ))
+              ) : (
+                <p className="text-sm text-txt-tertiary">등록해보세요</p>
+              )}
             </div>
-          ) : (
-            <p className="text-sm text-txt-tertiary text-center py-6">
-              기념일을 등록해보세요
-            </p>
-          )}
-        </section>
+          </div>
+        </div>
 
-        {/* 최근 기록 — 큰 카드 */}
-        <section className="bg-surface-low rounded-3xl p-6">
-          <Link href="/records" className="flex items-center justify-between mb-4">
-            <h2 className="font-serif-ko text-lg font-semibold text-txt-primary">
-              최근 데이트
-            </h2>
-            <ChevronRight className="w-5 h-5 text-txt-tertiary" />
-          </Link>
+        {/* 최근 기록 — 가로 스크롤 큰 카드 */}
+        <section className="space-y-4">
+          <div className="flex justify-between items-end">
+            <h3 className="text-lg font-serif-ko font-bold">최근의 기록</h3>
+            <Link href="/records" className="text-xs text-txt-tertiary font-medium">
+              모두 보기
+            </Link>
+          </div>
+
           {recordsLoading ? (
-            <div className="flex justify-center py-6">
+            <div className="flex justify-center py-8">
               <Loader2 className="w-5 h-5 animate-spin text-coral-300" />
             </div>
           ) : recentRecords.length > 0 ? (
-            <div className="space-y-3">
+            <div className="flex overflow-x-auto scrollbar-hide gap-4 -mx-6 px-6">
               {recentRecords.map((record) => (
                 <Link key={record.id} href={`/records/${record.id}`}
-                  className="block rounded-2xl overflow-hidden active:scale-[0.98] transition-transform">
+                  className="flex-none w-64 h-80 relative rounded-xl overflow-hidden active:scale-[0.97] transition-transform">
                   {record.photos?.[0] ? (
-                    <div className="aspect-[2/1] relative">
+                    <>
                       <img src={record.photos[0]} alt={record.title}
-                        className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <div className="absolute bottom-3 left-4 right-4">
-                        <p className="font-serif-ko font-semibold text-white text-base">
-                          {record.title}
-                        </p>
-                        <p className="text-xs text-white/70 mt-0.5">
-                          {formatDate(record.date, "short")}
-                        </p>
+                        className="w-full h-full object-cover" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-5">
+                        <span className="text-white/60 text-[10px] font-medium mb-1">
+                          {formatDate(record.date, "dot")}
+                        </span>
+                        <h4 className="text-white font-bold leading-tight">{record.title}</h4>
                       </div>
-                    </div>
+                    </>
                   ) : (
-                    <div className="bg-surface-high rounded-2xl p-4 flex items-center gap-3">
-                      <PenSquare className="w-5 h-5 text-coral-300" />
-                      <div>
-                        <p className="text-sm font-medium text-txt-primary">{record.title}</p>
-                        <p className="text-xs text-txt-tertiary">{formatDate(record.date, "short")}</p>
-                      </div>
+                    <div className="w-full h-full bg-surface-high flex flex-col justify-end p-5">
+                      <span className="text-txt-tertiary text-[10px] mb-1">
+                        {formatDate(record.date, "dot")}
+                      </span>
+                      <h4 className="text-txt-primary font-bold">{record.title}</h4>
                     </div>
                   )}
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-txt-tertiary text-center py-6">
+            <p className="text-sm text-txt-tertiary text-center py-8">
               첫 번째 데이트를 기록해보세요
             </p>
           )}
         </section>
 
-        {/* 통장 + 룰렛 — 큰 그리드 */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* 통장 + 룰렛 — 정사각형 그리드 */}
+        <section className="grid grid-cols-2 gap-4">
           <Link href="/wallet"
-            className="bg-surface-low rounded-3xl p-6 active:scale-[0.97] transition-transform">
-            <p className="text-xs text-txt-tertiary mb-2">데이트 통장</p>
-            {activeGoal ? (
-              <>
-                <p className="font-serif-ko text-xl font-bold text-coral-500">
-                  {formatCurrency(activeGoal.current_amount)}
-                </p>
-                <div className="w-full h-2 bg-surface-high rounded-full mt-3 overflow-hidden">
-                  <div className="h-full bg-coral-500 rounded-full"
-                    style={{ width: `${Math.min(Math.round((activeGoal.current_amount / activeGoal.target_amount) * 100), 100)}%` }} />
-                </div>
-                <p className="text-[11px] text-txt-tertiary mt-1.5">
-                  {activeGoal.title}
-                </p>
-              </>
-            ) : (
-              <p className="text-sm text-txt-secondary mt-1">목표를 설정해보세요</p>
-            )}
+            className="bg-surface-high p-6 rounded-xl flex flex-col justify-between aspect-square active:scale-[0.97] transition-transform">
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <span className="text-lg">💰</span>
+            </div>
+            <div>
+              <h4 className="text-xs text-txt-tertiary font-bold mb-1">커플 통장</h4>
+              <p className="text-xl font-bold text-txt-primary">
+                {activeGoal ? formatCurrency(activeGoal.current_amount) : "목표 설정"}
+              </p>
+            </div>
           </Link>
 
           <Link href="/roulette"
-            className="bg-surface-low rounded-3xl p-6 flex flex-col items-center justify-center gap-3 active:scale-[0.97] transition-transform">
-            <Dices className="w-10 h-10 text-coral-400" />
-            <div className="text-center">
-              <p className="font-semibold text-txt-primary">오늘 뭐 하지?</p>
-              <p className="text-xs text-txt-tertiary mt-0.5">룰렛 돌리기</p>
+            className="bg-coral-500 p-6 rounded-xl flex flex-col justify-between aspect-square text-white active:scale-[0.97] transition-transform">
+            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <span className="text-lg">🎲</span>
+            </div>
+            <div>
+              <h4 className="text-xs text-white/70 font-bold mb-1">메뉴 결정</h4>
+              <p className="text-xl font-bold">룰렛 돌리기</p>
             </div>
           </Link>
-        </div>
+        </section>
 
-        {/* 바로가기 — 넉넉한 간격 */}
-        <div className="space-y-3">
-          <Link href="/places" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.97] transition-transform">
-            <div className="flex items-center gap-4">
-              <MapPin className="w-5 h-5 text-coral-400" />
-              <p className="text-sm font-medium text-txt-primary flex-1">우리가 자주 가는 곳</p>
-              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+        {/* 바로가기 — 원형 아이콘 가로 4개 */}
+        <section className="flex justify-between items-center py-4">
+          <Link href="/places" className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+              <MapPin className="w-5 h-5 text-txt-tertiary" />
             </div>
+            <span className="text-xs font-bold text-txt-tertiary">자주 가는 곳</span>
           </Link>
-          <Link href="/memos" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.97] transition-transform">
-            <div className="flex items-center gap-4">
-              <span className="text-lg">📝</span>
-              <p className="text-sm font-medium text-txt-primary flex-1">메모장</p>
-              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+          <Link href="/memos" className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+              <StickyNote className="w-5 h-5 text-txt-tertiary" />
             </div>
+            <span className="text-xs font-bold text-txt-tertiary">메모장</span>
           </Link>
-          <Link href="/stats" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.97] transition-transform">
-            <div className="flex items-center gap-4">
-              <span className="text-lg">📊</span>
-              <p className="text-sm font-medium text-txt-primary flex-1">우리의 통계</p>
-              <ChevronRight className="w-4 h-4 text-txt-tertiary" />
+          <Link href="/stats" className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-txt-tertiary" />
             </div>
+            <span className="text-xs font-bold text-txt-tertiary">통계</span>
           </Link>
-        </div>
+          <Link href="/anniversary" className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+              <Heart className="w-5 h-5 text-txt-tertiary" />
+            </div>
+            <span className="text-xs font-bold text-txt-tertiary">기념일</span>
+          </Link>
+        </section>
       </div>
     </AppLayout>
   );
