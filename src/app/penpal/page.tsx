@@ -13,8 +13,7 @@ import { cn } from "@/lib/utils";
 import type { PenpalLetter } from "@/types";
 
 /**
- * 편지함 페이지 — /penpal
- * 수동 탭으로 레이아웃 충돌 방지
+ * 편지함 — stitch(5) Editorial Keepsake 스타일
  */
 export default function PenpalPage() {
   const router = useRouter();
@@ -25,9 +24,8 @@ export default function PenpalPage() {
   } = usePenpal();
   const { partnerNickname, isPartnerConnected, inviteCode } = useCouple();
   const [openLetter, setOpenLetter] = useState<PenpalLetter | null>(null);
-  const [tab, setTab] = useState<"received" | "sent">("received"); // 수동 탭
+  const [tab, setTab] = useState<"received" | "sent">("received");
 
-  /** 편지 클릭 — 봉투 열기 + 읽음 처리 */
   const handleLetterClick = (letter: PenpalLetter, isReceived: boolean) => {
     setOpenLetter(letter);
     if (isReceived && !letter.is_read) markAsRead(letter.id);
@@ -35,15 +33,18 @@ export default function PenpalPage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6 animate-page-in">
-        {/* 헤더 */}
-        <div className="flex items-center gap-2 mb-4">
-          <h1 className="text-2xl font-bold text-txt-primary">편지함</h1>
-          {unreadCount > 0 && (
-            <span className="bg-coral-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-              {unreadCount}
-            </span>
-          )}
+      <div className="px-6 pt-6 space-y-8 animate-page-in">
+        {/* 상단 타이틀 — stitch 매거진 스타일 */}
+        <div>
+          <p className="text-[10px] font-bold text-txt-tertiary tracking-widest uppercase">
+            THE KEEPSAKE 편지함
+          </p>
+          <h1 className="font-serif-ko text-3xl font-black text-txt-primary">
+            마음을 담은<br />조각들
+          </h1>
+          <p className="text-sm text-txt-tertiary mt-2">
+            시간이 흘러도, 변하지 않는 우리의 편지
+          </p>
         </div>
 
         {/* user2 미연결 */}
@@ -62,32 +63,28 @@ export default function PenpalPage() {
           </div>
         ) : loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="w-6 h-6 animate-spin text-coral-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-coral-300" />
           </div>
         ) : (
-          <div>
-            {/* 수동 탭 버튼 */}
-            <div className="grid grid-cols-2 bg-cream-dark rounded-full p-1 mb-5">
-              <button
-                onClick={() => setTab("received")}
+          <div className="space-y-8">
+            {/* pill 탭 */}
+            <div className="flex gap-2">
+              <button onClick={() => setTab("received")}
                 className={cn(
-                  "py-2 text-sm font-medium rounded-full transition-colors",
+                  "px-5 py-2 rounded-full text-sm font-medium transition-all",
                   tab === "received"
-                    ? "bg-white text-txt-primary shadow-sm"
-                    : "text-txt-tertiary"
-                )}
-              >
-                받은 편지
+                    ? "bg-coral-500 text-white"
+                    : "bg-surface-low text-txt-tertiary"
+                )}>
+                받은 편지 {unreadCount > 0 && `(${unreadCount})`}
               </button>
-              <button
-                onClick={() => setTab("sent")}
+              <button onClick={() => setTab("sent")}
                 className={cn(
-                  "py-2 text-sm font-medium rounded-full transition-colors",
+                  "px-5 py-2 rounded-full text-sm font-medium transition-all",
                   tab === "sent"
-                    ? "bg-white text-txt-primary shadow-sm"
-                    : "text-txt-tertiary"
-                )}
-              >
+                    ? "bg-coral-500 text-white"
+                    : "bg-surface-low text-txt-tertiary"
+                )}>
                 보낸 편지
               </button>
             </div>
@@ -95,22 +92,16 @@ export default function PenpalPage() {
             {/* 탭 콘텐츠 */}
             {tab === "received" && (
               <LetterList
-                letters={received}
-                senderName={partnerNickname ?? "상대방"}
-                isReceived
-                hasMore={hasMoreReceived}
-                loadingMore={loadingMore}
+                letters={received} senderName={partnerNickname ?? "상대방"}
+                isReceived hasMore={hasMoreReceived} loadingMore={loadingMore}
                 onLoadMore={loadMoreReceived}
                 onLetterClick={(l) => handleLetterClick(l, true)}
               />
             )}
             {tab === "sent" && (
               <LetterList
-                letters={sent}
-                senderName={partnerNickname ?? "상대방"}
-                isReceived={false}
-                hasMore={hasMoreSent}
-                loadingMore={loadingMore}
+                letters={sent} senderName={partnerNickname ?? "상대방"}
+                isReceived={false} hasMore={hasMoreSent} loadingMore={loadingMore}
                 onLoadMore={loadMoreSent}
                 onLetterClick={(l) => handleLetterClick(l, false)}
               />
@@ -121,19 +112,16 @@ export default function PenpalPage() {
 
       {/* FAB */}
       {isPartnerConnected && (
-        <button
-          onClick={() => router.push("/penpal/write")}
-          style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
-          className="fixed right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40"
-        >
+        <button onClick={() => router.push("/penpal/write")}
+          style={{ bottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))" }}
+          className="fixed right-5 w-14 h-14 bg-coral-500 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
           <PenSquare className="w-6 h-6" />
         </button>
       )}
 
       {/* 봉투 열기 */}
       {openLetter && (
-        <EnvelopeOpener
-          letter={openLetter}
+        <EnvelopeOpener letter={openLetter}
           onClose={() => setOpenLetter(null)}
           onReply={(letter) => {
             setOpenLetter(null);
