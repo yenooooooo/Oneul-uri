@@ -11,8 +11,11 @@ import { useAnniversary } from "@/hooks/useAnniversary";
 import { useDatePlans } from "@/hooks/useDatePlans";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
-import { Plus, ClipboardList } from "lucide-react";
+import { Plus, ClipboardList, Sticker } from "lucide-react";
 import { calculateAnniversaryDday } from "@/lib/utils";
+import { getStickerEmoji } from "@/lib/stickers";
+import { useCalendarStickers } from "@/hooks/useCalendarStickers";
+import StickerPickerModal from "@/components/calendar/StickerPickerModal";
 import CalendarSkeleton from "@/components/common/CalendarSkeleton";
 import type { Anniversary } from "@/types";
 
@@ -34,10 +37,12 @@ export default function CalendarPage() {
   const [month, setMonth] = useState(now.getMonth());
   const [selectedDate, setSelectedDate] = useState<string | null>(todayStr);
   const [showAdd, setShowAdd] = useState(false);
+  const [showStickerPicker, setShowStickerPicker] = useState(false);
 
   const { user } = useAuth();
   const { couple } = useCouple();
   const { loading, eventDates, addEvent, updateEvent, deleteEvent, getEventsForDate } = useCalendar();
+  const { stickers: stickerMap, upsertSticker, removeSticker } = useCalendarStickers(year, month);
   const { anniversaries } = useAnniversary();
   const { planDates, getPlanForDate } = useDatePlans();
 
@@ -114,6 +119,7 @@ export default function CalendarPage() {
                 eventDates={allMarkedDates}
                 anniversaryDates={anniversaryDates}
                 planDates={planDates}
+                stickerMap={stickerMap}
                 onSelectDate={setSelectedDate}
                 onPrevMonth={handlePrevMonth}
                 onNextMonth={handleNextMonth}
@@ -174,6 +180,22 @@ export default function CalendarPage() {
               </div>
             )}
 
+            {/* 스티커 붙이기 버튼 */}
+            {selectedDate && (
+              <button onClick={() => setShowStickerPicker(true)}
+                className="flex items-center gap-2 bg-surface-low rounded-2xl px-5 py-3 active:scale-[0.98] transition-transform w-full">
+                <span className="text-lg">
+                  {stickerMap.get(selectedDate)
+                    ? getStickerEmoji(stickerMap.get(selectedDate)!)
+                    : "🎨"}
+                </span>
+                <span className="text-sm font-medium text-txt-primary flex-1 text-left">
+                  {stickerMap.get(selectedDate) ? "스티커 변경하기" : "스티커 붙이기"}
+                </span>
+                <Sticker className="w-4 h-4 text-txt-tertiary" />
+              </button>
+            )}
+
             {/* 오늘의 일정 */}
             {selectedDate && (
               <section className="space-y-3">
@@ -202,6 +224,17 @@ export default function CalendarPage() {
 
       {showAdd && selectedDate && (
         <EventAddForm selectedDate={selectedDate} onSubmit={addEvent} onClose={() => setShowAdd(false)} />
+      )}
+
+      {/* 스티커 선택 모달 */}
+      {showStickerPicker && selectedDate && (
+        <StickerPickerModal
+          date={selectedDate}
+          currentSticker={stickerMap.get(selectedDate) ?? null}
+          onSelect={(id) => upsertSticker(selectedDate, id)}
+          onRemove={() => removeSticker(selectedDate)}
+          onClose={() => setShowStickerPicker(false)}
+        />
       )}
     </AppLayout>
   );
