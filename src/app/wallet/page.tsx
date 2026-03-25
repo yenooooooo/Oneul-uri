@@ -84,7 +84,7 @@ export default function WalletPage() {
             {/* 입금 버튼 */}
             <button
               onClick={() => setShowDeposit(true)}
-              className="w-full bg-coral-400 text-white rounded-2xl py-3.5 font-medium flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-card"
+              className="w-full bg-coral-500 text-white rounded-2xl py-3.5 font-medium flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-card"
             >
               <ArrowDownCircle className="w-5 h-5" />
               입금하기
@@ -135,7 +135,7 @@ export default function WalletPage() {
             <p className="text-sm text-txt-tertiary mt-1">함께 목표를 향해 모아봐요</p>
             <button
               onClick={() => setShowGoalForm(true)}
-              className="mt-4 bg-coral-400 text-white rounded-full px-6 py-2.5 text-sm font-medium active:scale-95 transition-transform"
+              className="mt-4 bg-coral-500 text-white rounded-full px-6 py-2.5 text-sm font-medium active:scale-95 transition-transform"
             >
               목표 설정하기
             </button>

@@ -69,7 +69,7 @@ export default function RoulettePage() {
               className={cn(
                 "flex-1 py-2.5 rounded-full text-sm font-medium transition-colors",
                 category === cat.value
-                  ? "bg-coral-400 text-white shadow-card"
+                  ? "bg-coral-500 text-white shadow-card"
                   : "bg-white text-txt-secondary shadow-soft"
               )}
             >

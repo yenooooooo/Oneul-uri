@@ -75,7 +75,7 @@ export default function TransactionEditForm({
           <Button
             type="submit"
             disabled={loading || !amount}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "수정하기"}
           </Button>

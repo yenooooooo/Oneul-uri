@@ -69,7 +69,7 @@ export default function PlacesPage() {
             <Input placeholder="메모 (선택)" value={newMemo}
               onChange={(e) => setNewMemo(e.target.value)} className="rounded-xl" />
             <Button onClick={handleAdd} disabled={!newName.trim()}
-              className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white">
+              className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
               저장하기
             </Button>
           </div>

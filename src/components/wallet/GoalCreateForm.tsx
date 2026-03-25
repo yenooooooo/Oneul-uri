@@ -75,7 +75,7 @@ export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProp
           </div>
 
           <Button type="submit" disabled={loading || !title || !targetAmount}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white">
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "목표 설정"}
           </Button>
         </form>

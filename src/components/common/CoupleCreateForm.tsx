@@ -79,7 +79,7 @@ export default function CoupleCreateForm({ onSubmit }: CoupleCreateFormProps) {
           </Button>
           <Button
             onClick={() => { router.push("/"); router.refresh(); }}
-            className="rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             시작하기 <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
@@ -122,7 +122,7 @@ export default function CoupleCreateForm({ onSubmit }: CoupleCreateFormProps) {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+        className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
       >
         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "스페이스 만들기"}
       </Button>

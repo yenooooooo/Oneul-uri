@@ -82,7 +82,7 @@ export default function MemosPage() {
               })}
             </div>
             <Button onClick={handleCreate} disabled={!newTitle.trim()}
-              className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white">
+              className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
               만들기
             </Button>
           </div>
@@ -93,7 +93,7 @@ export default function MemosPage() {
           <button onClick={() => setFilter("all")}
             className={cn(
               "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border",
-              filter === "all" ? "bg-coral-400 text-white border-coral-400" : "bg-white border-cream-dark text-txt-secondary"
+              filter === "all" ? "bg-coral-500 text-white border-coral-400" : "bg-white border-cream-dark text-txt-secondary"
             )}>
             전체
           </button>
@@ -103,7 +103,7 @@ export default function MemosPage() {
               <button key={key} onClick={() => setFilter(key)}
                 className={cn(
                   "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border",
-                  filter === key ? "bg-coral-400 text-white border-coral-400" : "bg-white border-cream-dark text-txt-secondary"
+                  filter === key ? "bg-coral-500 text-white border-coral-400" : "bg-white border-cream-dark text-txt-secondary"
                 )}>
                 {cat.emoji} {cat.label}
               </button>

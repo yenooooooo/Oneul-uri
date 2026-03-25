@@ -119,7 +119,7 @@ export default function RecordWriteModal({
 
           {/* 제출 */}
           <Button type="submit" disabled={loading || !title}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white py-3">
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" />
               : initialData ? "수정하기" : "기록하기"}
           </Button>

@@ -38,7 +38,7 @@ export default function RouletteResult({
         {onAddToCalendar && !calendarAdded && (
           <Button
             onClick={onAddToCalendar}
-            className="rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             <Calendar className="w-4 h-4 mr-1" />
             캘린더에 추가

@@ -90,7 +90,7 @@ export default function StatsPage() {
                   {topPlaces.map((place, i) => (
                     <div key={place.name} className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                        i === 0 ? "bg-coral-400 text-white"
+                        i === 0 ? "bg-coral-500 text-white"
                           : i === 1 ? "bg-coral-200 text-coral-600"
                             : "bg-cream-dark text-txt-secondary"
                       }`}>

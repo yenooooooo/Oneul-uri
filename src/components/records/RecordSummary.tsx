@@ -24,7 +24,7 @@ export default function RecordSummary({ totalCount }: RecordSummaryProps) {
     : 0;
 
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-soft">
+    <div className="bg-surface-low rounded-2xl p-5">
       <div className="flex items-center gap-2 mb-3">
         <BookOpen className="w-5 h-5 text-coral-400" />
         <h2 className="font-semibold text-txt-primary">우리의 기록</h2>

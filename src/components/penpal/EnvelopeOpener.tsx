@@ -115,7 +115,7 @@ export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpe
               )}
               <button
                 onClick={onClose}
-                className="flex-1 py-2.5 bg-coral-400 text-white rounded-full text-sm font-medium active:scale-95 transition-transform"
+                className="flex-1 py-2.5 bg-coral-500 text-white rounded-full text-sm font-medium active:scale-95 transition-transform"
               >
                 닫기
               </button>

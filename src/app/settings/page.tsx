@@ -112,7 +112,7 @@ export default function SettingsPage() {
               setSavingProfile(false);
             }}
             disabled={savingProfile}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : "프로필 저장"}
           </Button>
@@ -145,7 +145,7 @@ export default function SettingsPage() {
           <Button
             onClick={handleSaveBirthday}
             disabled={saving || !birthday || birthday === myBirthday}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : myBirthday ? "수정" : "저장"}
           </Button>

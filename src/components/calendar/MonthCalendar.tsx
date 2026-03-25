@@ -121,7 +121,7 @@ export default function MonthCalendar({
               className={cn(
                 "aspect-square flex flex-col items-center justify-center rounded-xl text-sm transition-colors relative",
                 isSelected
-                  ? "bg-coral-400 text-white"
+                  ? "bg-coral-500 text-white"
                   : hasAnniversary
                     ? "bg-coral-50 text-coral-500 font-semibold"
                     : isToday

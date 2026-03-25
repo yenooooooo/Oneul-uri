@@ -150,7 +150,7 @@ export default function PlanDetailPage() {
             <Plus className="w-4 h-4" /> 일정 추가
           </button>
           <button onClick={() => setShowComplete(true)}
-            className="flex-1 bg-coral-400 text-white rounded-full py-3 font-medium flex items-center justify-center gap-1">
+            className="flex-1 bg-coral-500 text-white rounded-full py-3 font-medium flex items-center justify-center gap-1">
             <PartyPopper className="w-4 h-4" /> 데이트 완료
           </button>
         </div>

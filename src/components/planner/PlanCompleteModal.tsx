@@ -53,7 +53,7 @@ export default function PlanCompleteModal({
           <Button
             onClick={handleConvert}
             disabled={loading}
-            className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white"
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "기록으로 남기기"}
           </Button>

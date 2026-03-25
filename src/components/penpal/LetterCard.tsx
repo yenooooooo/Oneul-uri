@@ -31,8 +31,8 @@ export default function LetterCard({
       className={cn(
         "w-full rounded-2xl p-4 flex items-center gap-3 text-left active:scale-[0.98] transition-all",
         isUnread
-          ? "bg-gradient-to-r from-coral-50 via-white to-pink-soft/20 shadow-card border border-coral-100"
-          : "bg-gradient-to-r from-cream to-white shadow-soft"
+          ? "bg-white border border-coral-200/30"
+          : "bg-surface-low"
       )}
     >
       {/* 봉투 아이콘 */}

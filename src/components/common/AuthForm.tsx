@@ -101,7 +101,7 @@ export default function AuthForm({ mode, onSubmit, onToggleMode }: AuthFormProps
         <Button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-coral-400 hover:bg-coral-500 text-white py-3"
+          className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3"
         >
           {loading ? (
             <Loader2 className="w-4 h-4 animate-spin" />

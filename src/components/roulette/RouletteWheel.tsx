@@ -126,7 +126,7 @@ export default function RouletteWheel({ items, onResult }: RouletteWheelProps) {
       <button
         onClick={handleSpin}
         disabled={spinning}
-        className="bg-coral-400 text-white rounded-full px-8 py-3 text-lg font-bold shadow-card active:scale-95 transition-transform disabled:opacity-60"
+        className="bg-coral-500 text-white rounded-full px-8 py-3 text-lg font-bold shadow-card active:scale-95 transition-transform disabled:opacity-60"
       >
         {spinning ? "돌리는 중..." : "돌리기!"}
       </button>
