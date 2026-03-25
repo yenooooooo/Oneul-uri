@@ -42,9 +42,9 @@ export default function StickerPickerModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30"
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 px-4"
       onClick={onClose}>
-      <div className="bg-white w-full max-w-lg rounded-t-3xl max-h-[70vh] flex flex-col"
+      <div className="bg-white w-full max-w-sm rounded-3xl max-h-[80vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}>
         {/* 헤더 */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-surface-high">
