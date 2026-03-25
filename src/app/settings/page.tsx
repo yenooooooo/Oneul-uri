@@ -119,14 +119,16 @@ export default function SettingsPage() {
               </span>
             )}
           </h2>
-          <Input id="birthday" type="date" value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            className="rounded-xl bg-white max-w-[200px]" />
-          <Button onClick={handleSaveBirthday}
-            disabled={saving || !birthday || birthday === myBirthday}
-            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : myBirthday ? "수정" : "저장"}
-          </Button>
+          <div className="flex gap-3 items-center">
+            <Input id="birthday" type="date" value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              className="rounded-xl bg-white flex-1" />
+            <Button onClick={handleSaveBirthday}
+              disabled={saving || !birthday || birthday === myBirthday}
+              className="rounded-full bg-coral-500 hover:bg-coral-600 text-white px-6">
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : myBirthday ? "수정" : "저장"}
+            </Button>
+          </div>
         </section>
 
         {/* 알림 */}
