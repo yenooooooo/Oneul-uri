@@ -67,8 +67,13 @@ export default function CalendarPage() {
   const selectedPlan = selectedDate ? getPlanForDate(selectedDate) : null;
 
   // 다가오는 기념일 칩 (최대 4개)
+  // 다가오는 기념일 — D-day 가까운 순 정렬
   const upcomingAnniversaries = anniversaries
     .filter((a) => calculateAnniversaryDday(a.date, a.is_recurring) <= 0)
+    .sort((a, b) =>
+      Math.abs(calculateAnniversaryDday(a.date, a.is_recurring))
+      - Math.abs(calculateAnniversaryDday(b.date, b.is_recurring))
+    )
     .slice(0, 4);
 
   const handlePrevMonth = () => {
