@@ -14,11 +14,11 @@ interface AppLayoutProps {
  */
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-surface">
       {/* 메인 콘텐츠 — 하단 네비 + safe area 만큼 패딩 */}
       <main
         className="max-w-lg mx-auto"
-        style={{ paddingBottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+        style={{ paddingBottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))" }}
       >
         {children}
       </main>
