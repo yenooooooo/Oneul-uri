@@ -1,42 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { MessageSquare, MapPin } from "lucide-react";
+import { PenSquare } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { MOOD_OPTIONS } from "@/types/record";
 import type { DateRecord } from "@/types";
 
-/** RecordMiniCard 컴포넌트 props */
 interface RecordMiniCardProps {
   record: DateRecord;
 }
 
 /**
- * 사진 없는 기록 — 미니 카드 (한 줄, 아이콘 + 제목 + 날짜 + 장소)
+ * 글 기록 — stitch(4) 스타일 (아이콘 + 텍스트 + 날짜)
  */
 export default function RecordMiniCard({ record }: RecordMiniCardProps) {
+  const moodEmoji = MOOD_OPTIONS.find((m) => m.value === record.mood)?.emoji;
+
   return (
     <Link
       href={`/records/${record.id}`}
-      className="flex items-center gap-3 px-4 py-3 hover:bg-cream-dark/50 transition-colors active:scale-[0.99]"
+      className="flex items-center gap-4 py-4 px-5 bg-surface-low rounded-xl active:bg-surface-high transition-colors"
     >
-      {/* 아이콘 */}
-      <MessageSquare className="w-4 h-4 text-coral-300 flex-shrink-0" />
-
-      {/* 제목 */}
-      <span className="text-sm font-medium text-txt-primary flex-1 truncate">
-        {record.title}
+      <span className="text-lg flex-shrink-0">
+        {moodEmoji ?? <PenSquare className="w-5 h-5 text-coral-500" />}
       </span>
-
-      {/* 장소 */}
-      {record.location && (
-        <span className="flex items-center gap-0.5 text-xs text-txt-tertiary flex-shrink-0">
-          <MapPin className="w-3 h-3" />
-          {record.location}
-        </span>
-      )}
-
-      {/* 날짜 */}
-      <span className="text-xs text-txt-tertiary flex-shrink-0">
+      <p className="text-txt-primary font-medium flex-1 truncate">
+        {record.memo || record.title}
+      </p>
+      <span className="text-[10px] font-bold text-txt-tertiary uppercase flex-shrink-0">
         {formatDate(record.date, "short")}
       </span>
     </Link>

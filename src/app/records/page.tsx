@@ -36,7 +36,7 @@ export default function RecordsPage() {
 
   return (
     <AppLayout>
-      <div className="px-5 pt-6 space-y-5 animate-page-in">
+      <div className="px-6 pt-6 space-y-12 animate-page-in">
         <RecordSummary totalCount={totalCount} />
         <RecordList
           records={records} loading={loading}

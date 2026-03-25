@@ -79,35 +79,37 @@ export default function RecordList({
   const groups = groupByMonth(records);
 
   return (
-    <div className="space-y-6">
-      {groups.map((group) => (
+    <div className="space-y-12">
+      {groups.map((group, gi) => (
         <section key={group.key}>
-          {/* 월 헤더 */}
-          <div className="flex items-center gap-2 mb-3">
-            <h3 className="text-sm font-semibold text-txt-secondary">{group.label}</h3>
-            <div className="flex-1 h-px bg-coral-100" />
-            <span className="text-xs text-txt-tertiary">
-              {group.withPhotos.length + group.withoutPhotos.length}개
-            </span>
+          {/* 월 헤더 — stitch 초대형 세리프 */}
+          <div className="sticky top-16 z-20 py-3 bg-surface/90 backdrop-blur-sm mb-8">
+            <h3 className={`font-serif-ko text-3xl font-black flex items-baseline gap-3 ${
+              gi === 0 ? "text-txt-primary" : "text-txt-primary/40"
+            }`}>
+              {group.label}
+              <span className="text-sm font-sans font-medium text-txt-tertiary tracking-normal">
+                {group.withPhotos.length + group.withoutPhotos.length}개의 기록
+              </span>
+            </h3>
           </div>
 
-          {/* 사진 있는 기록 — 큰 카드 */}
-          {group.withPhotos.length > 0 && (
-            <div className="space-y-3 mb-2">
-              {group.withPhotos.map((r) => (
-                <RecordCard key={r.id} record={r} />
-              ))}
-            </div>
-          )}
+          {/* 기록 아이템들 — 과감한 간격 */}
+          <div className="space-y-12">
+            {/* 사진 기록 */}
+            {group.withPhotos.map((r) => (
+              <RecordCard key={r.id} record={r} />
+            ))}
 
-          {/* 사진 없는 기록 — 미니 카드 묶음 */}
-          {group.withoutPhotos.length > 0 && (
-            <div className="bg-surface-low rounded-2xl overflow-hidden divide-y divide-cream-dark">
-              {group.withoutPhotos.map((r) => (
-                <RecordMiniCard key={r.id} record={r} />
-              ))}
-            </div>
-          )}
+            {/* 글 기록 묶음 */}
+            {group.withoutPhotos.length > 0 && (
+              <div className="space-y-2">
+                {group.withoutPhotos.map((r) => (
+                  <RecordMiniCard key={r.id} record={r} />
+                ))}
+              </div>
+            )}
+          </div>
         </section>
       ))}
 
