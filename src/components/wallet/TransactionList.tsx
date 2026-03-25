@@ -69,7 +69,10 @@ export default function TransactionList({
                   {tx.memo || (isDeposit ? "입금" : "출금")}
                 </p>
                 <div className="flex items-center gap-2 text-xs text-txt-tertiary">
-                  <span>{formatDate(tx.created_at.split("T")[0], "short")}</span>
+                  <span>
+                    {formatDate(tx.created_at.split("T")[0], "short")}{" "}
+                    {new Date(tx.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
                   {nickname && <span>· {nickname}</span>}
                 </div>
               </div>

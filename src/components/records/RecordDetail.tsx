@@ -80,7 +80,8 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
         <div className="flex items-center gap-4 text-sm text-txt-secondary">
           <span className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            {formatDate(record.date, "long")}
+            {formatDate(record.date, "long")}{" "}
+            {new Date(record.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
           </span>
           {record.location && (
             <span className="flex items-center gap-1">

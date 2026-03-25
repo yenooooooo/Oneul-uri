@@ -80,7 +80,8 @@ export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpe
             {/* 편지지 상단 장식 */}
             <div className="text-center mb-4 pb-3 border-b border-coral-100/50">
               <p className="text-xs text-txt-tertiary">
-                {formatDate(letter.created_at.split("T")[0], "long")}
+                {formatDate(letter.created_at.split("T")[0], "long")}{" "}
+                {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
 

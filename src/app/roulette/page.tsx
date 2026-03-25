@@ -159,7 +159,8 @@ export default function RoulettePage() {
                     <div key={h.id} className="flex items-center justify-between text-sm">
                       <span className="text-txt-primary">{h.result}</span>
                       <span className="text-xs text-txt-tertiary">
-                        {formatDate(h.created_at.split("T")[0], "short")}
+                        {formatDate(h.created_at.split("T")[0], "short")}{" "}
+                        {new Date(h.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
                       </span>
                     </div>
                   ))}
