@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +18,7 @@ interface GoalCreateFormProps {
  * 저축 목표 생성 모달 — 목표명 + 목표 금액 + 목표 기간(선택)
  */
 export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProps) {
+  useLockScroll();
   const [title, setTitle] = useState(""); // 목표명
   const [targetAmount, setTargetAmount] = useState(""); // 목표 금액
   const [targetDate, setTargetDate] = useState(""); // 목표 달성 날짜 (선택)

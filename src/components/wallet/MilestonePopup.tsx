@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { MILESTONES } from "@/types/wallet";
 import confetti from "canvas-confetti";
 
@@ -16,6 +17,7 @@ interface MilestonePopupProps {
  * 3초 후 자동 닫기, 탭으로 수동 닫기 가능
  */
 export default function MilestonePopup({ percent, onClose }: MilestonePopupProps) {
+  useLockScroll();
   const milestone = MILESTONES.find((m) => m.percent === percent);
 
   useEffect(() => {

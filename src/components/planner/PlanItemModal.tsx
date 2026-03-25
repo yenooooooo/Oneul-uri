@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +27,7 @@ const CATEGORY_KEYS = Object.keys(PLAN_CATEGORIES) as PlanCategory[];
 export default function PlanItemModal({
   initial, onSubmit, onRoulette, onClose,
 }: PlanItemModalProps) {
+  useLockScroll();
   const [time, setTime] = useState(initial?.time ?? "");
   const [category, setCategory] = useState<PlanCategory>(initial?.category ?? "food");
   const [title, setTitle] = useState(initial?.title ?? "");

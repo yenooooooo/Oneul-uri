@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +27,7 @@ interface EventEditFormProps {
  * 기존 값을 prefill하여 제목/카테고리/시간/메모 수정
  */
 export default function EventEditForm({ event, onSubmit, onClose }: EventEditFormProps) {
+  useLockScroll();
   const [title, setTitle] = useState(event.title);
   const [category, setCategory] = useState<string>(event.category);
   const [time, setTime] = useState(event.time ?? "");

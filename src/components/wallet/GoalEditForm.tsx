@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +19,7 @@ interface GoalEditFormProps {
  * 저축 목표 수정 모달 — 제목, 목표 금액, 목표 날짜 수정
  */
 export default function GoalEditForm({ goal, onSubmit, onClose }: GoalEditFormProps) {
+  useLockScroll();
   const [title, setTitle] = useState(goal.title);
   const [targetAmount, setTargetAmount] = useState(String(goal.target_amount));
   const [targetDate, setTargetDate] = useState(goal.target_date ?? "");

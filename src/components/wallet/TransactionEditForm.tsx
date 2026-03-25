@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +21,7 @@ interface TransactionEditFormProps {
 export default function TransactionEditForm({
   transaction, onSubmit, onClose,
 }: TransactionEditFormProps) {
+  useLockScroll();
   const [amount, setAmount] = useState(String(transaction.amount)); // 금액
   const [memo, setMemo] = useState(transaction.memo ?? ""); // 메모
   const [loading, setLoading] = useState(false); // 로딩

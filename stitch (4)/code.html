@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-surface": "#33302b",
+              "surface-container": "#f4ede5",
+              "on-tertiary-fixed-variant": "#005236",
+              "primary-fixed": "#ffdad8",
+              "surface-tint": "#ae2f34",
+              "on-primary-container": "#6d0010",
+              "primary": "#ae2f34",
+              "secondary": "#5e5e5e",
+              "secondary-fixed-dim": "#c7c6c6",
+              "tertiary-fixed-dim": "#52dea2",
+              "surface-variant": "#e8e1da",
+              "on-error-container": "#93000a",
+              "surface-bright": "#fff8f1",
+              "tertiary-fixed": "#72fbbc",
+              "surface": "#fff8f1",
+              "surface-dim": "#dfd9d1",
+              "on-tertiary-fixed": "#002113",
+              "surface-container-high": "#eee7df",
+              "on-primary-fixed-variant": "#8c1520",
+              "error-container": "#ffdad6",
+              "on-secondary-container": "#626262",
+              "surface-container-low": "#f9f3eb",
+              "on-surface": "#1e1b17",
+              "outline-variant": "#e0bfbd",
+              "on-tertiary": "#ffffff",
+              "inverse-on-surface": "#f7f0e8",
+              "secondary-fixed": "#e4e2e2",
+              "on-surface-variant": "#584140",
+              "primary-container": "#ff6b6b",
+              "on-tertiary-container": "#003b26",
+              "error": "#ba1a1a",
+              "tertiary-container": "#00b179",
+              "on-primary-fixed": "#410006",
+              "surface-container-highest": "#e8e1da",
+              "on-primary": "#ffffff",
+              "secondary-container": "#e1dfdf",
+              "on-secondary-fixed-variant": "#464747",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#ffb3b0",
+              "on-secondary-fixed": "#1b1c1c",
+              "tertiary": "#006c48",
+              "background": "#fff8f1",
+              "on-background": "#1e1b17",
+              "outline": "#8c706f",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#ffb3b0"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif KR", "serif"],
+              "body": ["Plus Jakarta Sans", "sans-serif"],
+              "label": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif-headline { font-family: 'Noto Serif KR', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-stone-900/70 backdrop-blur-2xl flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="hover:bg-stone-100/50 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</button>
+<h1 class="text-2xl font-bold serif-headline text-[#FF6B6B] tracking-tight">오늘우리</h1>
+</div>
+<div class="flex items-center">
+<button class="hover:bg-stone-100/50 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface">settings</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<!-- Section 1: Summary Card -->
+<section class="mb-16">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_24px_rgba(30,27,23,0.04)] relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="serif-headline text-3xl font-black mb-1 text-on-surface">함께한 기록</h2>
+<p class="text-on-surface-variant font-medium mb-8">우리의 소중한 순간들이 쌓여가고 있어요.</p>
+<div class="grid grid-cols-2 gap-6 mb-8">
+<div>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest block mb-1">Total Records</span>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold serif-headline text-primary">128</span>
+<span class="text-sm text-on-surface-variant">개</span>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest block mb-1">Days Together</span>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold serif-headline text-primary">432</span>
+<span class="text-sm text-on-surface-variant">일</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-semibold text-on-surface">이번 달 기록 목표</span>
+<span class="text-sm font-bold text-primary">85%</span>
+</div>
+<div class="h-3 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[85%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Section 2: Monthly Grouped Timeline -->
+<section class="space-y-12">
+<!-- Month Header -->
+<div class="sticky top-20 z-30 py-4 bg-surface/90 backdrop-blur-sm">
+<h3 class="serif-headline text-4xl font-black text-on-surface flex items-baseline gap-3">
+                    2026년 3월
+                    <span class="text-sm font-sans font-medium text-on-surface-variant tracking-normal">14개의 기록</span>
+</h3>
+</div>
+<!-- Record Items -->
+<div class="space-y-16">
+<!-- Photo Record 1 (Asymmetric Editorial Style) -->
+<article class="group relative">
+<div class="aspect-[4/3] rounded-xl overflow-hidden relative shadow-sm">
+<img alt="Spring picnic" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up of a rustic picnic basket with strawberries and sparkling wine on a checkered cloth in a sun-dappled park during spring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwACuG3ZUQkV7uINyvo2gflgAvs6s_lavYhP6c8wXlsJ1FQ2xI2aIwrei88GbHIQwaUhwZb4N2hI8OotPkdlxy5H5w_ATp9bYZY-9RUKU3raC0qQfcwOnV-01V3zltRDSSlwXm-jApUTe7VGCT0RpV0cyEmou3NOqlHLD5Pl-p2c-jOgLIGC7RwSjdiaiFaCLXem1vG_x5sP-9hwbk2Dj24FsXPlviNJsRqKPLVcGgUn7RecNAuycK3FnGPBYakw6N3k8UPsEcYGE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<span class="text-white/80 text-xs font-bold tracking-widest uppercase mb-2 block">MAR 24, 2026</span>
+<h4 class="serif-headline text-2xl text-white font-bold leading-tight">벚꽃 아래에서 보낸 첫 피크닉</h4>
+</div>
+</div>
+<div class="mt-6 pl-2 max-w-[90%]">
+<p class="serif-headline text-on-surface-variant italic leading-relaxed text-lg">"바람이 불 때마다 떨어지는 꽃잎들이 꼭 우리를 축복해주는 것 같았어. 김밥은 조금 짰지만 네가 웃어줘서 다행이야."</p>
+</div>
+</article>
+<!-- Text-only Records Group -->
+<div class="space-y-3">
+<div class="flex items-center gap-4 py-4 px-6 bg-surface-container-low rounded-lg transition-all hover:bg-surface-container-high cursor-pointer">
+<span class="material-symbols-outlined text-primary text-xl">edit_note</span>
+<div class="flex-1">
+<p class="text-on-surface font-medium">오늘 퇴근길에 네가 좋아하는 붕어빵을 샀어.</p>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase">Mar 22</span>
+</div>
+<div class="flex items-center gap-4 py-4 px-6 bg-surface-container-low rounded-lg transition-all hover:bg-surface-container-high cursor-pointer">
+<span class="material-symbols-outlined text-primary text-xl">favorite</span>
+<div class="flex-1">
+<p class="text-on-surface font-medium">비 오는 창가에서 같이 읽던 시집.</p>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase">Mar 20</span>
+</div>
+</div>
+<!-- Photo Record 2 -->
+<article class="group relative">
+<div class="flex flex-col md:flex-row gap-8 items-end">
+<div class="w-full md:w-3/5 aspect-[4/5] rounded-xl overflow-hidden shadow-sm">
+<img alt="Cafe date" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Moody interior of a dimly lit vintage jazz cafe with two glasses of wine and soft warm lighting on a mahogany table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABpUHONcjIaBKoFRSYrMtHt9d4-Dyy1yWxfSdm4187oNitgPRlKLNBhS9vLlHu2m4h2O_T2OWWYJilAD-6zJku2--VMXn00AobjrwvjUG2LBpDM3NDL8oP1l7yrOdG1kPgh2Eo9wWa3irNad23OEkL3B0xDaegqB4R00K2ClgYkgtIizIWyIAQWcMYvxq2VpHxe-dyTbD_nHX3CCvfrurbKWiqvr_5asqGXKTRcUvxGgLPGYobaIDw15Sq5mKLSMFpGAmL9Q9P0r4"/>
+</div>
+<div class="w-full md:w-2/5 pb-4">
+<span class="text-on-surface-variant text-xs font-bold tracking-widest uppercase mb-3 block">MAR 14, 2026</span>
+<h4 class="serif-headline text-3xl text-on-surface font-bold mb-4">우리의 아지트가 된 재즈바</h4>
+<p class="text-on-surface-variant leading-relaxed text-sm">LP판 돌아가는 소리가 유난히 좋았던 밤. 화이트 와인 한 잔에 취한 듯 나누던 진솔한 이야기들.</p>
+</div>
+</div>
+</article>
+<!-- Month Header 2 (Previous Month) -->
+<div class="py-4 mt-20">
+<h3 class="serif-headline text-4xl font-black text-on-surface/40 flex items-baseline gap-3">
+                        2026년 2월
+                    </h3>
+</div>
+<!-- Previous Records Preview -->
+<div class="bg-surface-container-low/50 border-dashed border-2 border-outline-variant/30 rounded-xl p-12 text-center">
+<p class="text-on-surface-variant/60 font-medium">지난 기록들을 불러오는 중...</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-28 right-8 z-[60] w-14 h-14 bg-primary text-on-primary rounded-full shadow-[0_8px_24px_rgba(174,47,52,0.3)] flex items-center justify-center transition-transform hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-white/70 dark:bg-stone-900/70 backdrop-blur-3xl rounded-[2rem] z-50 flex justify-around items-center px-4 py-3 shadow-[0_8px_24px_rgba(30,27,23,0.04)]">
+<a class="flex flex-col items-center justify-center text-stone-400 hover:opacity-80 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[11px] font-medium mt-1">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#FF6B6B] font-bold hover:opacity-80 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="text-[11px] font-medium mt-1">기록</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 hover:opacity-80 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[11px] font-medium mt-1">캘린더</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 hover:opacity-80 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-[11px] font-medium mt-1">편지함</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 hover:opacity-80 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[11px] font-medium mt-1">지갑</span>
+</a>
+</nav>
+</body></html>

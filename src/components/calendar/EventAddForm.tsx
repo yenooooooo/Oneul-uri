@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,6 +36,7 @@ export default function EventAddForm({
   onSubmit,
   onClose,
 }: EventAddFormProps) {
+  useLockScroll();
   const [title, setTitle] = useState(""); // 일정 제목
   const [category, setCategory] = useState("date"); // 카테고리
   const [time, setTime] = useState(""); // 시간 (선택)

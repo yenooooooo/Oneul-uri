@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { PartyPopper, Loader2 } from "lucide-react";
 
@@ -18,6 +19,7 @@ interface PlanCompleteModalProps {
 export default function PlanCompleteModal({
   planTitle, onComplete, onClose,
 }: PlanCompleteModalProps) {
+  useLockScroll();
   const [loading, setLoading] = useState(false);
 
   /** 기록으로 전환 */

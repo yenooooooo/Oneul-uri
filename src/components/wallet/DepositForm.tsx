@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +19,7 @@ interface DepositFormProps {
  * 금액 + 메모 입력
  */
 export default function DepositForm({ goalId, onSubmit, onClose }: DepositFormProps) {
+  useLockScroll();
   const [amount, setAmount] = useState(""); // 금액 입력값
   const [memo, setMemo] = useState(""); // 메모
   const [loading, setLoading] = useState(false); // 로딩

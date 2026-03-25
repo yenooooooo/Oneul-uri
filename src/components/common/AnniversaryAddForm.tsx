@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +18,7 @@ interface AnniversaryAddFormProps {
  * 제목 + 날짜 + 매년 반복 여부 입력
  */
 export default function AnniversaryAddForm({ onSubmit, onClose }: AnniversaryAddFormProps) {
+  useLockScroll();
   const [title, setTitle] = useState(""); // 기념일 제목
   const [date, setDate] = useState(""); // 기념일 날짜
   const [isRecurring, setIsRecurring] = useState(false); // 매년 반복

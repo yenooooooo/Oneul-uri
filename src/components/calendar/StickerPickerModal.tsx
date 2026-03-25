@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import { X } from "lucide-react";
 import { STICKER_CATEGORIES } from "@/lib/stickers";
 import { formatDate } from "@/lib/utils";
@@ -21,6 +22,7 @@ interface StickerPickerModalProps {
 export default function StickerPickerModal({
   date, currentSticker, onSelect, onRemove, onClose,
 }: StickerPickerModalProps) {
+  useLockScroll();
   const [category, setCategory] = useState(STICKER_CATEGORIES[0].id);
   const [selected, setSelected] = useState<string | null>(currentSticker);
 
