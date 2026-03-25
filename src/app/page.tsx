@@ -130,30 +130,38 @@ export default function HomePage() {
               <Loader2 className="w-5 h-5 animate-spin text-coral-300" />
             </div>
           ) : recentRecords.length > 0 ? (
-            <div className="flex overflow-x-auto scrollbar-hide gap-4 -mx-6 px-6">
+            <div className="flex overflow-x-auto scrollbar-hide gap-4 -mx-6 px-6 items-end">
               {recentRecords.map((record) => (
-                <Link key={record.id} href={`/records/${record.id}`}
-                  className="flex-none w-64 h-80 relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform">
-                  {record.photos?.[0] ? (
-                    <>
-                      <img src={record.photos[0]} alt={record.title}
-                        className="w-full h-full object-cover" loading="lazy" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-5">
-                        <span className="text-white/60 text-[10px] font-medium mb-1">
-                          {formatDate(record.date, "dot")}
-                        </span>
-                        <h4 className="text-white font-bold leading-tight">{record.title}</h4>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="w-full h-full bg-surface-high flex flex-col justify-end p-5">
-                      <span className="text-txt-tertiary text-[10px] mb-1">
+                record.photos?.[0] ? (
+                  /* 사진 기록 — 큰 세로 카드 */
+                  <Link key={record.id} href={`/records/${record.id}`}
+                    className="flex-none w-64 h-80 relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform">
+                    <img src={record.photos[0]} alt={record.title}
+                      className="w-full h-full object-cover" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-5">
+                      <span className="text-white/60 text-[10px] font-medium mb-1">
                         {formatDate(record.date, "dot")}
                       </span>
-                      <h4 className="text-txt-primary font-bold">{record.title}</h4>
+                      <h4 className="text-white font-bold leading-tight">{record.title}</h4>
                     </div>
-                  )}
-                </Link>
+                  </Link>
+                ) : (
+                  /* 글 기록 — 작은 메모지 카드 */
+                  <Link key={record.id} href={`/records/${record.id}`}
+                    className="flex-none w-48 h-44 bg-surface-low rounded-2xl p-5 flex flex-col justify-between active:scale-[0.97] transition-transform">
+                    <p className="font-serif-ko text-sm text-txt-secondary italic leading-relaxed line-clamp-3">
+                      {record.memo
+                        ? `\u201C${record.memo}\u201D`
+                        : record.title}
+                    </p>
+                    <div>
+                      <p className="text-xs font-semibold text-txt-primary truncate">{record.title}</p>
+                      <p className="text-[10px] text-txt-tertiary mt-0.5">
+                        {formatDate(record.date, "dot")}
+                      </p>
+                    </div>
+                  </Link>
+                )
               ))}
             </div>
           ) : (
