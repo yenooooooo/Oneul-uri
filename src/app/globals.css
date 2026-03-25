@@ -13,70 +13,74 @@
 
 @layer base {
   :root {
-    /* 배경 — 웜 크림 */
-    --background: #FFF8F0;
-    --foreground: #2D2D2D;
+    /* ===== Editorial Keepsake 디자인 시스템 ===== */
 
-    /* 카드 */
-    --card: #FFFFFF;
-    --card-foreground: #2D2D2D;
+    /* 배경 — 내추럴 라이트 */
+    --background: #fff8f1;
+    --foreground: #1e1b17;
+
+    /* 카드 — Tonal Layering (그림자 대신 배경색 차이) */
+    --card: #ffffff;
+    --card-foreground: #1e1b17;
 
     /* 팝오버 */
-    --popover: #FFFFFF;
-    --popover-foreground: #2D2D2D;
+    --popover: #ffffff;
+    --popover-foreground: #1e1b17;
 
-    /* 메인 — 코랄 핑크 */
-    --primary: #FF6B6B;
-    --primary-foreground: #FFFFFF;
+    /* 메인 — 딥 코랄 (감정의 순간에만 사용) */
+    --primary: #ae2f34;
+    --primary-foreground: #ffffff;
 
-    /* 세컨더리 */
-    --secondary: #FFF0E8;
-    --secondary-foreground: #FF6B6B;
+    /* 세컨더리 — 따뜻한 뉴트럴 */
+    --secondary: #f9f3eb;
+    --secondary-foreground: #584140;
 
     /* 뮤트 */
-    --muted: #FFF0E8;
-    --muted-foreground: #6B6B6B;
+    --muted: #f9f3eb;
+    --muted-foreground: #584140;
 
     /* 액센트 */
-    --accent: #FFF0E8;
-    --accent-foreground: #2D2D2D;
+    --accent: #f9f3eb;
+    --accent-foreground: #1e1b17;
 
     /* 파괴적 액션 */
-    --destructive: #F44336;
+    --destructive: #ae2f34;
 
-    /* 보더, 인풋, 링 */
-    --border: #FFD4D4;
-    --input: #FFD4D4;
-    --ring: #FF6B6B;
+    /* 보더 — Ghost Border (느껴지지만 보이지 않는) */
+    --border: #e0bfbd33;
+    --input: #e8e1da;
+    --ring: #ae2f34;
 
-    /* 라디우스 — 둥글둥글한 느낌 */
-    --radius: 1rem;
+    /* 라디우스 */
+    --radius: 1.5rem;
 
     /* ===== 오늘우리 커스텀 컬러 ===== */
-    --coral-50: #FFF0F0;
-    --coral-100: #FFD4D4;
-    --coral-200: #FFB0B0;
-    --coral-300: #FF8A8A;
-    --coral-400: #FF6B6B;
-    --coral-500: #E85555;
-    --coral-600: #CC4444;
+    --coral-50: #fff5f5;
+    --coral-100: #fce8e8;
+    --coral-200: #f5c4c4;
+    --coral-300: #e88a8a;
+    --coral-400: #d35555;
+    --coral-500: #ae2f34;
+    --coral-600: #8a1f23;
 
     --blue-soft: #7EB8E0;
     --pink-soft: #F5A0B8;
     --yellow-warm: #FFD66B;
     --green-soft: #7EC8A0;
 
-    --text-primary: #2D2D2D;
-    --text-secondary: #6B6B6B;
-    --text-tertiary: #9B9B9B;
+    /* 서피스 계층 (Tonal Layering) */
+    --surface: #fff8f1;
+    --surface-low: #f9f3eb;
+    --surface-high: #eee7df;
+    --surface-highest: #e8e1da;
+
+    --text-primary: #1e1b17;
+    --text-secondary: #584140;
+    --text-tertiary: #8a7f7e;
 
     --success: #4CAF50;
     --warning: #FF9800;
-    --error: #F44336;
-
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --error: #ae2f34;
   }
 
   * {

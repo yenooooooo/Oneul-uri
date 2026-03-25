@@ -53,21 +53,27 @@ const config: Config = {
           600: "#CC4444",
         },
         cream: {
-          DEFAULT: "#FFF8F0",
-          dark: "#FFF0E8",
+          DEFAULT: "#fff8f1",
+          dark: "#f9f3eb",
+        },
+        surface: {
+          DEFAULT: "#fff8f1",
+          low: "#f9f3eb",
+          high: "#eee7df",
+          highest: "#e8e1da",
         },
         "blue-soft": "#7EB8E0",
         "pink-soft": "#F5A0B8",
         "yellow-warm": "#FFD66B",
         "green-soft": "#7EC8A0",
         /* 텍스트 컬러 */
-        "txt-primary": "#2D2D2D",
-        "txt-secondary": "#6B6B6B",
-        "txt-tertiary": "#9B9B9B",
+        "txt-primary": "#1e1b17",
+        "txt-secondary": "#584140",
+        "txt-tertiary": "#8a7f7e",
         /* 기능 컬러 */
         success: "#4CAF50",
         warning: "#FF9800",
-        error: "#F44336",
+        error: "#ae2f34",
       },
       /* 폰트 */
       fontFamily: {
@@ -83,11 +89,11 @@ const config: Config = {
         "3xl": "1.5rem",
         "4xl": "2rem",
       },
-      /* 그림자 */
+      /* 그림자 — Tonal (코랄 틴트, 최소한만 사용) */
       boxShadow: {
-        soft: "0 1px 3px rgba(0, 0, 0, 0.06)",
-        card: "0 4px 12px rgba(0, 0, 0, 0.08)",
-        float: "0 8px 24px rgba(0, 0, 0, 0.1)",
+        soft: "0 2px 8px rgba(30, 27, 23, 0.04)",
+        card: "0 4px 16px rgba(30, 27, 23, 0.05)",
+        float: "0 8px 24px rgba(174, 47, 52, 0.08)",
       },
       /* 애니메이션 */
       keyframes: {
