@@ -25,14 +25,14 @@ const STATIONERY_COLORS: Record<string, string> = {
  */
 export default function StationeryPicker({ value, onChange }: StationeryPickerProps) {
   return (
-    <div className="flex gap-4 overflow-x-auto scrollbar-hide py-3 px-1">
+    <div className="flex gap-5 overflow-x-auto scrollbar-hide py-3 px-3">
       {STATIONERY_OPTIONS.map((option) => (
         <button
           key={option.value}
           type="button"
           onClick={() => onChange(option.value as StationeryType)}
           className={cn(
-            "flex flex-col items-center gap-1 flex-shrink-0"
+            "flex flex-col items-center gap-2.5 flex-shrink-0"
           )}
         >
           {/* 편지지 미리보기 원 */}
