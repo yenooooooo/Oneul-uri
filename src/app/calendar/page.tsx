@@ -90,7 +90,7 @@ export default function CalendarPage() {
           <CalendarSkeleton />
         ) : (
           <>
-            <div className="bg-white rounded-3xl p-4 shadow-soft">
+            <div className="bg-surface-low rounded-3xl p-5">
               <MonthCalendar
                 year={year} month={month}
                 selectedDate={selectedDate}
@@ -106,7 +106,7 @@ export default function CalendarPage() {
 
             {/* 플래너 영역 */}
             {selectedDate && (
-              <div className="bg-white rounded-2xl p-4 shadow-soft">
+              <div className="bg-surface-low rounded-2xl p-5">
                 {selectedPlan ? (
                   <Link href={`/calendar/plan/${selectedPlan.id}`}
                     className="flex items-center gap-3 active:scale-[0.98] transition-transform">
@@ -146,7 +146,7 @@ export default function CalendarPage() {
 
             {/* 일정 목록 — 수정/삭제 + 작성자 구분 */}
             {selectedDate && (
-              <div className="bg-white rounded-3xl p-4 shadow-soft">
+              <div className="bg-surface-low rounded-3xl p-5">
                 <DayEventList
                   date={selectedDate}
                   events={selectedEvents}
