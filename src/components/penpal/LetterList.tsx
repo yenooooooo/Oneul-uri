@@ -83,22 +83,44 @@ export default function LetterList({
         </section>
       )}
 
-      {/* 읽은 편지 — 월별 그룹 + 작은 카드 */}
+      {/* 읽은 편지 — 월별 그룹 + 미니 편지지 카드 */}
       {groups.map((group) => (
-        <section key={group.key} className="space-y-3">
+        <section key={group.key} className="space-y-4">
           <h3 className="font-serif-ko text-2xl font-black text-txt-primary/30">
             {group.label}
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {group.letters.map((letter) => (
               <button key={letter.id} onClick={() => onLetterClick(letter)}
-                className="w-full flex items-center gap-3 bg-surface-low rounded-xl px-4 py-3 text-left active:scale-[0.98] transition-transform">
-                <p className="font-serif-ko text-sm text-txt-secondary italic flex-1 truncate">
+                className="w-full bg-surface-low rounded-2xl p-5 text-left active:scale-[0.98] transition-transform">
+                {/* 상단: 아이콘 + 날짜 */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm">
+                    {isReceived ? "💌" : "📮"} · {formatDate(letter.created_at.split("T")[0], "short")}
+                  </span>
+                  <span className="text-[10px] text-txt-tertiary">
+                    {new Date(letter.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                </div>
+
+                {/* 인용구 — 2~3줄 */}
+                <p className="font-serif-ko text-sm text-txt-secondary italic leading-relaxed line-clamp-3 mb-3">
                   &ldquo;{letter.content}&rdquo;
                 </p>
-                <span className="text-[10px] text-txt-tertiary flex-shrink-0">
-                  {formatDate(letter.created_at.split("T")[0], "short")}
-                </span>
+
+                {/* 하단: 방향 + 읽음 */}
+                <div className="flex items-center justify-between text-[10px] text-txt-tertiary">
+                  <span>
+                    {isReceived
+                      ? `${senderName} → 나`
+                      : `나 → ${senderName}`}
+                  </span>
+                  {!isReceived && (
+                    <span className={letter.is_read ? "text-blue-soft" : ""}>
+                      {letter.is_read ? "✓ 읽음" : "전송됨"}
+                    </span>
+                  )}
+                </div>
               </button>
             ))}
           </div>
