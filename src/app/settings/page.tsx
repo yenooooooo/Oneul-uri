@@ -14,8 +14,7 @@ import { toast } from "sonner";
 import NotificationToggle from "@/components/common/NotificationToggle";
 
 /**
- * 설정 페이지 — /settings
- * 생일 입력, 초대 코드 확인, 로그아웃
+ * 설정 페이지 — Editorial Keepsake 스타일
  */
 export default function SettingsPage() {
   const router = useRouter();
@@ -26,39 +25,32 @@ export default function SettingsPage() {
   } = useCouple();
   const { upsertBirthday } = useAnniversary();
 
-  const [birthday, setBirthday] = useState(""); // 생일 입력값
-  const [emoji, setEmoji] = useState(""); // 이모지 입력값
-  const [status, setStatus] = useState(""); // 상태 메시지 입력값
-  const [saving, setSaving] = useState(false); // 저장 중
-  const [savingProfile, setSavingProfile] = useState(false); // 프로필 저장 중
-  const [copied, setCopied] = useState(false); // 초대 코드 복사 상태
+  const [birthday, setBirthday] = useState("");
+  const [emoji, setEmoji] = useState("");
+  const [status, setStatus] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  // 비동기 로드 후 입력값 반영
   useEffect(() => {
     if (myBirthday) setBirthday(myBirthday);
     if (myEmoji) setEmoji(myEmoji);
     if (myStatus) setStatus(myStatus);
   }, [myBirthday, myEmoji, myStatus]);
 
-  /** 생일 저장 — couples 테이블 + anniversaries 테이블 동시 업데이트 */
   const handleSaveBirthday = async () => {
     if (!birthday || !myNickname) return;
     setSaving(true);
-
-    // 1. couples 테이블에 생일 저장
     const success = await updateBirthday(birthday);
     if (success) {
-      // 2. anniversaries 테이블에 생일 기념일 등록/수정
       await upsertBirthday(myNickname, birthday);
       toast.success("생일이 저장되었어요!");
     } else {
       toast.error("생일 저장에 실패했어요.");
     }
-
     setSaving(false);
   };
 
-  /** 초대 코드 복사 */
   const handleCopy = async () => {
     if (!inviteCode) return;
     await navigator.clipboard.writeText(inviteCode);
@@ -67,7 +59,6 @@ export default function SettingsPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  /** 로그아웃 */
   const handleLogout = async () => {
     await signOut();
     router.push("/auth/login");
@@ -76,31 +67,31 @@ export default function SettingsPage() {
 
   return (
     <AppLayout>
-      <div className="px-4 pt-4 pb-6 space-y-6">
-        {/* 상단 바 */}
-        <div className="flex items-center gap-3">
-          <button onClick={() => router.back()} className="p-1">
+      <div className="px-6 pt-6 pb-8 space-y-8 animate-page-in">
+        {/* 상단 */}
+        <div>
+          <button onClick={() => router.back()} className="p-1 mb-2">
             <ArrowLeft className="w-5 h-5 text-txt-primary" />
           </button>
-          <h1 className="text-lg font-bold text-txt-primary">설정</h1>
+          <h1 className="font-serif-ko text-3xl font-black text-txt-primary">설정</h1>
         </div>
 
-        {/* 프로필 — 이모지 + 상태 메시지 */}
-        <section className="bg-surface-low rounded-2xl space-y-4">
-          <h2 className="font-semibold text-txt-primary">내 프로필</h2>
+        {/* 프로필 */}
+        <section className="bg-surface-low rounded-3xl p-6 space-y-4">
+          <h2 className="text-sm font-bold text-txt-tertiary">내 프로필</h2>
           <div className="flex gap-3">
             <div className="space-y-1.5 w-20">
               <Label htmlFor="emoji">이모지</Label>
               <Input id="emoji" value={emoji} maxLength={2}
                 onChange={(e) => setEmoji(e.target.value)}
-                className="rounded-xl text-center text-2xl" />
+                className="rounded-xl text-center text-2xl bg-white" />
             </div>
             <div className="space-y-1.5 flex-1">
               <Label htmlFor="status">오늘의 한마디</Label>
               <Input id="status" placeholder="상태 메시지를 입력해보세요"
                 value={status} maxLength={30}
                 onChange={(e) => setStatus(e.target.value)}
-                className="rounded-xl" />
+                className="rounded-xl bg-white" />
             </div>
           </div>
           <Button
@@ -112,49 +103,38 @@ export default function SettingsPage() {
               setSavingProfile(false);
             }}
             disabled={savingProfile}
-            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
-          >
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
             {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : "프로필 저장"}
           </Button>
         </section>
 
-        {/* 생일 입력 */}
-        <section className="bg-surface-low rounded-2xl space-y-4">
+        {/* 생일 */}
+        <section className="bg-surface-low rounded-3xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Cake className="w-5 h-5 text-coral-400" />
-              <h2 className="font-semibold text-txt-primary">내 생일</h2>
-            </div>
-            {/* 저장된 생일 표시 */}
+            <h2 className="text-sm font-bold text-txt-tertiary flex items-center gap-2">
+              <Cake className="w-4 h-4 text-coral-500" />
+              내 생일
+            </h2>
             {myBirthday && (
-              <span className="text-xs bg-coral-50 text-coral-400 px-2.5 py-1 rounded-full font-medium">
+              <span className="text-xs bg-coral-50 text-coral-500 px-2.5 py-1 rounded-full font-bold">
                 🎂 {new Date(myBirthday).getMonth() + 1}월 {new Date(myBirthday).getDate()}일
               </span>
             )}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="birthday">생일 날짜</Label>
-            <Input
-              id="birthday"
-              type="date"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              className="rounded-xl"
-            />
-          </div>
-          <Button
-            onClick={handleSaveBirthday}
+          <Input id="birthday" type="date" value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
+            className="rounded-xl bg-white" />
+          <Button onClick={handleSaveBirthday}
             disabled={saving || !birthday || birthday === myBirthday}
-            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white"
-          >
+            className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : myBirthday ? "수정" : "저장"}
           </Button>
         </section>
 
-        {/* 알림 설정 */}
-        <section className="bg-surface-low rounded-2xl space-y-3">
+        {/* 알림 */}
+        <section className="bg-surface-low rounded-3xl p-6 space-y-4">
+          <h2 className="text-sm font-bold text-txt-tertiary">알림</h2>
           <NotificationToggle />
-          {/* 테스트 알림 버튼 — user1(관리자)만 표시 */}
           {myRole === "user1" && (
             <button
               onClick={async () => {
@@ -170,8 +150,7 @@ export default function SettingsPage() {
                   toast.error("테스트 알림 발송에 실패했어요.");
                 }
               }}
-              className="w-full py-2.5 text-sm text-coral-400 border border-coral-200 rounded-full"
-            >
+              className="w-full py-2.5 text-sm text-coral-500 border border-coral-200 rounded-full">
               테스트 알림 보내기
             </button>
           )}
@@ -179,34 +158,28 @@ export default function SettingsPage() {
 
         {/* 초대 코드 */}
         {inviteCode && (
-          <section className="bg-surface-low rounded-2xl space-y-3">
-            <h2 className="font-semibold text-txt-primary">초대 코드</h2>
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 bg-cream-dark rounded-xl px-4 py-2.5 w-full"
-            >
-              <span className="text-lg font-bold tracking-widest text-coral-400 flex-1 text-left">
+          <section className="bg-surface-low rounded-3xl p-6 space-y-3">
+            <h2 className="text-sm font-bold text-txt-tertiary">초대 코드</h2>
+            <button onClick={handleCopy}
+              className="flex items-center gap-3 bg-white rounded-2xl px-5 py-4 w-full active:scale-[0.98] transition-transform">
+              <span className="text-2xl font-bold tracking-widest text-coral-500 font-serif-ko flex-1 text-left">
                 {inviteCode}
               </span>
               {copied ? (
-                <Check className="w-4 h-4 text-green-soft" />
+                <Check className="w-5 h-5 text-green-soft" />
               ) : (
-                <Copy className="w-4 h-4 text-coral-300" />
+                <Copy className="w-5 h-5 text-coral-300" />
               )}
             </button>
             <p className="text-xs text-txt-tertiary">
-              {isPartnerConnected
-                ? "상대방이 연결되어 있어요"
-                : "상대방에게 이 코드를 공유해주세요"}
+              {isPartnerConnected ? "상대방이 연결되어 있어요 ✓" : "상대방에게 이 코드를 공유해주세요"}
             </p>
           </section>
         )}
 
         {/* 로그아웃 */}
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-2 text-sm text-txt-secondary w-full justify-center py-3"
-        >
+        <button onClick={handleLogout}
+          className="flex items-center gap-2 text-sm text-txt-tertiary w-full justify-center py-4 rounded-2xl bg-surface-low active:bg-surface-high transition-colors">
           <LogOut className="w-4 h-4" />
           로그아웃
         </button>
