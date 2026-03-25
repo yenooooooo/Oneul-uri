@@ -67,13 +67,15 @@ export default function AnniversaryCard({
   }
 
   return (
-    <div className="bg-surface-low rounded-2xl p-4 flex items-center justify-between">
+    <div className={`rounded-2xl p-4 flex items-center justify-between ${
+      isNear ? "bg-coral-50" : "bg-surface-low"
+    }`}>
       <div className="flex items-center gap-3">
         {/* 아이콘 */}
         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-          isNear ? "bg-coral-100" : "bg-cream-dark"
+          isNear ? "bg-coral-100" : "bg-surface-high"
         }`}>
-          <IconComponent className={`w-5 h-5 ${isNear ? "text-coral-400" : "text-txt-tertiary"}`} />
+          <IconComponent className={`w-5 h-5 ${isNear ? "text-coral-500" : "text-txt-tertiary"}`} />
         </div>
 
         {/* 기념일 정보 */}

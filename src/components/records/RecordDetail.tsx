@@ -105,11 +105,11 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
           )}
         </div>
 
-        {/* 메모 */}
+        {/* 메모 — 따뜻한 인용구 스타일 */}
         {record.memo && (
-          <div className="bg-surface-low rounded-2xl p-4">
-            <p className="text-txt-primary whitespace-pre-wrap leading-relaxed">
-              {record.memo}
+          <div className="bg-coral-50/50 rounded-2xl p-5 border-l-[3px] border-coral-200">
+            <p className="font-serif-ko text-txt-primary whitespace-pre-wrap leading-relaxed italic">
+              &ldquo;{record.memo}&rdquo;
             </p>
           </div>
         )}

@@ -44,10 +44,10 @@ export default function AirplaneTracker({ goal }: AirplaneTrackerProps) {
       {/* 프로그레스 바 트랙 */}
       <div className="relative mx-7">
         {/* 배경 트랙 */}
-        <div className="h-2 bg-cream-dark rounded-full overflow-hidden">
+        <div className="h-2.5 bg-surface-high rounded-full overflow-hidden">
           {/* 채워진 바 */}
           <div
-            className="h-full bg-gradient-to-r from-coral-300 to-coral-400 rounded-full transition-all duration-1000 ease-out"
+            className="h-full bg-gradient-to-r from-coral-300 to-coral-500 rounded-full transition-all duration-1000 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>

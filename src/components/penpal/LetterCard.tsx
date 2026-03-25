@@ -31,7 +31,7 @@ export default function LetterCard({
       className={cn(
         "w-full rounded-2xl p-4 flex items-center gap-3 text-left active:scale-[0.98] transition-all",
         isUnread
-          ? "bg-white border border-coral-200/30"
+          ? "bg-coral-50 border border-coral-200/40"
           : "bg-surface-low"
       )}
     >

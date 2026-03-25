@@ -190,18 +190,18 @@ export default function HomePage() {
         </section>
 
         {/* 통장 요약 + 룰렛 바로가기 */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {/* 데이트 통장 요약 */}
-          <Link href="/wallet" className="bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
+          <Link href="/wallet" className="bg-surface-low rounded-2xl p-5 active:scale-[0.97] transition-transform">
             <p className="text-xs text-txt-tertiary mb-1">데이트 통장</p>
             {activeGoal ? (
               <>
                 <p className="text-sm font-semibold text-txt-primary truncate">
                   {activeGoal.title}
                 </p>
-                <div className="w-full h-2 bg-cream-dark rounded-full mt-2 overflow-hidden">
+                <div className="w-full h-2 bg-surface-high rounded-full mt-2 overflow-hidden">
                   <div
-                    className="h-full bg-coral-400 rounded-full"
+                    className="h-full bg-coral-500 rounded-full"
                     style={{
                       width: `${Math.min(Math.round((activeGoal.current_amount / activeGoal.target_amount) * 100), 100)}%`,
                     }}
