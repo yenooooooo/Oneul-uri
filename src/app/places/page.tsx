@@ -52,7 +52,7 @@ export default function PlacesPage() {
 
         {/* 새 장소 추가 폼 */}
         {showAdd && (
-          <div className="bg-white rounded-2xl p-4 shadow-soft space-y-3">
+          <div className="bg-surface-low rounded-2xl space-y-3">
             <Input placeholder="장소 이름" value={newName}
               onChange={(e) => setNewName(e.target.value)} className="rounded-xl" />
             <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
@@ -91,7 +91,7 @@ export default function PlacesPage() {
             {places.map((place) => {
               const cat = PLACE_CATEGORIES[place.category] ?? PLACE_CATEGORIES.etc;
               return (
-                <div key={place.id} className="bg-white rounded-2xl p-4 shadow-soft flex items-center gap-3">
+                <div key={place.id} className="bg-surface-low rounded-2xl flex items-center gap-3">
                   <span className="text-2xl">{cat.emoji}</span>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-txt-primary">{place.name}</p>

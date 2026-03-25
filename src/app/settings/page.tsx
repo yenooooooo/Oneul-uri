@@ -86,7 +86,7 @@ export default function SettingsPage() {
         </div>
 
         {/* 프로필 — 이모지 + 상태 메시지 */}
-        <section className="bg-white rounded-2xl p-5 shadow-soft space-y-4">
+        <section className="bg-surface-low rounded-2xl space-y-4">
           <h2 className="font-semibold text-txt-primary">내 프로필</h2>
           <div className="flex gap-3">
             <div className="space-y-1.5 w-20">
@@ -119,7 +119,7 @@ export default function SettingsPage() {
         </section>
 
         {/* 생일 입력 */}
-        <section className="bg-white rounded-2xl p-5 shadow-soft space-y-4">
+        <section className="bg-surface-low rounded-2xl space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Cake className="w-5 h-5 text-coral-400" />
@@ -152,7 +152,7 @@ export default function SettingsPage() {
         </section>
 
         {/* 알림 설정 */}
-        <section className="bg-white rounded-2xl p-5 shadow-soft space-y-3">
+        <section className="bg-surface-low rounded-2xl space-y-3">
           <NotificationToggle />
           {/* 테스트 알림 버튼 — user1(관리자)만 표시 */}
           {myRole === "user1" && (
@@ -179,7 +179,7 @@ export default function SettingsPage() {
 
         {/* 초대 코드 */}
         {inviteCode && (
-          <section className="bg-white rounded-2xl p-5 shadow-soft space-y-3">
+          <section className="bg-surface-low rounded-2xl space-y-3">
             <h2 className="font-semibold text-txt-primary">초대 코드</h2>
             <button
               onClick={handleCopy}

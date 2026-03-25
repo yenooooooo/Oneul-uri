@@ -22,7 +22,7 @@ export default function RecordCard({ record }: RecordCardProps) {
 
   return (
     <Link href={`/records/${record.id}`}>
-      <article className="bg-white rounded-3xl overflow-hidden active:scale-[0.98] transition-transform">
+      <article className="bg-surface-low rounded-3xl overflow-hidden active:scale-[0.98] transition-transform">
         {/* 큰 썸네일 — 4:3 비율 */}
         {thumbnail && (
           <div className="aspect-[4/3] overflow-hidden relative">

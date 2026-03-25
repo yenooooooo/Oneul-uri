@@ -109,7 +109,7 @@ export default function RoulettePage() {
 
             {/* 항목 목록 + 추가/삭제 */}
             {showItems && (
-              <div className="bg-white rounded-2xl p-4 shadow-soft space-y-3">
+              <div className="bg-surface-low rounded-2xl space-y-3">
                 {/* 새 항목 추가 */}
                 <div className="flex gap-2">
                   <Input
@@ -149,7 +149,7 @@ export default function RoulettePage() {
 
             {/* 히스토리 */}
             {history.length > 0 && (
-              <section className="bg-white rounded-3xl p-5 shadow-soft">
+              <section className="bg-surface-low rounded-3xl">
                 <h2 className="text-base font-semibold text-txt-primary mb-3 flex items-center gap-1">
                   <Clock className="w-4 h-4 text-coral-400" />
                   최근 결과

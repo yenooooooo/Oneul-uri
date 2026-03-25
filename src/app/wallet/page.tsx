@@ -51,7 +51,7 @@ export default function WalletPage() {
         ) : activeGoal ? (
           <>
             {/* 목표명 + 금액 */}
-            <div className="bg-white rounded-3xl p-5 shadow-soft">
+            <div className="bg-surface-low rounded-3xl">
               <div className="flex items-center justify-between mb-1">
                 <h2 className="text-base font-semibold text-txt-primary">
                   {activeGoal.title}
@@ -91,7 +91,7 @@ export default function WalletPage() {
             </button>
 
             {/* 입출금 내역 */}
-            <section className="bg-white rounded-3xl p-5 shadow-soft">
+            <section className="bg-surface-low rounded-3xl">
               <h2 className="text-base font-semibold text-txt-primary mb-3">
                 입출금 내역
               </h2>
@@ -111,7 +111,7 @@ export default function WalletPage() {
                 </h2>
                 <div className="space-y-3 opacity-80">
                   {achievedGoals.map((g) => (
-                    <div key={g.id} className="bg-white rounded-2xl p-4 shadow-soft">
+                    <div key={g.id} className="bg-surface-low rounded-2xl">
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-txt-primary">{g.title}</span>
                         <span className="text-xs bg-green-soft/20 text-green-soft px-2 py-0.5 rounded-full">

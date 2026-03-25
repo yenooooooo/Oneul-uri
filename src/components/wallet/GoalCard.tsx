@@ -19,7 +19,7 @@ export default function GoalCard({ goal }: GoalCardProps) {
   );
 
   return (
-    <div className="bg-white rounded-3xl p-5 shadow-soft">
+    <div className="bg-surface-low rounded-3xl p-5 shadow-soft">
       {/* 목표 제목 + 달성 뱃지 */}
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-txt-primary">{goal.title}</h3>

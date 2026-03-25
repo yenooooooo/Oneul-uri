@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#f4ede5",
+              "primary-container": "#ff6b6b",
+              "outline": "#8c706f",
+              "primary-fixed-dim": "#ffb3b0",
+              "tertiary-fixed-dim": "#52dea2",
+              "secondary-fixed-dim": "#c7c6c6",
+              "on-error-container": "#93000a",
+              "primary": "#ae2f34",
+              "primary-fixed": "#ffdad8",
+              "surface-variant": "#e8e1da",
+              "on-tertiary-fixed": "#002113",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#e4e2e2",
+              "on-secondary": "#ffffff",
+              "surface-tint": "#ae2f34",
+              "on-tertiary-fixed-variant": "#005236",
+              "inverse-primary": "#ffb3b0",
+              "tertiary": "#006c48",
+              "outline-variant": "#e0bfbd",
+              "on-primary-fixed-variant": "#8c1520",
+              "surface-container-high": "#eee7df",
+              "background": "#fff8f1",
+              "surface-container-low": "#f9f3eb",
+              "on-surface": "#1e1b17",
+              "surface-bright": "#fff8f1",
+              "secondary-container": "#e1dfdf",
+              "on-primary-fixed": "#410006",
+              "secondary": "#5e5e5e",
+              "on-secondary-fixed-variant": "#464747",
+              "inverse-surface": "#33302b",
+              "on-background": "#1e1b17",
+              "on-tertiary-container": "#003b26",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#72fbbc",
+              "surface": "#fff8f1",
+              "on-secondary-container": "#626262",
+              "on-surface-variant": "#584140",
+              "error": "#ba1a1a",
+              "on-primary": "#ffffff",
+              "surface-dim": "#dfd9d1",
+              "on-tertiary": "#ffffff",
+              "surface-container-highest": "#e8e1da",
+              "on-primary-container": "#6d0010",
+              "tertiary-container": "#00b179",
+              "on-secondary-fixed": "#1b1c1c",
+              "inverse-on-surface": "#f7f0e8",
+              "error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif KR"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #fff8f1;
+        -webkit-font-smoothing: antialiased;
+      }
+      .serif {
+        font-family: 'Noto Serif KR', serif;
+      }
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-6 h-16 bg-[#ffffff]/70 backdrop-blur-xl z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-80 transition-opacity" data-icon="menu">menu</span>
+<h1 class="font-['Noto_Serif_KR'] font-bold text-[#ff6b6b] text-2xl tracking-tight">오늘우리</h1>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[#ff6b6b] cursor-pointer hover:opacity-80 transition-opacity" data-icon="favorite">favorite</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<!-- Month Header -->
+<section class="flex items-end justify-between mb-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-sm font-medium tracking-widest mb-1">MARCH 2026</span>
+<h2 class="serif text-4xl font-bold text-on-surface">3월의 기록</h2>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Calendar Grid -->
+<section class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_24px_rgba(30,27,23,0.04)] mb-10">
+<div class="calendar-grid text-center mb-4">
+<span class="text-xs font-bold text-primary/60 py-2">SUN</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">MON</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">TUE</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">WED</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">THU</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">FRI</span>
+<span class="text-xs font-bold text-on-surface-variant/60 py-2">SAT</span>
+</div>
+<div class="calendar-grid gap-y-4">
+<!-- Days from prev month -->
+<span class="text-on-surface-variant/20 py-3">22</span>
+<span class="text-on-surface-variant/20 py-3">23</span>
+<span class="text-on-surface-variant/20 py-3">24</span>
+<span class="text-on-surface-variant/20 py-3">25</span>
+<span class="text-on-surface-variant/20 py-3">26</span>
+<span class="text-on-surface-variant/20 py-3">27</span>
+<span class="text-on-surface-variant/20 py-3">28</span>
+<!-- March -->
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-primary font-medium">1</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">2</span>
+<div class="flex gap-0.5 mt-1"><div class="w-1 h-1 rounded-full bg-primary-container"></div></div>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">3</span>
+<span class="text-[10px] absolute -top-1">📋</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">4</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">5</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">6</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">7</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-primary font-medium">8</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">9</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">10</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-9 h-9 rounded-full bg-primary-container opacity-20"></div>
+</div>
+<span class="text-primary font-bold relative z-10">11</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">12</span>
+<div class="flex gap-0.5 mt-1"><div class="w-1 h-1 rounded-full bg-blue-400"></div><div class="w-1 h-1 rounded-full bg-pink-400"></div></div>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">13</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">14</span>
+<span class="text-[10px] absolute -top-1">💝</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-primary font-medium">15</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">16</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">17</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">18</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">19</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">20</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">21</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-primary font-medium">22</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">23</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">24</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">25</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">26</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">27</span>
+</div>
+<div class="relative py-3 flex flex-col items-center">
+<span class="text-on-surface font-medium">28</span>
+</div>
+</div>
+</section>
+<!-- Upcoming Anniversaries Section -->
+<section class="mb-10">
+<h3 class="serif text-xl font-bold text-on-surface mb-5 px-1">다가오는 기념일</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Anniversary Card 1 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl">🎂</div>
+<div>
+<p class="font-bold text-on-surface">서연 생일</p>
+<p class="text-xs text-on-surface-variant">2026. 03. 14</p>
+</div>
+</div>
+<span class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container text-sm font-bold">D-3</span>
+</div>
+<!-- Anniversary Card 2 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl">🥂</div>
+<div>
+<p class="font-bold text-on-surface">만난지 500일</p>
+<p class="text-xs text-on-surface-variant">2026. 03. 28</p>
+</div>
+</div>
+<span class="px-4 py-1.5 rounded-full bg-surface-container-highest text-on-surface text-sm font-bold">D-17</span>
+</div>
+</div>
+</section>
+<!-- Today's Events Section -->
+<section class="mb-20">
+<div class="flex items-center justify-between mb-5 px-1">
+<h3 class="serif text-xl font-bold text-on-surface">오늘의 일정</h3>
+<span class="text-sm font-medium text-on-surface-variant">3월 11일 수요일</span>
+</div>
+<div class="space-y-4">
+<!-- Event 1 (Partner) -->
+<div class="relative pl-4 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-pink-400 rounded-full"></div>
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-0 shadow-sm flex items-center justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-bold text-pink-500 uppercase tracking-wider">서연</span>
+<span class="text-xs text-on-surface-variant">오후 7:30</span>
+</div>
+<p class="text-on-surface font-semibold">저녁 외식 (민준 생일 전야제)</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Event 2 (Me) -->
+<div class="relative pl-4 overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-400 rounded-full"></div>
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-0 shadow-sm flex items-center justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-bold text-blue-500 uppercase tracking-wider">민준</span>
+<span class="text-xs text-on-surface-variant">오후 9:00</span>
+</div>
+<p class="text-on-surface font-semibold">영화 예매 (듄: 파트 3)</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-32 right-6 w-14 h-14 bg-[#ff6b6b] text-white rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center h-20 px-4 bg-[#ffffff]/70 backdrop-blur-3xl mx-5 rounded-[2rem] overflow-hidden shadow-[0_8px_24px_rgba(30,27,23,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#584140] opacity-60 hover:bg-[#f9f3eb]/50 p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium tracking-wide">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#584140] opacity-60 hover:bg-[#f9f3eb]/50 p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="auto_stories">auto_stories</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium tracking-wide">기록</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#ff6b6b] font-bold scale-110 p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium tracking-wide">달력</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#584140] opacity-60 hover:bg-[#f9f3eb]/50 p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium tracking-wide">편지</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#584140] opacity-60 hover:bg-[#f9f3eb]/50 p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[11px] font-medium tracking-wide">지갑</span>
+</a>
+</nav>
+</body></html>

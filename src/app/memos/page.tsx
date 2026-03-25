@@ -60,7 +60,7 @@ export default function MemosPage() {
 
         {/* 새 메모 추가 폼 */}
         {showAdd && (
-          <div className="bg-white rounded-2xl p-4 shadow-soft space-y-3">
+          <div className="bg-surface-low rounded-2xl space-y-3">
             <Input placeholder="메모 제목" value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleCreate()}

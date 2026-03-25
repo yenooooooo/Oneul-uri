@@ -41,7 +41,7 @@ export default function StatsPage() {
         ) : (
           <>
             {/* 요약 카드 */}
-            <div className="bg-white rounded-2xl p-5 shadow-soft text-center">
+            <div className="bg-surface-low rounded-2xl text-center">
               <Heart className="w-6 h-6 text-coral-400 fill-coral-400 mx-auto mb-2" />
               <p className="text-3xl font-bold text-coral-400">{totalCount}</p>
               <p className="text-sm text-txt-secondary">번의 데이트를 기록했어요</p>
@@ -51,7 +51,7 @@ export default function StatsPage() {
             </div>
 
             {/* 월별 데이트 횟수 바 차트 */}
-            <section className="bg-white rounded-2xl p-5 shadow-soft">
+            <section className="bg-surface-low rounded-2xl">
               <div className="flex items-center gap-2 mb-4">
                 <BarChart3 className="w-5 h-5 text-coral-400" />
                 <h2 className="font-semibold text-txt-primary">월별 데이트</h2>
@@ -81,7 +81,7 @@ export default function StatsPage() {
 
             {/* 자주 가는 장소 TOP 5 */}
             {topPlaces.length > 0 && (
-              <section className="bg-white rounded-2xl p-5 shadow-soft">
+              <section className="bg-surface-low rounded-2xl">
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-5 h-5 text-coral-400" />
                   <h2 className="font-semibold text-txt-primary">자주 가는 곳 TOP {topPlaces.length}</h2>
@@ -106,7 +106,7 @@ export default function StatsPage() {
 
             {/* 감정 분석 */}
             {moods.length > 0 && (
-              <section className="bg-white rounded-2xl p-5 shadow-soft">
+              <section className="bg-surface-low rounded-2xl">
                 <h2 className="font-semibold text-txt-primary mb-3">데이트 감정</h2>
                 <div className="space-y-2">
                   {moods.map((m) => (

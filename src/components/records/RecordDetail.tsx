@@ -107,7 +107,7 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
 
         {/* 메모 */}
         {record.memo && (
-          <div className="bg-white rounded-2xl p-4 shadow-soft">
+          <div className="bg-surface-low rounded-2xl p-4">
             <p className="text-txt-primary whitespace-pre-wrap leading-relaxed">
               {record.memo}
             </p>
@@ -115,7 +115,7 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
         )}
 
         {/* 댓글 섹션 */}
-        <div className="bg-white rounded-2xl p-4 shadow-soft">
+        <div className="bg-surface-low rounded-2xl p-4">
           <CommentSection recordId={record.id} />
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
       {/* 삭제 확인 모달 */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-6">
-          <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
+          <div className="bg-surface-low rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
             <p className="font-semibold text-txt-primary">
               이 기록을 삭제할까요?
             </p>

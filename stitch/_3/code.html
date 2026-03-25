@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#afceba",
+              "error-container": "#ffdad6",
+              "on-primary-container": "#fffbff",
+              "tertiary": "#466252",
+              "outline": "#827474",
+              "outline-variant": "#d4c2c2",
+              "on-primary-fixed": "#2f1316",
+              "inverse-primary": "#ecbabc",
+              "tertiary-container": "#5e7b6a",
+              "surface-bright": "#fcf9f5",
+              "on-secondary-fixed": "#0c1d2b",
+              "surface": "#fcf9f5",
+              "tertiary-fixed": "#cbead5",
+              "on-error": "#ffffff",
+              "on-tertiary-container": "#f6fff6",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "surface-container-high": "#ebe8e4",
+              "surface-dim": "#dcdad6",
+              "on-secondary-fixed-variant": "#394858",
+              "secondary-fixed": "#d3e4f8",
+              "primary-container": "#936a6c",
+              "on-primary-fixed-variant": "#603d3f",
+              "primary-fixed-dim": "#ecbabc",
+              "surface-variant": "#e5e2de",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#504444",
+              "inverse-on-surface": "#f3f0ec",
+              "secondary-container": "#d3e4f8",
+              "primary-fixed": "#ffdadb",
+              "primary": "#785254",
+              "secondary": "#506071",
+              "on-tertiary-fixed": "#052014",
+              "surface-container": "#f0ede9",
+              "on-tertiary-fixed-variant": "#314c3d",
+              "on-surface": "#1c1c1a",
+              "surface-container-highest": "#e5e2de",
+              "surface-container-low": "#f6f3ef",
+              "inverse-surface": "#31302e",
+              "secondary-fixed-dim": "#b8c8db",
+              "on-background": "#1c1c1a",
+              "surface-tint": "#7b5456",
+              "on-error-container": "#93000a",
+              "background": "#fcf9f5",
+              "on-secondary-container": "#566677"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f5;
+            color: #1c1c1a;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #d4c2c2 10%, #d4c2c2 90%, transparent);
+            opacity: 0.3;
+        }
+        .font-newsreader { font-family: 'Newsreader', serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="bg-[#fcf9f5] dark:bg-stone-950 flex justify-between items-center w-full px-6 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-primary-fixed">
+<img alt="Couple profile picture" class="w-full h-full object-cover" data-alt="soft focus portrait of a young couple smiling warmly at each other in gentle outdoor morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz-lH4zTxo_sMOKsPCSG3BkuiCXwvUEVfhs_ELDbAJrKqJmep0PSi1YyOoBOKHdb7QuNI3Tjdo8XjGOBmn7Nm7JIoJSpN0BZYO3KRayw7NrH9zbwhXcPbipb9hguuuC04-aBqyZznokxkBNX0DJuvql109I_9syMU8jh0Ep-WX0DAaJ6mI6oP75nDKfa00ViQcR6JB_0kA7DARYjpBB3n9pGy1wU5BwW3rGpx50-a3DQZBj83F36Arbxh3cbLiInu2cOmgXmyCkJ-N"/>
+</div>
+<h1 class="font-newsreader text-2xl italic text-[#785254] dark:text-[#a67b7d]">Yeonho &amp; Girlfriend 👩‍❤️‍👨</h1>
+</div>
+<button class="material-symbols-outlined text-[#785254] dark:text-[#a67b7d] hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-300">
+            settings
+        </button>
+</header>
+<!-- Content Canvas -->
+<main class="max-w-4xl mx-auto px-6 py-10">
+<!-- Header & Search -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="space-y-2">
+<span class="font-manrope text-xs tracking-[0.2em] uppercase text-secondary opacity-60">Memory Archive</span>
+<h2 class="font-newsreader text-5xl italic text-on-surface">Our Chapters</h2>
+</div>
+<div class="relative w-full md:w-80 group">
+<input class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all duration-300" placeholder="Search memories..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">
+                        search
+                    </span>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<div class="relative timeline-line space-y-24">
+<!-- Record Item 1 -->
+<article class="relative pl-16 md:pl-24 group">
+<!-- Date Indicator -->
+<div class="absolute left-0 top-0 flex flex-col items-center">
+<div class="w-4 h-4 rounded-full bg-primary-container mb-2 ring-8 ring-surface-bright shadow-sm"></div>
+<span class="font-manrope text-[10px] font-bold tracking-tighter text-secondary uppercase vertical-text transform rotate-180" style="writing-mode: vertical-rl;">OCT 24</span>
+</div>
+<!-- Content Card -->
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-1/2 rounded-xl overflow-hidden aspect-[4/5] bg-surface-container transition-transform duration-500 hover:scale-[1.02]">
+<img alt="Sunset at Han River" class="w-full h-full object-cover" data-alt="vibrant cinematic sunset over a wide river with city silhouettes and orange clouds reflecting in the water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFB--fixfIGaPflM7H-NIyTa_enX2AYgFjqI1dQ4xHo10NslHRHOpPAlAhcLN_fIkwbFwWhZ3UHqX5lOJE62dJwxMNvy0bmrloDBLIZy4-Q9pXz6FaK9Sj9-fd64ez4dfLaLL-Lnr9n03UonC2G5jBu6rNqflJzoXyRU37fgQUwJi89WdMZ3PuHSrLdjfWcRKGtLHcrw-CDMV1sCHCZXaPq8p_s2etcnL0tqALLSxLkRNanLTBsWjFDVvT1MddGlfM8YQatD2Kmf8R"/>
+</div>
+<div class="w-full md:w-1/2 pt-4">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">location_on</span>
+<span class="font-manrope text-xs font-semibold text-secondary tracking-wide uppercase">Han River Park</span>
+</div>
+<h3 class="font-newsreader text-3xl mb-4 leading-tight text-on-surface">Golden hour by the water.</h3>
+<p class="font-manrope text-on-surface-variant leading-relaxed mb-6 opacity-80">
+                            We sat on the grass for hours, just watching the sky turn from gold to deep purple. You brought the warm tea, and we didn't need to say a single word.
+                        </p>
+<div class="flex gap-4">
+<button class="bg-surface-container-lowest/50 backdrop-blur-md px-4 py-2 rounded-full font-manrope text-xs text-primary font-bold hover:bg-white transition-colors">View Gallery</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Record Item 2: Reverse Layout for Asymmetry -->
+<article class="relative pl-16 md:pl-24 group">
+<div class="absolute left-0 top-0 flex flex-col items-center">
+<div class="w-4 h-4 rounded-full bg-outline-variant mb-2 ring-8 ring-surface-bright shadow-sm"></div>
+<span class="font-manrope text-[10px] font-bold tracking-tighter text-secondary uppercase vertical-text transform rotate-180" style="writing-mode: vertical-rl;">SEP 12</span>
+</div>
+<div class="flex flex-col md:flex-row-reverse gap-8 items-start">
+<div class="w-full md:w-2/3 rounded-xl overflow-hidden aspect-video bg-surface-container transition-transform duration-500 hover:scale-[1.01]">
+<img alt="First Dinner" class="w-full h-full object-cover" data-alt="exquisite candlelit dinner table at a boutique restaurant with warm lighting and blurred background atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBke9qYYzCHORtg64GSq91h_lsv9b5gUnrslRTi-aAx44ha3RfK2b2lhWudWPoZUXMkxzN29iaHclxVmfpTDcj2L-fc9UR3tSHK3g0gB9Xt7DL78jIWGNMn-H5bjMCumcpYTq12-8eo5MdFXAH2J0pXinQX9VuCGMjZEpnbArYw-KLJURvD5rTZEMAYqreIOAKoYsXPey8dV-PXcdK3MDFcV-BdgQOkBwKKMg9orFLE6QMF_MTNlo0SeSawuDBkFPyj5-_O7gb21Unv"/>
+</div>
+<div class="w-full md:w-1/3 pt-4 md:text-right">
+<div class="flex items-center gap-2 mb-4 md:justify-end">
+<span class="material-symbols-outlined text-primary text-sm">restaurant</span>
+<span class="font-manrope text-xs font-semibold text-secondary tracking-wide uppercase">Le Petit Atelier</span>
+</div>
+<h3 class="font-newsreader text-3xl mb-4 leading-tight text-on-surface">Our little anniversary feast.</h3>
+<p class="font-manrope text-on-surface-variant leading-relaxed opacity-80">
+                            The risotto was perfect, but the way you looked in the candlelight was better. A quiet evening that felt like a lifetime.
+                        </p>
+</div>
+</div>
+</article>
+<!-- Record Item 3 -->
+<article class="relative pl-16 md:pl-24 group">
+<div class="absolute left-0 top-0 flex flex-col items-center">
+<div class="w-4 h-4 rounded-full bg-primary-container mb-2 ring-8 ring-surface-bright shadow-sm"></div>
+<span class="font-manrope text-[10px] font-bold tracking-tighter text-secondary uppercase vertical-text transform rotate-180" style="writing-mode: vertical-rl;">AUG 05</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10 items-center">
+<div class="w-full md:w-1/2 rounded-xl overflow-hidden aspect-square bg-surface-container shadow-2xl shadow-primary/5">
+<img alt="Starry Night" class="w-full h-full object-cover" data-alt="long exposure photography of a starry night sky above a silhouetted pine forest in deep blues and purples" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB6RcklxUR23xxbPRERiKPJAolc9dg7GbE6YqRg0uRkNBHmkQt12youXA9F8fab3n9W543ocR-PlTn3f93w2zApbC5fYEcytY030RrR47LsRMq1E3Lt6YxHc0cL52POKYqyfl-IC8SHG0vjaPyrv_UJmIotinwVHpvAl5roG_9wg0H5w2oeprfMT5aPg6DWeXjLO_Ospi0nrnk9dI5CRC22jf9cL6CDaRQ8PeRoY735Y4CFRkoKSPZySlEjYFC4FsAv90S7ptMtqjj"/>
+</div>
+<div class="w-full md:w-1/2 space-y-4">
+<div class="inline-block px-3 py-1 bg-primary-container/10 rounded-full">
+<span class="font-manrope text-[10px] font-bold text-primary uppercase tracking-widest italic">Milestone</span>
+</div>
+<h3 class="font-newsreader text-4xl text-on-surface italic">Under the cosmic dome.</h3>
+<p class="font-manrope text-on-surface-variant leading-relaxed opacity-80">
+                            Driving out to the observatory was your best idea yet. I've never seen so many stars, or felt so small and yet so safe at the same time.
+                        </p>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-28 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-[0_10px_40px_rgba(120,82,84,0.3)] flex items-center justify-center z-[60] active:scale-90 transition-all duration-300 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-500">add</span>
+<div class="absolute right-20 bg-primary-container text-white px-4 py-2 rounded-lg text-xs font-manrope font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">New Record</div>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-[#fcf9f5]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-[0_-10px_40px_rgba(120,82,84,0.05)] rounded-t-[3rem]">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-[#506071] dark:text-stone-500 p-3 hover:text-[#785254] dark:hover:text-[#a67b7d] active:scale-90 transition-all duration-500 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-manrope text-[10px] font-medium tracking-wide uppercase">Home</span>
+</a>
+<!-- Records (Active) -->
+<a class="flex flex-col items-center justify-center text-[#785254] dark:text-[#a67b7d] font-bold bg-[#ffffff]/40 dark:bg-white/5 rounded-full p-3 active:scale-90 transition-all duration-500 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-manrope text-[10px] tracking-wide uppercase">Records</span>
+</a>
+<!-- Calendar -->
+<a class="flex flex-col items-center justify-center text-[#506071] dark:text-stone-500 p-3 hover:text-[#785254] dark:hover:text-[#a67b7d] active:scale-90 transition-all duration-500 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1">calendar_month</span>
+<span class="font-manrope text-[10px] font-medium tracking-wide uppercase">Calendar</span>
+</a>
+<!-- Penpal -->
+<a class="flex flex-col items-center justify-center text-[#506071] dark:text-stone-500 p-3 hover:text-[#785254] dark:hover:text-[#a67b7d] active:scale-90 transition-all duration-500 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1">mail</span>
+<span class="font-manrope text-[10px] font-medium tracking-wide uppercase">Penpal</span>
+</a>
+<!-- Wallet -->
+<a class="flex flex-col items-center justify-center text-[#506071] dark:text-stone-500 p-3 hover:text-[#785254] dark:hover:text-[#a67b7d] active:scale-90 transition-all duration-500 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1">account_balance_wallet</span>
+<span class="font-manrope text-[10px] font-medium tracking-wide uppercase">Wallet</span>
+</a>
+</nav>
+</body></html>

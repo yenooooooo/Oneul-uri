@@ -102,7 +102,7 @@ export default function RecordList({
 
           {/* 사진 없는 기록 — 미니 카드 묶음 */}
           {group.withoutPhotos.length > 0 && (
-            <div className="bg-white rounded-2xl shadow-soft overflow-hidden divide-y divide-cream-dark">
+            <div className="bg-surface-low rounded-2xl overflow-hidden divide-y divide-cream-dark">
               {group.withoutPhotos.map((r) => (
                 <RecordMiniCard key={r.id} record={r} />
               ))}

@@ -67,7 +67,7 @@ export default function AnniversaryCard({
   }
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-soft flex items-center justify-between">
+    <div className="bg-surface-low rounded-2xl p-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {/* 아이콘 */}
         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${

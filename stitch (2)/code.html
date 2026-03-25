@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-surface": "#33302b",
+              "surface-container": "#f4ede5",
+              "on-tertiary-fixed-variant": "#005236",
+              "primary-fixed": "#ffdad8",
+              "surface-tint": "#ae2f34",
+              "on-primary-container": "#6d0010",
+              "primary": "#ae2f34",
+              "secondary": "#5e5e5e",
+              "secondary-fixed-dim": "#c7c6c6",
+              "tertiary-fixed-dim": "#52dea2",
+              "surface-variant": "#e8e1da",
+              "on-error-container": "#93000a",
+              "surface-bright": "#fff8f1",
+              "tertiary-fixed": "#72fbbc",
+              "surface": "#fff8f1",
+              "surface-dim": "#dfd9d1",
+              "on-tertiary-fixed": "#002113",
+              "surface-container-high": "#eee7df",
+              "on-primary-fixed-variant": "#8c1520",
+              "error-container": "#ffdad6",
+              "on-secondary-container": "#626262",
+              "surface-container-low": "#f9f3eb",
+              "on-surface": "#1e1b17",
+              "outline-variant": "#e0bfbd",
+              "on-tertiary": "#ffffff",
+              "inverse-on-surface": "#f7f0e8",
+              "secondary-fixed": "#e4e2e2",
+              "on-surface-variant": "#584140",
+              "primary-container": "#ff6b6b",
+              "on-tertiary-container": "#003b26",
+              "error": "#ba1a1a",
+              "tertiary-container": "#00b179",
+              "on-primary-fixed": "#410006",
+              "surface-container-highest": "#e8e1da",
+              "on-primary": "#ffffff",
+              "secondary-container": "#e1dfdf",
+              "on-secondary-fixed-variant": "#464747",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#ffb3b0",
+              "on-secondary-fixed": "#1b1c1c",
+              "tertiary": "#006c48",
+              "background": "#fff8f1",
+              "on-background": "#1e1b17",
+              "outline": "#8c706f",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#ffb3b0"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif KR", "serif"],
+              "body": ["Plus Jakarta Sans", "sans-serif"],
+              "label": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fff8f1; color: #1e1b17; -webkit-font-smoothing: antialiased; }
+        .serif-headline { font-family: 'Noto Serif KR', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface mb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-stone-900/70 backdrop-blur-2xl flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-stone-100/50 p-2 rounded-full transition-colors" data-icon="menu">menu</span>
+<h1 class="text-2xl font-bold font-headline text-[#FF6B6B]">오늘우리</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-stone-100/50 p-2 rounded-full transition-colors" data-icon="settings">settings</span>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Hero Section: D-day Counter -->
+<section class="relative space-y-4 pt-4">
+<div class="space-y-1">
+<span class="text-on-surface-variant font-medium tracking-tight text-sm flex items-center gap-2">
+<span class="w-8 h-[1px] bg-outline-variant/40"></span>
+                    우리만의 특별한 시간
+                </span>
+<h2 class="text-[4.5rem] leading-none font-black font-headline text-primary tracking-tighter">
+                    D+365
+                </h2>
+</div>
+<div class="bg-primary-container/10 p-6 rounded-xl border border-primary-container/20">
+<p class="text-lg font-headline font-semibold text-on-primary-fixed-variant flex items-center gap-2">
+                    꽃피는 봄, 우리 함께한 지 일 년 🌸
+                </p>
+<p class="text-on-surface-variant text-sm mt-1 font-medium">2023년 5월 20일부터 오늘까지</p>
+</div>
+</section>
+<!-- Couple Profile Card -->
+<section class="grid grid-cols-2 gap-4">
+<div class="col-span-2 bg-gradient-to-br from-[#FFF5F5] via-white to-[#FFF0F5] p-8 rounded-xl flex flex-col items-center text-center space-y-6 shadow-sm">
+<div class="flex items-center justify-center -space-x-4">
+<div class="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-md border-4 border-white">🐶</div>
+<div class="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl shadow-md border-4 border-white">🐱</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-center gap-4 text-on-surface font-bold text-lg">
+<span>민준</span>
+<span class="text-primary-container">♥</span>
+<span>서연</span>
+</div>
+<p class="text-on-surface-variant italic text-sm">"오늘도 너와 함께라 행복해 ✨"</p>
+</div>
+</div>
+</section>
+<!-- Upcoming Date Planner & Anniversary Bento -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Date Planner -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="text-sm font-bold text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="event">event</span>
+                        다음 데이트
+                    </h3>
+</div>
+<div class="space-y-3">
+<p class="text-xl font-headline font-bold leading-tight">이번 주 토요일<br/>성수동 데이트 🥂</p>
+<div class="flex items-center text-primary font-bold text-sm hover:opacity-80 transition-opacity cursor-pointer">
+                        자세히 보기 <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Anniversaries -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<h3 class="text-sm font-bold text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="calendar_month">calendar_month</span>
+                    다가오는 기념일
+                </h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center bg-white/50 p-3 rounded-lg">
+<span class="text-sm font-medium">민준 생일</span>
+<span class="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full font-bold">D-12</span>
+</div>
+<div class="flex justify-between items-center bg-white/50 p-3 rounded-lg">
+<span class="text-sm font-medium">여름 휴가</span>
+<span class="bg-primary-container text-on-primary-container text-[10px] px-2 py-0.5 rounded-full font-bold">D-45</span>
+</div>
+<div class="flex justify-between items-center bg-white/50 p-3 rounded-lg opacity-60">
+<span class="text-sm font-medium">함께한 지 500일</span>
+<span class="bg-on-surface-variant text-white text-[10px] px-2 py-0.5 rounded-full font-bold">D-135</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Records: Horizontal Scroll -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="text-lg font-headline font-bold">최근의 기록</h3>
+<span class="text-xs text-on-surface-variant font-medium cursor-pointer">모두 보기</span>
+</div>
+<div class="flex overflow-x-auto no-scrollbar gap-4 -mx-6 px-6">
+<!-- Record Card 1 -->
+<div class="flex-none w-64 h-80 relative rounded-xl overflow-hidden shadow-lg group">
+<img alt="romantic sunset over the city skyline seen from a rooftop cafe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="a romantic sunset over the city skyline with warm golden light, captured from a stylish rooftop cafe balcony" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQtxNeqw5ZK77LkRAa4e4Wz6CjEjpIoMk-yZT6J-_hN2HpwBh7cGNTdvy4pM_evk8kjWANGJT54ph6hLpaUvv6MADCAsZFzA9uSLhtEtgQT0rQrgusMbBA-V8uhx2eYooNXQBjRAuvxkil4CdpdgIciY0hIhWPPovZBoSsTRJVIxIkO-jm278CQhXzK1VwXWpBpVjcVcQvxA7NN2G4h5X4aU1K2j_2aPUAG9-34rMBAZVf5w3nEo04flTycOXIXSIuz-OHTTUxJpE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+<span class="text-white/70 text-[10px] font-medium mb-1">2024.03.15</span>
+<h4 class="text-white font-bold leading-tight">노을 지던 루프탑 카페에서</h4>
+</div>
+</div>
+<!-- Record Card 2 -->
+<div class="flex-none w-64 h-80 relative rounded-xl overflow-hidden shadow-lg group">
+<img alt="close up of two glasses of wine clinking in a dimly lit restaurant" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close up of two crystal wine glasses clinking with red wine, soft bokeh of restaurant lights in the dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg-quFktoOl5HP9exNESBrcY9n19I7G9Q9rmFe2l3AtEqGmV8JizTdhHhJFjnSdnuSUrQIpDQxYhzeo-Jv0kzDa8Z0aj9xdhZ9X_hr2Ib8NJVCHRpmyVb1ibw-Jnq7oYe0gxYJsON7J_nR1Dhm0zOnPq8Oh9mESchCDFT4GrXiZNSHgRUfr1unbfYjY8A1oxPyOkuLNcn4dvqKrsuJbr3Puvll-PyBpy9btgGxWTAEMUSCmyntE9V1-xEtAr0qmuCIgWuXj7ZHNlc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+<span class="text-white/70 text-[10px] font-medium mb-1">2024.03.10</span>
+<h4 class="text-white font-bold leading-tight">일주년 기념 저녁 식사</h4>
+</div>
+</div>
+<!-- Record Card 3 -->
+<div class="flex-none w-64 h-80 relative rounded-xl overflow-hidden shadow-lg group">
+<img alt="couple walking together on a beach at dusk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="silhouettes of a couple walking hand-in-hand along a sandy beach during the blue hour with gentle waves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGhFNG07ntDppEksgEX-tF73bdT0SR7OFqm7fGEWn8Gi1r9ezQCSei7fWPhoy-hBId2pY0j4pDDNzgcSOylYhVNt7pYRmZnBVpsld-PZlFPG4V7iJlT7_YG0pzR_Hslcg5M2dXqPeHKDw0mYAIZ0DJhVPgvOV1VxTKyG4sfhHpdr2XeWx5nz5aE4pKXh9DeVjzPOfRtp4JjJnXrz-1I4hOsNsc2lLFaiudTj89zKz92uyR0FUkpa160nCbQxHs_35jOWo1TG3ar9U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+<span class="text-white/70 text-[10px] font-medium mb-1">2024.03.02</span>
+<h4 class="text-white font-bold leading-tight">바닷가 산책의 추억</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Wallet Summary + Roulette Grid -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-6 rounded-xl flex flex-col justify-between aspect-square group active:scale-95 transition-transform">
+<div class="bg-white w-10 h-10 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div>
+<h4 class="text-xs text-on-surface-variant font-bold mb-1">커플 통장</h4>
+<p class="text-xl font-bold">₩ 425,000</p>
+</div>
+</div>
+<div class="bg-primary-container p-6 rounded-xl flex flex-col justify-between aspect-square text-white active:scale-95 transition-transform">
+<div class="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined" data-icon="casino">casino</span>
+</div>
+<div>
+<h4 class="text-xs text-white/80 font-bold mb-1">메뉴 결정</h4>
+<p class="text-xl font-bold">룰렛 돌리기</p>
+</div>
+</div>
+</section>
+<!-- Quick Links -->
+<section class="flex justify-between items-center py-4 px-2">
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="location_on">location_on</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant">가고 싶은 곳</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="sticky_note_2">sticky_note_2</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant">우리의 메모</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="insights">insights</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant">데이트 통계</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="favorite">favorite</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant">버킷 리스트</span>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center px-4 py-3 mx-auto max-w-md w-[90%] rounded-[2rem] bg-white/70 dark:bg-stone-900/70 backdrop-blur-3xl shadow-[0_8px_24px_rgba(30,27,23,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#FF6B6B] dark:text-[#FF8E8E] transition-all scale-90 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-sans text-[11px] font-medium mt-1">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:opacity-80 transition-all scale-90 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="font-sans text-[11px] font-medium mt-1">기록</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:opacity-80 transition-all scale-90 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-[11px] font-medium mt-1">캘린더</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:opacity-80 transition-all scale-90 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-sans text-[11px] font-medium mt-1">편지함</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-500 hover:opacity-80 transition-all scale-90 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-sans text-[11px] font-medium mt-1">지갑</span>
+</a>
+</nav>
+</body></html>
