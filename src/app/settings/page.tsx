@@ -121,7 +121,7 @@ export default function SettingsPage() {
           </h2>
           <Input id="birthday" type="date" value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
-            className="rounded-xl bg-white" />
+            className="rounded-xl bg-white max-w-[200px]" />
           <Button onClick={handleSaveBirthday}
             disabled={saving || !birthday || birthday === myBirthday}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
