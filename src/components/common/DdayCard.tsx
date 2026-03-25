@@ -29,7 +29,7 @@ export default function DdayCard({ startDate }: DdayCardProps) {
       </div>
 
       {/* 감성 문구 박스 */}
-      <div className="bg-coral-50/50 p-6 rounded-xl">
+      <div className="bg-coral-50/50 p-6 rounded-2xl">
         <p className="text-lg font-serif-ko font-semibold text-coral-600 flex items-center gap-2">
           {message} {emoji}
         </p>

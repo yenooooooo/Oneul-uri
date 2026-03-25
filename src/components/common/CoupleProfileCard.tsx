@@ -23,7 +23,7 @@ export default function CoupleProfileCard({
   const quote = myStatus || partnerStatus || "";
 
   return (
-    <div className="bg-gradient-to-br from-coral-50 via-white to-pink-soft/10 p-8 rounded-xl flex flex-col items-center text-center space-y-5">
+    <div className="bg-gradient-to-br from-coral-50 via-white to-pink-soft/10 p-8 rounded-3xl flex flex-col items-center text-center space-y-5">
       {/* 이모지 겹침 */}
       <div className="flex items-center justify-center -space-x-4">
         <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-4xl border-4 border-white"

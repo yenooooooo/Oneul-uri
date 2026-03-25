@@ -76,7 +76,7 @@ export default function HomePage() {
         {/* 플래너 + 기념일 — 2열 그리드 */}
         <div className="grid grid-cols-2 gap-4">
           {/* 다음 데이트 */}
-          <div className="bg-white p-6 rounded-xl space-y-3">
+          <div className="bg-coral-50/30 p-6 rounded-3xl space-y-3">
             <h3 className="text-sm font-bold text-txt-tertiary flex items-center gap-1.5">
               <ClipboardList className="w-4 h-4 text-coral-500" />
               다음 데이트
@@ -99,7 +99,7 @@ export default function HomePage() {
           </div>
 
           {/* 다가오는 기념일 */}
-          <div className="bg-surface-low p-6 rounded-xl space-y-3">
+          <div className="bg-surface-low p-6 rounded-3xl space-y-3 overflow-hidden">
             <h3 className="text-sm font-bold text-txt-tertiary flex items-center gap-1.5">
               <Heart className="w-4 h-4 text-coral-500" />
               기념일
@@ -133,7 +133,7 @@ export default function HomePage() {
             <div className="flex overflow-x-auto scrollbar-hide gap-4 -mx-6 px-6">
               {recentRecords.map((record) => (
                 <Link key={record.id} href={`/records/${record.id}`}
-                  className="flex-none w-64 h-80 relative rounded-xl overflow-hidden active:scale-[0.97] transition-transform">
+                  className="flex-none w-64 h-80 relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform">
                   {record.photos?.[0] ? (
                     <>
                       <img src={record.photos[0]} alt={record.title}
@@ -166,7 +166,7 @@ export default function HomePage() {
         {/* 통장 + 룰렛 — 정사각형 그리드 */}
         <section className="grid grid-cols-2 gap-4">
           <Link href="/wallet"
-            className="bg-surface-high p-6 rounded-xl flex flex-col justify-between aspect-square active:scale-[0.97] transition-transform">
+            className="bg-surface-high p-6 rounded-3xl flex flex-col justify-between aspect-square active:scale-[0.97] transition-transform">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <span className="text-lg">💰</span>
             </div>
@@ -179,7 +179,7 @@ export default function HomePage() {
           </Link>
 
           <Link href="/roulette"
-            className="bg-coral-500 p-6 rounded-xl flex flex-col justify-between aspect-square text-white active:scale-[0.97] transition-transform">
+            className="bg-coral-500 p-6 rounded-3xl flex flex-col justify-between aspect-square text-white active:scale-[0.97] transition-transform">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
               <span className="text-lg">🎲</span>
             </div>
@@ -193,25 +193,25 @@ export default function HomePage() {
         {/* 바로가기 — 원형 아이콘 가로 4개 */}
         <section className="flex justify-between items-center py-4">
           <Link href="/places" className="flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
               <MapPin className="w-5 h-5 text-txt-tertiary" />
             </div>
             <span className="text-xs font-bold text-txt-tertiary">자주 가는 곳</span>
           </Link>
           <Link href="/memos" className="flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
               <StickyNote className="w-5 h-5 text-txt-tertiary" />
             </div>
             <span className="text-xs font-bold text-txt-tertiary">메모장</span>
           </Link>
           <Link href="/stats" className="flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
               <BarChart3 className="w-5 h-5 text-txt-tertiary" />
             </div>
             <span className="text-xs font-bold text-txt-tertiary">통계</span>
           </Link>
           <Link href="/anniversary" className="flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
               <Heart className="w-5 h-5 text-txt-tertiary" />
             </div>
             <span className="text-xs font-bold text-txt-tertiary">기념일</span>
