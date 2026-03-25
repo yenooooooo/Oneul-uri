@@ -11,12 +11,11 @@ import TransactionList from "@/components/wallet/TransactionList";
 import MilestonePopup from "@/components/wallet/MilestonePopup";
 import { useWallet } from "@/hooks/useWallet";
 import { useCouple } from "@/hooks/useCouple";
-import { Plus, Loader2, PiggyBank, ArrowDownCircle, Pencil, Trash2 } from "lucide-react";
+import { Plus, Loader2, PiggyBank, Pencil, Trash2 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 /**
- * 데이트 통장 페이지 — /wallet
- * 비행기 트래커 + 페이스 분석 + 마일스톤 + 입금 + 내역
+ * 데이트 통장 — stitch(6) Editorial Keepsake 스타일
  */
 export default function WalletPage() {
   const {
@@ -31,96 +30,98 @@ export default function WalletPage() {
   const [showDeposit, setShowDeposit] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  // 활성 목표의 페이스 분석
   const pace = activeGoal ? analyzePace(activeGoal) : null;
-
-  // 활성 목표의 거래 내역만 필터링
-  const goalTransactions = activeGoal
-    ? transactions.filter((tx) => tx.goal_id === activeGoal.id)
-    : [];
+  const progress = activeGoal
+    ? Math.min(Math.round((activeGoal.current_amount / activeGoal.target_amount) * 100), 100) : 0;
+  const goalTx = activeGoal
+    ? transactions.filter((tx) => tx.goal_id === activeGoal.id) : [];
 
   return (
     <AppLayout>
-      <div className="px-4 pt-6 space-y-4 animate-fade-up">
-        <h1 className="text-2xl font-bold text-txt-primary">데이트 통장</h1>
-
+      <div className="px-6 pt-6 space-y-8 animate-page-in">
         {loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="w-6 h-6 animate-spin text-coral-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-coral-300" />
           </div>
         ) : activeGoal ? (
           <>
-            {/* 목표명 + 금액 */}
-            <div className="bg-surface-low rounded-3xl">
-              <div className="flex items-center justify-between mb-1">
-                <h2 className="text-base font-semibold text-txt-primary">
+            {/* 상단 타이틀 + 달성률 뱃지 */}
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[10px] font-bold text-txt-tertiary tracking-widest uppercase">
+                  저축 목표
+                </p>
+                <h1 className="font-serif-ko text-3xl font-black text-txt-primary">
                   {activeGoal.title}
-                </h2>
-                <div className="flex gap-1">
-                  <button onClick={() => setShowGoalEdit(true)} className="p-1.5 text-txt-tertiary">
-                    <Pencil className="w-3.5 h-3.5" />
-                  </button>
-                  <button onClick={() => setShowDeleteConfirm(true)} className="p-1.5 text-txt-tertiary hover:text-error">
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                </h1>
               </div>
-              <div className="mb-4">
-                <span className="text-2xl font-bold text-coral-400">
-                  {formatCurrency(activeGoal.current_amount)}
+              <div className="flex items-center gap-2">
+                <span className="bg-coral-50 text-coral-500 text-xs font-bold px-3 py-1 rounded-full">
+                  {progress}% 달성
                 </span>
-                <span className="text-sm text-txt-tertiary ml-1">
-                  / {formatCurrency(activeGoal.target_amount)}
-                </span>
+                <button onClick={() => setShowGoalEdit(true)} className="p-1.5 text-txt-tertiary">
+                  <Pencil className="w-4 h-4" />
+                </button>
+                <button onClick={() => setShowDeleteConfirm(true)} className="p-1.5 text-txt-tertiary">
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
-
-              {/* 비행기 트래커 프로그레스 바 */}
-              <AirplaneTracker goal={activeGoal} />
             </div>
 
-            {/* 페이스 분석 카드 */}
-            {pace && <PaceAnalysisCard goal={activeGoal} pace={pace} />}
+            {/* 잔액 카드 — 코랄 그라데이션 */}
+            <div className="bg-gradient-to-br from-coral-100 to-coral-50 rounded-3xl p-8 relative overflow-hidden">
+              <div className="relative z-10">
+                <p className="text-sm text-coral-600 font-medium mb-2">현재 모은 금액</p>
+                <p className="font-serif-ko text-4xl font-black text-coral-600 mb-1">
+                  ₩ {activeGoal.current_amount.toLocaleString("ko-KR")}
+                </p>
+                <p className="text-sm text-coral-400">
+                  목표 {formatCurrency(activeGoal.target_amount)}
+                </p>
+              </div>
+              {/* 배경 장식 */}
+              <div className="absolute -right-8 -top-8 w-32 h-32 bg-coral-200/30 rounded-full blur-2xl" />
+            </div>
 
-            {/* 입금 버튼 */}
-            <button
-              onClick={() => setShowDeposit(true)}
-              className="w-full bg-coral-500 text-white rounded-2xl py-3.5 font-medium flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-card"
-            >
-              <ArrowDownCircle className="w-5 h-5" />
-              입금하기
+            {/* 프로그레스 트래커 */}
+            <AirplaneTracker goal={activeGoal} />
+
+            {/* 페이스 분석 */}
+            {pace && (
+              <section className="space-y-3">
+                <h3 className="text-sm font-bold text-txt-tertiary">페이스 분석</h3>
+                <PaceAnalysisCard goal={activeGoal} pace={pace} />
+              </section>
+            )}
+
+            {/* 입금 버튼 — 큰 코랄 */}
+            <button onClick={() => setShowDeposit(true)}
+              className="w-full bg-coral-500 text-white rounded-2xl py-4 font-semibold text-lg flex items-center justify-center gap-2 active:scale-[0.97] transition-transform shadow-float">
+              지금 저금하기!
             </button>
 
-            {/* 입출금 내역 */}
-            <section className="bg-surface-low rounded-3xl">
-              <h2 className="text-base font-semibold text-txt-primary mb-3">
-                입출금 내역
-              </h2>
-              <TransactionList
-                transactions={goalTransactions}
-                couple={couple}
-                onUpdate={updateTransaction}
-                onDelete={deleteTransaction}
-              />
+            {/* 최근 입금 내역 */}
+            <section className="space-y-3">
+              <h3 className="text-sm font-bold text-txt-tertiary">최근 입금 내역</h3>
+              <div className="bg-surface-low rounded-3xl p-5">
+                <TransactionList
+                  transactions={goalTx} couple={couple}
+                  onUpdate={updateTransaction} onDelete={deleteTransaction}
+                />
+              </div>
             </section>
 
             {/* 달성된 목표 */}
             {achievedGoals.length > 0 && (
-              <section>
-                <h2 className="text-base font-semibold text-txt-secondary mb-3">
-                  달성한 목표
-                </h2>
-                <div className="space-y-3 opacity-80">
+              <section className="space-y-3">
+                <h3 className="text-sm font-bold text-txt-tertiary">달성한 목표</h3>
+                <div className="space-y-2">
                   {achievedGoals.map((g) => (
-                    <div key={g.id} className="bg-surface-low rounded-2xl">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium text-txt-primary">{g.title}</span>
-                        <span className="text-xs bg-green-soft/20 text-green-soft px-2 py-0.5 rounded-full">
-                          달성!
-                        </span>
-                      </div>
-                      <p className="text-sm text-txt-tertiary mt-1">
-                        {formatCurrency(g.target_amount)}
-                      </p>
+                    <div key={g.id} className="bg-surface-low rounded-2xl p-4 flex items-center justify-between">
+                      <span className="font-medium text-txt-primary">{g.title}</span>
+                      <span className="text-xs bg-green-soft/20 text-green-soft px-2 py-0.5 rounded-full font-bold">
+                        달성!
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -128,47 +129,40 @@ export default function WalletPage() {
             )}
           </>
         ) : (
-          /* 목표 없을 때 빈 상태 */
-          <div className="text-center py-12">
+          /* 빈 상태 */
+          <div className="text-center py-16">
             <PiggyBank className="w-16 h-16 text-coral-200 mx-auto mb-4" />
-            <p className="font-medium text-txt-primary">저축 목표를 설정해보세요</p>
-            <p className="text-sm text-txt-tertiary mt-1">함께 목표를 향해 모아봐요</p>
-            <button
-              onClick={() => setShowGoalForm(true)}
-              className="mt-4 bg-coral-500 text-white rounded-full px-6 py-2.5 text-sm font-medium active:scale-95 transition-transform"
-            >
+            <h2 className="font-serif-ko text-2xl font-bold text-txt-primary">저축 목표를 설정해보세요</h2>
+            <p className="text-sm text-txt-tertiary mt-2">함께 목표를 향해 모아봐요</p>
+            <button onClick={() => setShowGoalForm(true)}
+              className="mt-6 bg-coral-500 text-white rounded-full px-8 py-3 font-medium active:scale-95 transition-transform">
               목표 설정하기
             </button>
           </div>
         )}
       </div>
 
-      {/* FAB — 새 목표 추가 */}
+      {/* FAB */}
       {activeGoal && (
         <button onClick={() => setShowGoalForm(true)}
-          style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }} className="fixed right-4 w-14 h-14 bg-coral-400 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
+          style={{ bottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))" }}
+          className="fixed right-5 w-14 h-14 bg-coral-500 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
           <Plus className="w-6 h-6" />
         </button>
       )}
 
       {/* 모달들 */}
-      {showGoalForm && (
-        <GoalCreateForm onSubmit={createGoal} onClose={() => setShowGoalForm(false)} />
-      )}
+      {showGoalForm && <GoalCreateForm onSubmit={createGoal} onClose={() => setShowGoalForm(false)} />}
       {showDeposit && activeGoal && (
         <DepositForm goalId={activeGoal.id}
           onSubmit={async (gId, amount, memo) => { await addTransaction({ goal_id: gId, amount, memo }); return null; }}
           onClose={() => setShowDeposit(false)} />
       )}
-      {/* 목표 수정 모달 */}
       {showGoalEdit && activeGoal && (
-        <GoalEditForm
-          goal={activeGoal}
+        <GoalEditForm goal={activeGoal}
           onSubmit={(updates) => updateGoal(activeGoal.id, updates)}
-          onClose={() => setShowGoalEdit(false)}
-        />
+          onClose={() => setShowGoalEdit(false)} />
       )}
-      {/* 목표 삭제 확인 모달 */}
       {showDeleteConfirm && activeGoal && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-6">
           <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
@@ -183,10 +177,7 @@ export default function WalletPage() {
           </div>
         </div>
       )}
-      {/* 마일스톤 축하 팝업 */}
-      {newMilestone && (
-        <MilestonePopup percent={newMilestone} onClose={clearMilestone} />
-      )}
+      {newMilestone && <MilestonePopup percent={newMilestone} onClose={clearMilestone} />}
     </AppLayout>
   );
 }
