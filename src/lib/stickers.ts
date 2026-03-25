@@ -84,7 +84,12 @@ export const STICKER_MAP = new Map<string, StickerItem>(
   )
 );
 
-/** 스티커 ID로 이모지 반환 */
+/** 스티커 ID로 이모지 반환 (폴백용) */
 export function getStickerEmoji(stickerId: string): string {
   return STICKER_MAP.get(stickerId)?.emoji ?? "📌";
+}
+
+/** 스티커 이미지 URL 반환 */
+export function getStickerUrl(stickerId: string, size: 64 | 128 | 512 = 64): string {
+  return `/stickers/${stickerId}-${size}.png`;
 }

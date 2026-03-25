@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getStickerEmoji } from "@/lib/stickers";
+import { getStickerUrl } from "@/lib/stickers";
 
 interface MonthCalendarProps {
   year: number;
@@ -100,13 +100,12 @@ export default function MonthCalendar({
                         ? "text-coral-300"
                         : "text-txt-primary"
               )}>
-              {/* 스티커 있는 날: 숫자 작게 + 이모지 */}
+              {/* 스티커 있는 날: 숫자 작게 + 스티커 이미지 */}
               {stickerId ? (
                 <>
                   <span className="text-[9px] leading-none">{day}</span>
-                  <span className="text-lg leading-none mt-0.5">
-                    {getStickerEmoji(stickerId)}
-                  </span>
+                  <img src={getStickerUrl(stickerId, 64)} alt=""
+                    className="w-7 h-7 mt-0.5 object-contain" loading="lazy" />
                 </>
               ) : (
                 <span>{day}</span>
