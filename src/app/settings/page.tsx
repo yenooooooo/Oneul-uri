@@ -110,17 +110,15 @@ export default function SettingsPage() {
 
         {/* 생일 */}
         <section className="bg-surface-low rounded-3xl p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-txt-tertiary flex items-center gap-2">
-              <Cake className="w-4 h-4 text-coral-500" />
-              내 생일
-            </h2>
+          <h2 className="text-sm font-bold text-txt-tertiary flex items-center gap-2">
+            <Cake className="w-4 h-4 text-coral-500" />
+            내 생일
             {myBirthday && (
-              <span className="text-xs bg-coral-50 text-coral-500 px-2.5 py-1 rounded-full font-bold">
+              <span className="text-xs bg-coral-50 text-coral-500 px-2 py-0.5 rounded-full font-bold ml-2">
                 🎂 {new Date(myBirthday).getMonth() + 1}월 {new Date(myBirthday).getDate()}일
               </span>
             )}
-          </div>
+          </h2>
           <Input id="birthday" type="date" value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
             className="rounded-xl bg-white" />
