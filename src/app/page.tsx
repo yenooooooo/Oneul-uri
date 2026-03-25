@@ -96,7 +96,7 @@ export default function HomePage() {
         {/* 다가오는 데이트 플래너 */}
         {upcomingPlan && (
           <Link href={`/calendar/plan/${upcomingPlan.id}`}
-            className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+            className="block bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-coral-100 rounded-full flex items-center justify-center">
                 <ClipboardList className="w-5 h-5 text-coral-400" />
@@ -113,7 +113,7 @@ export default function HomePage() {
         )}
 
         {/* 다가오는 기념일 */}
-        <section className="bg-white rounded-3xl p-5 shadow-soft">
+        <section className="bg-surface-low rounded-3xl p-5">
           <Link href="/anniversary" className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-txt-primary">
               다가오는 기념일
@@ -135,7 +135,7 @@ export default function HomePage() {
         </section>
 
         {/* 최근 데이트 기록 */}
-        <section className="bg-white rounded-3xl p-5 shadow-soft">
+        <section className="bg-surface-low rounded-3xl p-5">
           <Link href="/records" className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-txt-primary">
               최근 데이트
@@ -192,7 +192,7 @@ export default function HomePage() {
         {/* 통장 요약 + 룰렛 바로가기 */}
         <div className="grid grid-cols-2 gap-3">
           {/* 데이트 통장 요약 */}
-          <Link href="/wallet" className="bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+          <Link href="/wallet" className="bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
             <p className="text-xs text-txt-tertiary mb-1">데이트 통장</p>
             {activeGoal ? (
               <>
@@ -217,7 +217,7 @@ export default function HomePage() {
           </Link>
 
           {/* 데이트 룰렛 바로가기 */}
-          <Link href="/roulette" className="bg-white rounded-2xl p-4 shadow-soft flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+          <Link href="/roulette" className="bg-surface-low rounded-2xl p-5 flex flex-col items-center justify-center gap-2 active:scale-[0.98] transition-transform">
             <Dices className="w-8 h-8 text-coral-400" />
             <p className="text-sm font-semibold text-txt-primary">오늘 뭐 하지?</p>
             <p className="text-xs text-txt-tertiary">룰렛 돌리기</p>
@@ -226,21 +226,21 @@ export default function HomePage() {
 
         {/* 바로가기 링크들 */}
         <div className="space-y-2">
-          <Link href="/places" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+          <Link href="/places" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-coral-400" />
               <p className="text-sm font-medium text-txt-primary flex-1">우리가 자주 가는 곳</p>
               <ChevronRight className="w-4 h-4 text-txt-tertiary" />
             </div>
           </Link>
-          <Link href="/memos" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+          <Link href="/memos" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-3">
               <span className="text-lg">📝</span>
               <p className="text-sm font-medium text-txt-primary flex-1">메모장</p>
               <ChevronRight className="w-4 h-4 text-txt-tertiary" />
             </div>
           </Link>
-          <Link href="/stats" className="block bg-white rounded-2xl p-4 shadow-soft active:scale-[0.98] transition-transform">
+          <Link href="/stats" className="block bg-surface-low rounded-2xl p-5 active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-3">
               <span className="text-lg">📊</span>
               <p className="text-sm font-medium text-txt-primary flex-1">우리의 통계</p>
