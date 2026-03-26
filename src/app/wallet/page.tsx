@@ -55,10 +55,13 @@ export default function WalletPage() {
                   {activeGoal.title}
                 </h1>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <span className="bg-coral-50 text-coral-500 text-xs font-bold px-3 py-1 rounded-full">
                   {progress}% 달성
                 </span>
+                <button onClick={() => setShowGoalForm(true)} className="p-1.5 text-txt-tertiary">
+                  <Plus className="w-4 h-4" />
+                </button>
                 <button onClick={() => setShowGoalEdit(true)} className="p-1.5 text-txt-tertiary">
                   <Pencil className="w-4 h-4" />
                 </button>
@@ -142,14 +145,7 @@ export default function WalletPage() {
         )}
       </div>
 
-      {/* FAB */}
-      {activeGoal && (
-        <button onClick={() => setShowGoalForm(true)}
-          style={{ bottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))" }}
-          className="fixed right-5 w-14 h-14 bg-coral-500 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40">
-          <Plus className="w-6 h-6" />
-        </button>
-      )}
+      {/* FAB 제거 — 새 목표 추가는 상단 헤더의 + 버튼으로 이동 */}
 
       {/* 모달들 */}
       {showGoalForm && <GoalCreateForm onSubmit={createGoal} onClose={() => setShowGoalForm(false)} />}
