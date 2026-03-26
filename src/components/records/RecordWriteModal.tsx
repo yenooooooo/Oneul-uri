@@ -69,7 +69,7 @@ export default function RecordWriteModal({
             <Label htmlFor="date">날짜</Label>
             <Input id="date" type="date" value={date}
               onChange={(e) => setDate(e.target.value)}
-              required className="rounded-xl w-full max-w-[200px]" />
+              required className="rounded-xl w-full" />
           </div>
 
           {/* 감정 태그 */}
