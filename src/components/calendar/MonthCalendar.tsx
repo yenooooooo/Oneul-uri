@@ -105,7 +105,7 @@ export default function MonthCalendar({
               {/* 스티커 있는 날: 숫자 위에 + 스티커 꽉 차게 */}
               {stickerId ? (
                 <>
-                  <span className="absolute top-0.5 left-1 text-[7px] leading-none opacity-50 z-10">{day}</span>
+                  <span className="absolute top-0.5 right-0.5 text-[8px] font-bold leading-none z-10 bg-white/80 text-txt-primary rounded-full w-4 h-4 flex items-center justify-center">{day}</span>
                   <img src={getStickerUrl(stickerId, 128)} alt=""
                     className="w-full h-full rounded-2xl object-cover" loading="lazy" />
                 </>
