@@ -22,7 +22,7 @@ export default function CouponsPage() {
   const { couple } = useCouple();
   const {
     types, myCoupons, givenCoupons, usedCoupons, loading,
-    createType, giveCoupon, useCoupon: redeemCoupon, deleteCoupon,
+    createType, giveCoupon, useCoupon: redeemCoupon, deleteCoupon, deleteType,
   } = useCoupons();
 
   const [tab, setTab] = useState<"mine" | "given" | "history">("mine");
@@ -139,7 +139,8 @@ export default function CouponsPage() {
       )}
       {showGive && couple && user && types.length > 0 && (
         <CouponGiveModal types={types} couple={couple} userId={user.id}
-          onSubmit={giveCoupon} onClose={() => setShowGive(false)} />
+          onSubmit={giveCoupon} onDeleteType={deleteType}
+          onClose={() => setShowGive(false)} />
       )}
     </AppLayout>
   );

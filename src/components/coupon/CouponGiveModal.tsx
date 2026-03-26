@@ -5,7 +5,7 @@ import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, Trash2 } from "lucide-react";
 import type { CouponType } from "@/types/coupon";
 import type { Couple } from "@/types";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ interface CouponGiveModalProps {
   couple: Couple;
   userId: string;
   onSubmit: (typeId: string, winnerId: string, memo?: string) => Promise<boolean>;
+  onDeleteType?: (typeId: string) => Promise<boolean>;
   onClose: () => void;
 }
 
@@ -22,7 +23,7 @@ interface CouponGiveModalProps {
  * 쿠폰 지급 모달 — 어떤 쿠폰을 누구에게 줄지 선택
  */
 export default function CouponGiveModal({
-  types, couple, userId, onSubmit, onClose,
+  types, couple, userId, onSubmit, onDeleteType, onClose,
 }: CouponGiveModalProps) {
   useLockScroll();
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -84,10 +85,16 @@ export default function CouponGiveModal({
                     selectedType === t.id ? "bg-coral-50 ring-2 ring-coral-500" : "bg-surface-low"
                   )}>
                   <span className="text-2xl">{t.emoji}</span>
-                  <div>
+                  <div className="flex-1">
                     <p className="text-sm font-medium text-txt-primary">{t.title}</p>
                     {t.description && <p className="text-xs text-txt-tertiary">{t.description}</p>}
                   </div>
+                  {onDeleteType && (
+                    <span onClick={(e) => { e.stopPropagation(); onDeleteType(t.id); }}
+                      className="p-1 text-txt-tertiary hover:text-error flex-shrink-0">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
