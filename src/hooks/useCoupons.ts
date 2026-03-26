@@ -98,6 +98,20 @@ export function useCoupons() {
     }
   };
 
+  /** 획득된 쿠폰 삭제 */
+  const deleteCoupon = async (couponId: string): Promise<boolean> => {
+    try {
+      const { error } = await supabase.from("coupons").delete().eq("id", couponId);
+      if (error) { toast.error("삭제에 실패했어요."); return false; }
+      toast.success("쿠폰이 삭제되었어요.");
+      await fetchAll();
+      return true;
+    } catch (error) {
+      console.error("[useCoupons/deleteCoupon] 예외:", error);
+      return false;
+    }
+  };
+
   /** 쿠폰 종류 삭제 */
   const deleteType = async (typeId: string): Promise<boolean> => {
     try {
@@ -125,6 +139,6 @@ export function useCoupons() {
 
   return {
     types, coupons, myCoupons, givenCoupons, usedCoupons, loading,
-    createType, giveCoupon, useCoupon, deleteType,
+    createType, giveCoupon, useCoupon, deleteCoupon, deleteType,
   };
 }

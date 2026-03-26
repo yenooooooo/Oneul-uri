@@ -22,7 +22,7 @@ export default function CouponsPage() {
   const { couple } = useCouple();
   const {
     types, myCoupons, givenCoupons, usedCoupons, loading,
-    createType, giveCoupon, useCoupon: redeemCoupon,
+    createType, giveCoupon, useCoupon: redeemCoupon, deleteCoupon,
   } = useCoupons();
 
   const [tab, setTab] = useState<"mine" | "given" | "history">("mine");
@@ -105,7 +105,8 @@ export default function CouponsPage() {
             {tab === "mine" && (myCoupons.length > 0 ? (
               myCoupons.map((c) => (
                 <CouponCard key={c.id} coupon={c} couple={couple} isMine
-                  onUse={() => redeemCoupon(c.id)} />
+                  onUse={() => redeemCoupon(c.id)}
+                  onDelete={() => deleteCoupon(c.id)} />
               ))
             ) : (
               <EmptyState icon="🎟️" message="아직 쿠폰이 없어요" sub="내기에서 이겨서 쿠폰을 획득해보세요!" />
@@ -113,7 +114,8 @@ export default function CouponsPage() {
 
             {tab === "given" && (givenCoupons.length > 0 ? (
               givenCoupons.map((c) => (
-                <CouponCard key={c.id} coupon={c} couple={couple} isMine={false} />
+                <CouponCard key={c.id} coupon={c} couple={couple} isMine={false}
+                  onDelete={() => deleteCoupon(c.id)} />
               ))
             ) : (
               <EmptyState icon="🎁" message="준 쿠폰이 없어요" sub="내기에서 지면 쿠폰을 줘야 해요!" />

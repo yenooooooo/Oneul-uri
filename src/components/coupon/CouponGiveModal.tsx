@@ -77,7 +77,7 @@ export default function CouponGiveModal({
           {/* 쿠폰 선택 */}
           <div className="space-y-2">
             <Label>어떤 쿠폰?</Label>
-            <div className="space-y-2 max-h-40 overflow-y-auto">
+            <div className="space-y-2 max-h-40 overflow-y-auto p-1">
               {types.map((t) => (
                 <button key={t.id} onClick={() => setSelectedType(t.id)}
                   className={cn("w-full flex items-center gap-3 p-3 rounded-2xl text-left transition-all",
