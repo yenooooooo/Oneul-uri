@@ -90,7 +90,9 @@ export default function MonthCalendar({
             <button key={dateStr} onClick={() => onSelectDate(dateStr)}
               className={cn(
                 "aspect-square flex flex-col items-center justify-center rounded-2xl text-sm transition-all relative",
-                isSelected
+                isSelected && stickerId
+                  ? "bg-coral-100 text-coral-600 font-bold ring-2 ring-coral-400"
+                  : isSelected
                   ? "bg-coral-500 text-white font-bold"
                   : hasAnniversary
                     ? "bg-coral-100 text-coral-600 font-semibold"
