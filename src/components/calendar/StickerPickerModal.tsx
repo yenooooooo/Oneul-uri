@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { X } from "lucide-react";
-import { STICKER_CATEGORIES } from "@/lib/stickers";
+import { STICKER_CATEGORIES, getStickerUrl } from "@/lib/stickers";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -84,7 +84,8 @@ export default function StickerPickerModal({
                     ? "bg-coral-50 ring-2 ring-coral-500 scale-105"
                     : "bg-surface-low active:scale-95"
                 )}>
-                <span className="text-4xl">{sticker.emoji}</span>
+                <img src={getStickerUrl(sticker.id, 128)} alt={sticker.label}
+                  className="w-14 h-14 object-contain" loading="lazy" />
                 <span className="text-[10px] text-txt-tertiary font-medium">{sticker.label}</span>
               </button>
             ))}

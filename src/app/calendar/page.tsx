@@ -13,7 +13,7 @@ import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
 import { Plus, ClipboardList, Sticker } from "lucide-react";
 import { calculateAnniversaryDday } from "@/lib/utils";
-import { getStickerEmoji } from "@/lib/stickers";
+import { getStickerUrl } from "@/lib/stickers";
 import { useCalendarStickers } from "@/hooks/useCalendarStickers";
 import StickerPickerModal from "@/components/calendar/StickerPickerModal";
 import CalendarSkeleton from "@/components/common/CalendarSkeleton";
@@ -184,11 +184,12 @@ export default function CalendarPage() {
             {selectedDate && (
               <button onClick={() => setShowStickerPicker(true)}
                 className="flex items-center gap-2 bg-surface-low rounded-2xl px-5 py-3 active:scale-[0.98] transition-transform w-full">
-                <span className="text-2xl">
-                  {stickerMap.get(selectedDate)
-                    ? getStickerEmoji(stickerMap.get(selectedDate)!)
-                    : "🎨"}
-                </span>
+                {stickerMap.get(selectedDate) ? (
+                  <img src={getStickerUrl(stickerMap.get(selectedDate)!, 64)} alt=""
+                    className="w-8 h-8 object-contain" />
+                ) : (
+                  <span className="text-lg">🎨</span>
+                )}
                 <span className="text-sm font-medium text-txt-primary flex-1 text-left">
                   {stickerMap.get(selectedDate) ? "스티커 변경하기" : "스티커 붙이기"}
                 </span>
