@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import AppLayout from "@/components/layout/AppLayout";
 import RouletteWheel from "@/components/roulette/RouletteWheel";
 import RouletteResult from "@/components/roulette/RouletteResult";
@@ -59,6 +60,17 @@ export default function RoulettePage() {
       <div className="px-4 pt-6 space-y-5">
         {/* 페이지 헤더 */}
         <h1 className="text-2xl font-bold text-txt-primary">데이트 룰렛</h1>
+
+        {/* 쿠폰함 바로가기 */}
+        <Link href="/coupons"
+          className="flex items-center gap-3 bg-gradient-to-r from-coral-100 to-coral-50 rounded-2xl p-4 active:scale-[0.98] transition-transform">
+          <span className="text-2xl">🎟️</span>
+          <div className="flex-1">
+            <p className="font-semibold text-coral-600 text-sm">쿠폰함</p>
+            <p className="text-xs text-coral-400">내기에서 이기면 쿠폰을 획득해요</p>
+          </div>
+          <span className="text-coral-400 text-sm">→</span>
+        </Link>
 
         {/* 카테고리 탭 */}
         <div className="flex gap-2">
