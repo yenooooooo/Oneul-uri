@@ -26,6 +26,8 @@ export function useCalendarStickers(year: number, month: number) {
     if (!coupleId) return;
     try {
       setLoading(true);
+      // 월 변경 시 이전 데이터 즉시 초기화
+      setStickers(new Map());
       // 해당 월 범위 계산
       const from = `${year}-${String(month + 1).padStart(2, "0")}-01`;
       const lastDay = new Date(year, month + 1, 0).getDate();
