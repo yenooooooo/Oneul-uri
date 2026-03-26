@@ -157,8 +157,10 @@ export function useWallet() {
       await supabase.from("wallet_transactions").delete().eq("goal_id", goalId);
       const { error } = await supabase.from("wallet_goals").delete().eq("id", goalId);
       if (error) { toast.error("목표 삭제에 실패했어요."); return false; }
+      // 로컬 상태 즉시 반영
+      setGoals((prev) => prev.filter((g) => g.id !== goalId));
+      setTransactions((prev) => prev.filter((t) => t.goal_id !== goalId));
       toast.success("목표가 삭제되었어요.");
-      await fetchData();
       return true;
     } catch (error) {
       console.error("[useWallet/deleteGoal] 예외:", error);
@@ -227,8 +229,14 @@ export function useWallet() {
           .eq("id", goalId);
       }
 
+      // 로컬 상태 즉시 반영
+      setTransactions((prev) => prev.filter((t) => t.id !== txId));
+      if (goal) {
+        setGoals((prev) => prev.map((g) =>
+          g.id === goalId ? { ...g, current_amount: g.current_amount - tx.amount } : g
+        ));
+      }
       toast.success("내역이 삭제되었어요.");
-      await fetchData();
       return true;
     } catch (error) {
       console.error("[useWallet/deleteTransaction] 예외:", error);

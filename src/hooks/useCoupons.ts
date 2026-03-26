@@ -103,8 +103,8 @@ export function useCoupons() {
     try {
       const { error } = await supabase.from("coupons").delete().eq("id", couponId);
       if (error) { toast.error("삭제에 실패했어요."); return false; }
+      setCoupons((prev) => prev.filter((c) => c.id !== couponId));
       toast.success("쿠폰이 삭제되었어요.");
-      await fetchAll();
       return true;
     } catch (error) {
       console.error("[useCoupons/deleteCoupon] 예외:", error);
@@ -118,7 +118,7 @@ export function useCoupons() {
       const { error } = await supabase.from("coupon_types")
         .delete().eq("id", typeId);
       if (error) { toast.error("삭제에 실패했어요."); return false; }
-      await fetchAll();
+      setTypes((prev) => prev.filter((t) => t.id !== typeId));
       return true;
     } catch (error) {
       console.error("[useCoupons/deleteType] 예외:", error);
