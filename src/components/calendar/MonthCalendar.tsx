@@ -75,7 +75,7 @@ export default function MonthCalendar({
       {/* 날짜 그리드 */}
       <div className="grid grid-cols-7 gap-1.5">
         {cells.map((day, index) => {
-          if (day === null) return <div key={`e-${index}`} className="aspect-square" />;
+          if (day === null) return <div key={`e-${index}`} className="aspect-[4/5]" />;
 
           const dateStr = toDateString(day);
           const isToday = dateStr === today;
@@ -89,7 +89,7 @@ export default function MonthCalendar({
           return (
             <button key={dateStr} onClick={() => onSelectDate(dateStr)}
               className={cn(
-                "aspect-square flex flex-col items-center justify-center rounded-2xl text-sm transition-all relative overflow-hidden",
+                "aspect-[4/5] flex flex-col items-center justify-center rounded-2xl text-sm transition-all relative overflow-hidden",
                 isSelected && stickerId
                   ? "bg-coral-100 text-coral-600 font-bold ring-2 ring-coral-400"
                   : isSelected
