@@ -65,11 +65,11 @@ export default function RecordWriteModal({
           </div>
 
           {/* 날짜 */}
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 overflow-hidden">
             <Label htmlFor="date">날짜</Label>
             <Input id="date" type="date" value={date}
               onChange={(e) => setDate(e.target.value)}
-              required className="rounded-xl w-full" />
+              required className="rounded-xl w-full [&::-webkit-inner-spin-button]:appearance-none" />
           </div>
 
           {/* 감정 태그 */}
