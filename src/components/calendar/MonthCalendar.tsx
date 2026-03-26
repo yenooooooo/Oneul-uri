@@ -89,7 +89,7 @@ export default function MonthCalendar({
           return (
             <button key={dateStr} onClick={() => onSelectDate(dateStr)}
               className={cn(
-                "aspect-square flex flex-col items-center justify-center rounded-2xl text-sm transition-all relative",
+                "aspect-square flex flex-col items-center justify-center rounded-2xl text-sm transition-all relative overflow-hidden",
                 isSelected && stickerId
                   ? "bg-coral-100 text-coral-600 font-bold ring-2 ring-coral-400"
                   : isSelected
@@ -102,12 +102,12 @@ export default function MonthCalendar({
                         ? "text-coral-300"
                         : "text-txt-primary"
               )}>
-              {/* 스티커 있는 날: 숫자 작게 + PNG 크게 */}
+              {/* 스티커 있는 날: 숫자 위에 + 스티커 꽉 차게 */}
               {stickerId ? (
                 <>
-                  <span className="text-[8px] leading-none opacity-60">{day}</span>
-                  <img src={getStickerUrl(stickerId, 64)} alt=""
-                    className="w-9 h-9 object-contain" loading="lazy" />
+                  <span className="absolute top-0.5 left-1 text-[7px] leading-none opacity-50 z-10">{day}</span>
+                  <img src={getStickerUrl(stickerId, 128)} alt=""
+                    className="w-full h-full rounded-2xl object-cover" loading="lazy" />
                 </>
               ) : (
                 <span>{day}</span>
