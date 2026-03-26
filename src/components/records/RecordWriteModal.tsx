@@ -69,7 +69,7 @@ export default function RecordWriteModal({
             <Label htmlFor="date">날짜</Label>
             <Input id="date" type="date" value={date}
               onChange={(e) => setDate(e.target.value)}
-              required className="rounded-xl w-full [&::-webkit-inner-spin-button]:appearance-none" />
+              required className="rounded-xl w-full [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
           </div>
 
           {/* 감정 태그 */}
