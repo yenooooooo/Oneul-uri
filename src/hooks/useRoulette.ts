@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useCouple } from "@/hooks/useCouple";
 import { toast } from "sonner";
@@ -34,6 +34,7 @@ export function useRoulette() {
   const [items, setItems] = useState<RouletteItem[]>([]); // 전체 항목
   const [history, setHistory] = useState<RouletteHistory[]>([]); // 히스토리
   const [loading, setLoading] = useState(true); // 로딩
+  const seededRef = useRef(false); // 기본 항목 중복 생성 방지 플래그
   const supabase = createClient();
 
   /** 항목 + 히스토리를 조회한다 */
@@ -67,8 +68,9 @@ export function useRoulette() {
       setItems(fetchedItems);
       setHistory((historyRes.data as RouletteHistory[]) ?? []);
 
-      // 항목이 하나도 없으면 기본 항목 생성
-      if (fetchedItems.length === 0) {
+      // 항목이 하나도 없고 아직 시드 안 했으면 기본 항목 생성 (1회만)
+      if (fetchedItems.length === 0 && !seededRef.current) {
+        seededRef.current = true;
         await seedDefaultItems();
       }
     } catch (error) {
@@ -107,7 +109,13 @@ export function useRoulette() {
         console.error("[useRoulette/seedDefaults] 기본 항목 생성 실패:", error.message);
         return;
       }
-      await fetchData();
+      // fetchData() 재호출 대신 직접 조회하여 무한 루프 방지
+      const { data } = await supabase
+        .from("roulette_items")
+        .select("*")
+        .eq("couple_id", couple.id)
+        .order("created_at", { ascending: true });
+      if (data) setItems(data as RouletteItem[]);
     } catch (error) {
       console.error("[useRoulette/seedDefaults] 예외 발생:", error);
     }

@@ -40,12 +40,17 @@ export default function RoulettePage() {
 
   const [addingToCalendar, setAddingToCalendar] = useState(false); // 캘린더 추가 중복 방지
 
-  /** 캘린더에 결과 추가 — 중복 클릭 방지 */
+  /** 캘린더에 결과 추가 — 중복 클릭 방지, 실패 시 버튼 복구 */
   const handleAddToCalendar = async () => {
     if (!result || addingToCalendar) return;
     setAddingToCalendar(true);
-    const today = new Date().toISOString().split("T")[0];
-    await addEvent(result, today, "date");
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      await addEvent(result, today, "date");
+    } catch {
+      // 실패 시 버튼 다시 활성화
+      setAddingToCalendar(false);
+    }
   };
 
   /** 새 항목 추가 */
