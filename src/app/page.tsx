@@ -17,7 +17,7 @@ import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
 import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import HomeSkeleton from "@/components/common/HomeSkeleton";
-import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart, PawPrint } from "lucide-react";
+import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
 import FadeImage from "@/components/common/FadeImage";
 
@@ -77,8 +77,8 @@ export default function HomePage() {
           isPartnerConnected={isPartnerConnected}
         />
 
-        {/* 반려견 카드 (등록된 경우에만 표시) */}
-        {pet && <PetProfileCard pet={pet} />}
+        {/* 반려견 카드 — 커플 프로필과 한 묶음 (간격 좁게) */}
+        {pet && <div className="-mt-6"><PetProfileCard pet={pet} /></div>}
 
         {/* 플래너 + 기념일 — 2열 그리드 */}
         <div className="grid grid-cols-2 gap-4">
@@ -224,12 +224,6 @@ export default function HomePage() {
               <BarChart3 className="w-5 h-5 text-txt-tertiary" />
             </div>
             <span className="text-xs font-bold text-txt-tertiary">통계</span>
-          </Link>
-          <Link href="/pet" className="flex flex-col items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
-              <PawPrint className="w-5 h-5 text-txt-tertiary" />
-            </div>
-            <span className="text-xs font-bold text-txt-tertiary">반려견</span>
           </Link>
           <Link href="/anniversary" className="flex flex-col items-center gap-2">
             <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
