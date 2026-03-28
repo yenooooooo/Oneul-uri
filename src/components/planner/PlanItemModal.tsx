@@ -71,8 +71,13 @@ export default function PlanItemModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 시간 */}
-          <FormInput label="시간 (선택)" type="time" value={time}
-            onChange={(e) => setTime(e.target.value)} />
+          <div className="space-y-2 overflow-hidden">
+            <label className="text-sm font-medium text-gray-700">시간 (선택)</label>
+            <input type="time" value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="h-12 w-full max-w-full rounded-xl border border-gray-200 bg-white px-4 text-base transition-colors duration-200 outline-none focus:border-coral-500 focus:ring-1 focus:ring-inset focus:ring-coral-500/20"
+              style={{ WebkitAppearance: "none" }} />
+          </div>
 
           {/* 카테고리 선택 */}
           <div className="space-y-2">

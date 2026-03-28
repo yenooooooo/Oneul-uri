@@ -67,8 +67,13 @@ export default function EventEditForm({ event, onSubmit, onClose }: EventEditFor
             onChange={setCategory}
           />
 
-          <FormInput id="edit-time" label="시간 (선택)" type="time" value={time}
-            onChange={(e) => setTime(e.target.value)} />
+          <div className="space-y-2 overflow-hidden">
+            <label htmlFor="edit-time" className="text-sm font-medium text-gray-700">시간 (선택)</label>
+            <input id="edit-time" type="time" value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="h-12 w-full max-w-full rounded-xl border border-gray-200 bg-white px-4 text-base transition-colors duration-200 outline-none focus:border-coral-500 focus:ring-1 focus:ring-inset focus:ring-coral-500/20"
+              style={{ WebkitAppearance: "none" }} />
+          </div>
 
           <FormInput id="edit-memo" label="메모 (선택)" value={memo}
             onChange={(e) => setMemo(e.target.value)} />
