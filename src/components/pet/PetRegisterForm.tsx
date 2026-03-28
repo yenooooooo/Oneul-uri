@@ -106,15 +106,15 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
 
           {/* 생일 + 입양일 */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
+            <div className="space-y-1 overflow-hidden">
               <Label htmlFor="pet-bday">생일</Label>
               <Input id="pet-bday" type="date" value={birthday}
-                onChange={(e) => setBirthday(e.target.value)} className="rounded-xl" />
+                onChange={(e) => setBirthday(e.target.value)} className="rounded-xl w-full" />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 overflow-hidden">
               <Label htmlFor="pet-adopt">입양일</Label>
               <Input id="pet-adopt" type="date" value={adoptionDate}
-                onChange={(e) => setAdoptionDate(e.target.value)} className="rounded-xl" />
+                onChange={(e) => setAdoptionDate(e.target.value)} className="rounded-xl w-full" />
             </div>
           </div>
 

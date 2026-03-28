@@ -93,10 +93,10 @@ export default function PetHealthAddForm({ onSubmit, onClose }: Props) {
               <Input id="health-cost" type="number" placeholder="원" value={cost}
                 onChange={(e) => setCost(e.target.value)} className="rounded-xl" />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 overflow-hidden">
               <Label htmlFor="health-next">다음 예정일</Label>
               <Input id="health-next" type="date" value={nextDate}
-                onChange={(e) => setNextDate(e.target.value)} className="rounded-xl" />
+                onChange={(e) => setNextDate(e.target.value)} className="rounded-xl w-full" />
             </div>
           </div>
 
