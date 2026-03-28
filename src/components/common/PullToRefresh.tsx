@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 /** 당기기 임계값 (px) — 이만큼 당겨야 새로고침 트리거 */
-const THRESHOLD = 120;
+const THRESHOLD = 140;
+/** 당기기 시작 무시 구간 (px) — 이 거리까지는 반응하지 않음 */
+const DEAD_ZONE = 30;
 
 /**
  * Pull-to-Refresh 컴포넌트 — iOS PWA standalone 모드 대응
@@ -58,9 +60,10 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
         }
       }
 
-      // 세로 확정 + 아래로 당기는 경우만 처리
-      if (isVertical.current && diffY > 0) {
-        setPullDistance(Math.min(diffY * 0.3, THRESHOLD * 1.5));
+      // 세로 확정 + 아래로 당기는 경우만 처리 (데드존 이후부터 반응)
+      if (isVertical.current && diffY > DEAD_ZONE) {
+        const effective = (diffY - DEAD_ZONE) * 0.25;
+        setPullDistance(Math.min(effective, THRESHOLD * 1.3));
       }
     };
 
@@ -93,7 +96,7 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
 
   return (
     <>
-      {(pullDistance > 10 || refreshing) && (
+      {(pullDistance > 30 || refreshing) && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex justify-center"
           style={{ transform: `translateY(${pullDistance - 40}px)` }}
@@ -113,7 +116,7 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
 
       <div
         style={{
-          transform: pullDistance > 10 ? `translateY(${pullDistance}px)` : "none",
+          transform: pullDistance > 30 ? `translateY(${pullDistance}px)` : "none",
           transition: pulling.current ? "none" : "transform 0.3s ease",
         }}
       >
