@@ -127,6 +127,9 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : isEdit ? "수정하기" : "등록하기"}
           </Button>
+
+          {/* 하단 네비/safe area 여백 */}
+          <div className="h-24" />
         </form>
       </div>
     </div>
