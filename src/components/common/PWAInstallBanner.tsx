@@ -7,6 +7,7 @@ import {
   dismissInstallPrompt,
   isIOS,
 } from "@/lib/pwa/install-prompt";
+import { FAB_BOTTOM } from "@/lib/constants";
 
 /**
  * PWA 설치 유도 배너
@@ -34,7 +35,7 @@ export default function PWAInstallBanner() {
   return (
     <div
       className="fixed left-4 right-4 z-40 animate-fade-up"
-      style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+      style={{ bottom: FAB_BOTTOM }}
     >
       <div className="bg-white rounded-2xl p-4 shadow-float border border-coral-100 relative max-w-lg mx-auto">
         {/* 닫기 버튼 */}

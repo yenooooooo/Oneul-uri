@@ -17,7 +17,7 @@ import AnniversaryCard from "@/components/common/AnniversaryCard";
 import InviteBanner from "@/components/common/InviteBanner";
 import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import HomeSkeleton from "@/components/common/HomeSkeleton";
-import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart } from "lucide-react";
+import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart, MessageCircle } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
 import FadeImage from "@/components/common/FadeImage";
 
@@ -238,11 +238,11 @@ export default function HomePage() {
             </div>
             <span className="text-xs font-bold text-txt-tertiary">통계</span>
           </Link>
-          <Link href="/anniversary" className="flex flex-col items-center gap-2">
+          <Link href="/questions" className="flex flex-col items-center gap-2">
             <div className="w-14 h-14 rounded-full bg-surface-low flex items-center justify-center active:bg-surface-high transition-colors">
-              <Heart className="w-5 h-5 text-txt-tertiary" />
+              <MessageCircle className="w-5 h-5 text-txt-tertiary" />
             </div>
-            <span className="text-xs font-bold text-txt-tertiary">기념일</span>
+            <span className="text-xs font-bold text-txt-tertiary">커플 질문</span>
           </Link>
         </section>
       </div>

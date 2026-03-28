@@ -11,7 +11,8 @@ import TransactionList from "@/components/wallet/TransactionList";
 import MilestonePopup from "@/components/wallet/MilestonePopup";
 import { useWallet } from "@/hooks/useWallet";
 import { useCouple } from "@/hooks/useCouple";
-import { Plus, Loader2, PiggyBank, Pencil, Trash2 } from "lucide-react";
+import { Plus, Loader2, PiggyBank, Pencil, Trash2, Settings } from "lucide-react";
+import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 
 /**
@@ -39,6 +40,14 @@ export default function WalletPage() {
   return (
     <AppLayout>
       <div className="px-6 pt-6 space-y-8 animate-page-in">
+        {/* 로딩·빈 상태에서도 설정 접근 가능하도록 상단 아이콘 */}
+        {(!activeGoal || loading) && (
+          <div className="flex items-center justify-end">
+            <Link href="/settings" className="p-2 text-txt-tertiary">
+              <Settings className="w-5 h-5" />
+            </Link>
+          </div>
+        )}
         {loading ? (
           <div className="flex justify-center py-12">
             <Loader2 className="w-6 h-6 animate-spin text-coral-300" />
@@ -68,6 +77,9 @@ export default function WalletPage() {
                 <button onClick={() => setShowDeleteConfirm(true)} className="p-1.5 text-txt-tertiary">
                   <Trash2 className="w-4 h-4" />
                 </button>
+                <Link href="/settings" className="p-1.5 text-txt-tertiary">
+                  <Settings className="w-4 h-4" />
+                </Link>
               </div>
             </div>
 

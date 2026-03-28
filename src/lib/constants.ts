@@ -55,5 +55,11 @@ export const PET_GENDER_OPTIONS = [
 /** 반려견 다이어리 사진 최대 수 */
 export const MAX_PET_DIARY_PHOTOS = 3;
 
+/** 하단 네비 위 FAB 버튼 위치 — safe area 포함 */
+export const FAB_BOTTOM = "calc(5.5rem + env(safe-area-inset-bottom, 0px))";
+
+/** AppLayout 하단 패딩 — 네비 높이 + safe area */
+export const LAYOUT_BOTTOM_PADDING = "calc(5.5rem + env(safe-area-inset-bottom, 0px))";
+
 /** 편지 최대 글자 수 */
 export const MAX_LETTER_LENGTH = 2000;

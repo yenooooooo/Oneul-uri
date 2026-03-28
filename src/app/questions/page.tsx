@@ -24,7 +24,7 @@ export default function QuestionsPage() {
       <div className="px-6 pt-6 space-y-8 animate-page-in">
         {/* 상단 네비 */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="p-1 text-txt-tertiary"><ArrowLeft className="w-5 h-5" /></Link>
+          <Link href="/" className="p-1 text-txt-primary"><ArrowLeft className="w-5 h-5" /></Link>
           <div>
             <h1 className="text-xl font-bold font-serif-ko text-txt-primary">커플 질문</h1>
             <p className="text-xs text-txt-tertiary">{formatDate(todayKST, "long")}</p>

@@ -8,7 +8,7 @@ import RouletteResult from "@/components/roulette/RouletteResult";
 import { useRoulette } from "@/hooks/useRoulette";
 import { useCalendar } from "@/hooks/useCalendar";
 import { ROULETTE_CATEGORIES } from "@/lib/constants";
-import { Plus, X, Loader2, Clock } from "lucide-react";
+import { Plus, X, Loader2, Clock, ArrowLeft } from "lucide-react";
 import FormInput from "@/components/common/FormInput";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -64,7 +64,12 @@ export default function RoulettePage() {
     <AppLayout>
       <div className="px-4 pt-6 space-y-5">
         {/* 페이지 헤더 */}
-        <h1 className="text-2xl font-bold text-txt-primary">데이트 룰렛</h1>
+        <div className="flex items-center gap-3">
+          <button onClick={() => window.history.back()} className="p-1 text-txt-primary">
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <h1 className="text-2xl font-bold text-txt-primary">데이트 룰렛</h1>
+        </div>
 
         {/* 쿠폰함 바로가기 */}
         <Link href="/coupons"

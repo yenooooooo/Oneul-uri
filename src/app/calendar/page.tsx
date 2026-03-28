@@ -11,8 +11,9 @@ import { useAnniversary } from "@/hooks/useAnniversary";
 import { useDatePlans } from "@/hooks/useDatePlans";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
-import { Plus, ClipboardList, Sticker } from "lucide-react";
+import { Plus, ClipboardList, Sticker, Settings } from "lucide-react";
 import { calculateAnniversaryDday } from "@/lib/utils";
+import { FAB_BOTTOM } from "@/lib/constants";
 import { getStickerUrl } from "@/lib/stickers";
 import { useCalendarStickers } from "@/hooks/useCalendarStickers";
 import StickerPickerModal from "@/components/calendar/StickerPickerModal";
@@ -97,14 +98,19 @@ export default function CalendarPage() {
   return (
     <AppLayout>
       <div className="px-6 pt-6 space-y-8 animate-page-in">
-        {/* 상단 타이틀 — stitch 매거진 스타일 */}
-        <div>
-          <p className="text-[10px] font-bold text-txt-tertiary tracking-widest uppercase">
-            {MONTH_NAMES[month]} {year}
-          </p>
-          <h1 className="font-serif-ko text-3xl font-black text-txt-primary">
-            {month + 1}월의 기록
-          </h1>
+        {/* 상단 타이틀 — stitch 매거진 스타일 + 설정 아이콘 */}
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-[10px] font-bold text-txt-tertiary tracking-widest uppercase">
+              {MONTH_NAMES[month]} {year}
+            </p>
+            <h1 className="font-serif-ko text-3xl font-black text-txt-primary">
+              {month + 1}월의 기록
+            </h1>
+          </div>
+          <Link href="/settings" className="p-2 text-txt-tertiary">
+            <Settings className="w-5 h-5" />
+          </Link>
         </div>
 
         {loading ? (
@@ -218,7 +224,7 @@ export default function CalendarPage() {
       </div>
 
       <button onClick={() => setShowAdd(true)} disabled={!selectedDate}
-        style={{ bottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))" }}
+        style={{ bottom: FAB_BOTTOM }}
         className="fixed right-5 w-14 h-14 bg-coral-500 rounded-full shadow-float flex items-center justify-center text-white active:scale-95 transition-transform z-40 disabled:opacity-40">
         <Plus className="w-6 h-6" />
       </button>

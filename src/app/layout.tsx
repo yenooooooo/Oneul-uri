@@ -5,6 +5,8 @@ import { AuthProvider } from "@/components/common/AuthProvider";
 import { CoupleProvider } from "@/components/common/CoupleProvider";
 import ServiceWorkerRegister from "@/components/common/ServiceWorkerRegister";
 import PullToRefresh from "@/components/common/PullToRefresh";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
+import OfflineBanner from "@/components/common/OfflineBanner";
 
 /**
  * 오늘우리 앱의 메타데이터 설정
@@ -55,13 +57,17 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="antialiased">
-        <AuthProvider>
-          <CoupleProvider>
-            <PullToRefresh>
-              {children}
-            </PullToRefresh>
-          </CoupleProvider>
-        </AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>
+            <CoupleProvider>
+              <PullToRefresh>
+                {children}
+              </PullToRefresh>
+            </CoupleProvider>
+          </AuthProvider>
+        </ErrorBoundary>
+        {/* 오프라인 감지 배너 */}
+        <OfflineBanner />
         {/* 토스트 알림 — 친절한 한글 메시지용 */}
         <Toaster position="top-center" richColors />
         {/* Service Worker 등록 — PWA 캐싱 + 푸시 알림 */}
