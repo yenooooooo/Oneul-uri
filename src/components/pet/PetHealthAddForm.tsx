@@ -5,6 +5,7 @@ import type { CreatePetHealth, PetHealthType } from "@/types";
 import { PET_HEALTH_TYPES } from "@/types/pet";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import FormInput from "@/components/common/FormInput";
 import FormTextarea from "@/components/common/FormTextarea";
 import FormDatePicker from "@/components/common/FormDatePicker";
@@ -19,6 +20,7 @@ interface Props {
  * 건강 기록 추가 모달 — 종류, 날짜, 제목, 병원, 비용, 다음 예정일
  */
 export default function PetHealthAddForm({ onSubmit, onClose }: Props) {
+  useLockScroll(); // 뒷배경 스크롤 방지
   const [type, setType] = useState<PetHealthType>("vaccination");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [title, setTitle] = useState("");

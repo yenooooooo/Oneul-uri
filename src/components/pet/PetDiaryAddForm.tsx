@@ -5,6 +5,7 @@ import type { CreatePetDiary, PetDiaryCategory } from "@/types";
 import { PET_DIARY_CATEGORIES } from "@/types/pet";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import FormInput from "@/components/common/FormInput";
 import FormTextarea from "@/components/common/FormTextarea";
 import FormDatePicker from "@/components/common/FormDatePicker";
@@ -19,6 +20,7 @@ interface Props {
  * 성장 일기 작성 모달 — 날짜, 카테고리, 제목, 내용
  */
 export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
+  useLockScroll(); // 뒷배경 스크롤 방지
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

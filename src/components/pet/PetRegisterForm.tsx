@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X, Loader2, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import FormInput from "@/components/common/FormInput";
 import FormDatePicker from "@/components/common/FormDatePicker";
 
@@ -21,6 +22,7 @@ interface Props {
  * 반려견 등록/수정 폼 — 전체 화면 모달
  */
 export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit }: Props) {
+  useLockScroll(); // 뒷배경 스크롤 방지
   const [name, setName] = useState(initialData?.name ?? "");
   const [breed, setBreed] = useState(initialData?.breed ?? "");
   const [birthday, setBirthday] = useState(initialData?.birthday ?? "");
