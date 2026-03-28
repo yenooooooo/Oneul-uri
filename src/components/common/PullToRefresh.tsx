@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 /** 당기기 임계값 (px) — 이만큼 당겨야 새로고침 트리거 */
-const THRESHOLD = 80;
+const THRESHOLD = 120;
 
 /**
  * Pull-to-Refresh 컴포넌트 — iOS PWA standalone 모드 대응
@@ -60,7 +60,7 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
 
       // 세로 확정 + 아래로 당기는 경우만 처리
       if (isVertical.current && diffY > 0) {
-        setPullDistance(Math.min(diffY * 0.4, THRESHOLD * 1.5));
+        setPullDistance(Math.min(diffY * 0.3, THRESHOLD * 1.5));
       }
     };
 
