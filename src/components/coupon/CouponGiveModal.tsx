@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { Label } from "@/components/ui/label";
 import { X, Loader2, Trash2 } from "lucide-react";
 import type { CouponType } from "@/types/coupon";
@@ -101,11 +101,8 @@ export default function CouponGiveModal({
           </div>
 
           {/* 내기 메모 */}
-          <div className="space-y-1.5">
-            <Label>무슨 내기였나요? (선택)</Label>
-            <Input placeholder="예: 강아지 찾기 내기 승리!" value={betMemo}
-              onChange={(e) => setBetMemo(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput label="무슨 내기였나요? (선택)" placeholder="예: 강아지 찾기 내기 승리!" value={betMemo}
+            onChange={(e) => setBetMemo(e.target.value)} />
 
           <Button onClick={handleSubmit} disabled={loading || !selectedType}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">

@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
 
 /** DepositForm 컴포넌트 props */
 interface DepositFormProps {
@@ -49,31 +48,26 @@ export default function DepositForm({ goalId, onSubmit, onClose }: DepositFormPr
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 금액 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="deposit-amount">금액 (원)</Label>
-            <Input
-              id="deposit-amount"
-              type="number"
-              placeholder="10000"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              required
-              min={1}
-              className="rounded-xl text-lg"
-            />
-          </div>
+          <FormInput
+            id="deposit-amount"
+            label="금액 (원)"
+            type="number"
+            placeholder="10000"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+            min={1}
+            className="text-lg"
+          />
 
           {/* 메모 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="deposit-memo">메모 (선택)</Label>
-            <Input
-              id="deposit-memo"
-              placeholder="3월 월급에서 5만원"
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="deposit-memo"
+            label="메모 (선택)"
+            placeholder="3월 월급에서 5만원"
+            value={memo}
+            onChange={(e) => setMemo(e.target.value)}
+          />
 
           <Button
             type="submit"

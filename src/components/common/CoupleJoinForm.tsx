@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import FormInput from "@/components/common/FormInput";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -41,31 +40,26 @@ export default function CoupleJoinForm({ onSubmit, onSuccess }: CoupleJoinFormPr
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* 닉네임 입력 */}
-      <div className="space-y-2">
-        <Label htmlFor="join-nickname">내 닉네임</Label>
-        <Input
-          id="join-nickname"
-          placeholder="상대방에게 보여질 이름"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          required
-          className="rounded-xl"
-        />
-      </div>
+      <FormInput
+        id="join-nickname"
+        label="내 닉네임"
+        placeholder="상대방에게 보여질 이름"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        required
+      />
 
       {/* 초대 코드 입력 */}
-      <div className="space-y-2">
-        <Label htmlFor="invite-code">초대 코드</Label>
-        <Input
-          id="invite-code"
-          placeholder="6자리 코드 입력"
-          value={inviteCode}
-          onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-          required
-          maxLength={6}
-          className="rounded-xl text-center text-lg tracking-widest"
-        />
-      </div>
+      <FormInput
+        id="invite-code"
+        label="초대 코드"
+        placeholder="6자리 코드 입력"
+        value={inviteCode}
+        onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+        required
+        maxLength={6}
+        className="text-center text-lg tracking-widest"
+      />
 
       <Button
         type="submit"

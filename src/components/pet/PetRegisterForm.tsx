@@ -4,10 +4,11 @@ import { useState } from "react";
 import type { CreatePet, PetGender } from "@/types";
 import { PET_GENDER_OPTIONS } from "@/lib/constants";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { X, Loader2, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 
 interface Props {
   onSubmit: (data: CreatePet) => Promise<string | null>;
@@ -69,17 +70,14 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
           <button onClick={onClose} className="p-1 text-txt-tertiary"><X className="w-5 h-5" /></button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-4">
+        <form onSubmit={handleSubmit} className="px-4 py-6 space-y-4">
           {/* 이름 (필수) */}
-          <div className="space-y-1">
-            <Label htmlFor="pet-name">이름 *</Label>
-            <Input id="pet-name" placeholder="우리 아이 이름" value={name}
-              onChange={(e) => setName(e.target.value)} required className="rounded-xl" />
-          </div>
+          <FormInput id="pet-name" label="이름 *" placeholder="우리 아이 이름"
+            value={name} onChange={(e) => setName(e.target.value)} required />
 
           {/* 성별 */}
-          <div className="space-y-1">
-            <Label>성별</Label>
+          <div className="space-y-2">
+            <span className="text-sm font-medium text-gray-700">성별</span>
             <div className="flex gap-2">
               {PET_GENDER_OPTIONS.map((g) => (
                 <button key={g.value} type="button" onClick={() => setGender(g.value)}
@@ -92,38 +90,24 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
 
           {/* 품종 + 몸무게 */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <Label htmlFor="pet-breed">품종</Label>
-              <Input id="pet-breed" placeholder="예: 포메라니안" value={breed}
-                onChange={(e) => setBreed(e.target.value)} className="rounded-xl" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="pet-weight">몸무게 (kg)</Label>
-              <Input id="pet-weight" type="number" step="0.1" placeholder="kg" value={weightKg}
-                onChange={(e) => setWeightKg(e.target.value)} className="rounded-xl" />
-            </div>
+            <FormInput id="pet-breed" label="품종" placeholder="예: 포메라니안"
+              value={breed} onChange={(e) => setBreed(e.target.value)} />
+            <FormInput id="pet-weight" label="몸무게 (kg)" type="number" step="0.1"
+              placeholder="kg" value={weightKg} onChange={(e) => setWeightKg(e.target.value)} />
           </div>
 
           {/* 생일 + 입양일 */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1 overflow-hidden">
-              <Label htmlFor="pet-bday">생일</Label>
-              <Input id="pet-bday" type="date" value={birthday}
-                onChange={(e) => setBirthday(e.target.value)} className="rounded-xl w-full text-sm px-2 [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
-            </div>
-            <div className="space-y-1 overflow-hidden">
-              <Label htmlFor="pet-adopt">입양일</Label>
-              <Input id="pet-adopt" type="date" value={adoptionDate}
-                onChange={(e) => setAdoptionDate(e.target.value)} className="rounded-xl w-full text-sm px-2 [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
-            </div>
+            <FormDatePicker id="pet-bday" label="생일" value={birthday}
+              onChange={(e) => setBirthday(e.target.value)} />
+            <FormDatePicker id="pet-adopt" label="입양일" value={adoptionDate}
+              onChange={(e) => setAdoptionDate(e.target.value)} />
           </div>
 
           {/* 성격 */}
-          <div className="space-y-1">
-            <Label htmlFor="pet-personality">성격 한마디</Label>
-            <Input id="pet-personality" placeholder="예: 활발하고 애교 많은 아이" value={personality}
-              onChange={(e) => setPersonality(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput id="pet-personality" label="성격 한마디"
+            placeholder="예: 활발하고 애교 많은 아이" value={personality}
+            onChange={(e) => setPersonality(e.target.value)} />
 
           {/* 좋아하는 것 태그 */}
           <TagInput label="좋아하는 것" tags={likes} input={likeInput}
@@ -154,15 +138,15 @@ function TagInput({ label, tags, input, onInputChange, onAdd, onRemove, color }:
   color: string;
 }) {
   return (
-    <div className="space-y-1">
-      <Label>{label}</Label>
+    <div className="space-y-2">
+      <span className="text-sm font-medium text-gray-700">{label}</span>
       <div className="flex gap-2">
         <Input placeholder="입력 후 + 버튼" value={input}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); onAdd(); } }}
-          className="rounded-xl flex-1" />
+          className="flex-1" />
         <button type="button" onClick={onAdd}
-          className="w-10 h-10 bg-coral-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+          className="w-12 h-12 bg-coral-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
           <Plus className="w-4 h-4" />
         </button>
       </div>

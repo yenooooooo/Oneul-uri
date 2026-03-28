@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import type { CreateWalletGoal } from "@/types/wallet";
 
 /** GoalCreateForm 컴포넌트 props */
@@ -51,27 +51,19 @@ export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProp
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label htmlFor="goal-title">목표 이름</Label>
-            <Input id="goal-title" placeholder="예: 제주도 여행"
-              value={title} onChange={(e) => setTitle(e.target.value)}
-              required className="rounded-xl" />
-          </div>
+          <FormInput id="goal-title" label="목표 이름" placeholder="예: 제주도 여행"
+            value={title} onChange={(e) => setTitle(e.target.value)}
+            required />
 
-          <div className="space-y-1.5">
-            <Label htmlFor="goal-amount">목표 금액 (원)</Label>
-            <Input id="goal-amount" type="number" placeholder="500000"
-              value={targetAmount} onChange={(e) => setTargetAmount(e.target.value)}
-              required min={1} className="rounded-xl text-lg" />
-          </div>
+          <FormInput id="goal-amount" label="목표 금액 (원)" type="number" placeholder="500000"
+            value={targetAmount} onChange={(e) => setTargetAmount(e.target.value)}
+            required min={1} className="text-lg" />
 
           {/* 목표 달성 희망 날짜 (선택) */}
-          <div className="space-y-1.5">
-            <Label htmlFor="goal-date">목표 달성 날짜 (선택)</Label>
-            <Input id="goal-date" type="date"
-              value={targetDate} onChange={(e) => setTargetDate(e.target.value)}
-              className="rounded-xl" />
-            <p className="text-xs text-txt-tertiary">
+          <div>
+            <FormDatePicker id="goal-date" label="목표 달성 날짜 (선택)"
+              value={targetDate} onChange={(e) => setTargetDate(e.target.value)} />
+            <p className="text-xs text-txt-tertiary mt-1">
               설정하면 페이스 분석을 볼 수 있어요
             </p>
           </div>

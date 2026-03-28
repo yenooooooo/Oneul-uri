@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
 import type { WalletTransaction } from "@/types/wallet";
 
 /** TransactionEditForm 컴포넌트 props */
@@ -50,29 +49,24 @@ export default function TransactionEditForm({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 금액 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-amount">금액 (원)</Label>
-            <Input
-              id="edit-amount"
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              required
-              className="rounded-xl text-lg"
-            />
-          </div>
+          <FormInput
+            id="edit-amount"
+            label="금액 (원)"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+            className="text-lg"
+          />
 
           {/* 메모 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-memo">메모</Label>
-            <Input
-              id="edit-memo"
-              placeholder="메모를 입력하세요"
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="edit-memo"
+            label="메모"
+            placeholder="메모를 입력하세요"
+            value={memo}
+            onChange={(e) => setMemo(e.target.value)}
+          />
 
           <Button
             type="submit"

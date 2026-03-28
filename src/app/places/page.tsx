@@ -7,7 +7,7 @@ import { useBookmarks } from "@/hooks/useBookmarks";
 import { PLACE_CATEGORIES } from "@/types/bookmark";
 import type { PlaceCategory } from "@/types/bookmark";
 import { ArrowLeft, Loader2, MapPin, Trash2, Plus } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
@@ -53,8 +53,8 @@ export default function PlacesPage() {
         {/* 새 장소 추가 폼 */}
         {showAdd && (
           <div className="bg-surface-low rounded-2xl space-y-3">
-            <Input placeholder="장소 이름" value={newName}
-              onChange={(e) => setNewName(e.target.value)} className="rounded-xl" />
+            <FormInput placeholder="장소 이름" value={newName}
+              onChange={(e) => setNewName(e.target.value)} />
             <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
               {categories.map(([key, cat]) => (
                 <button key={key} type="button" onClick={() => setNewCategory(key)}
@@ -66,8 +66,8 @@ export default function PlacesPage() {
                 </button>
               ))}
             </div>
-            <Input placeholder="메모 (선택)" value={newMemo}
-              onChange={(e) => setNewMemo(e.target.value)} className="rounded-xl" />
+            <FormInput placeholder="메모 (선택)" value={newMemo}
+              onChange={(e) => setNewMemo(e.target.value)} />
             <Button onClick={handleAdd} disabled={!newName.trim()}
               className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
               저장하기

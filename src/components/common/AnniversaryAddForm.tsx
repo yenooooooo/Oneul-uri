@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import { X, Loader2 } from "lucide-react";
 
 /** AnniversaryAddForm 컴포넌트 props */
@@ -46,30 +46,23 @@ export default function AnniversaryAddForm({ onSubmit, onClose }: AnniversaryAdd
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 제목 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="ann-title">기념일 이름</Label>
-            <Input
-              id="ann-title"
-              placeholder="예: 여자친구 생일"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="ann-title"
+            label="기념일 이름"
+            placeholder="예: 여자친구 생일"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
           {/* 날짜 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="ann-date">날짜</Label>
-            <Input
-              id="ann-date"
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              className="rounded-xl"
-            />
-          </div>
+          <FormDatePicker
+            id="ann-date"
+            label="날짜"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
 
           {/* 매년 반복 */}
           <label className="flex items-center gap-2 cursor-pointer">

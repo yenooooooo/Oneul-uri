@@ -6,9 +6,9 @@ import AppLayout from "@/components/layout/AppLayout";
 import { useCouple } from "@/hooks/useCouple";
 import { useAnniversary } from "@/hooks/useAnniversary";
 import { useAuth } from "@/hooks/useAuth";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import { ArrowLeft, Cake, Copy, Check, LogOut, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import NotificationToggle from "@/components/common/NotificationToggle";
@@ -80,18 +80,16 @@ export default function SettingsPage() {
         <section className="bg-surface-low rounded-3xl p-6 space-y-4">
           <h2 className="text-sm font-bold text-txt-tertiary">내 프로필</h2>
           <div className="flex gap-3">
-            <div className="space-y-1.5 w-20">
-              <Label htmlFor="emoji">이모지</Label>
-              <Input id="emoji" value={emoji} maxLength={2}
+            <div className="w-20">
+              <FormInput id="emoji" label="이모지" value={emoji} maxLength={2}
                 onChange={(e) => setEmoji(e.target.value)}
-                className="rounded-xl text-center text-2xl bg-white" />
+                className="text-center text-2xl bg-white" />
             </div>
-            <div className="space-y-1.5 flex-1">
-              <Label htmlFor="status">오늘의 한마디</Label>
-              <Input id="status" placeholder="상태 메시지를 입력해보세요"
+            <div className="flex-1">
+              <FormInput id="status" label="오늘의 한마디" placeholder="상태 메시지를 입력해보세요"
                 value={status} maxLength={30}
                 onChange={(e) => setStatus(e.target.value)}
-                className="rounded-xl bg-white" />
+                className="bg-white" />
             </div>
           </div>
           <Button
@@ -119,10 +117,12 @@ export default function SettingsPage() {
               </span>
             )}
           </h2>
-          <div className="flex gap-3 items-center">
-            <Input id="birthday" type="date" value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              className="rounded-xl bg-white flex-1" />
+          <div className="flex gap-3 items-end">
+            <div className="flex-1">
+              <FormDatePicker id="birthday" value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                className="bg-white" />
+            </div>
             <Button onClick={handleSaveBirthday}
               disabled={saving || !birthday || birthday === myBirthday}
               className="rounded-full bg-coral-500 hover:bg-coral-600 text-white px-6">

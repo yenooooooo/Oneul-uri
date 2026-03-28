@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import { Loader2, Copy, Check, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
@@ -94,30 +94,23 @@ export default function CoupleCreateForm({ onSubmit }: CoupleCreateFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* 닉네임 입력 */}
-      <div className="space-y-2">
-        <Label htmlFor="nickname">내 닉네임</Label>
-        <Input
-          id="nickname"
-          placeholder="상대방에게 보여질 이름"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          required
-          className="rounded-xl"
-        />
-      </div>
+      <FormInput
+        id="nickname"
+        label="내 닉네임"
+        placeholder="상대방에게 보여질 이름"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        required
+      />
 
       {/* 사귄 날짜 입력 */}
-      <div className="space-y-2">
-        <Label htmlFor="startDate">사귄 날짜</Label>
-        <Input
-          id="startDate"
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          required
-          className="rounded-xl"
-        />
-      </div>
+      <FormDatePicker
+        id="startDate"
+        label="사귄 날짜"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        required
+      />
 
       <Button
         type="submit"

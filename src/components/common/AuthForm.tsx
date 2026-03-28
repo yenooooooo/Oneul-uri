@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import FormInput from "@/components/common/FormInput";
 import { Heart, Loader2 } from "lucide-react";
 import PWAInstallBanner from "@/components/common/PWAInstallBanner";
 
@@ -64,33 +63,27 @@ export default function AuthForm({ mode, onSubmit, onToggleMode }: AuthFormProps
         </h2>
 
         {/* 이메일 입력 */}
-        <div className="space-y-2">
-          <Label htmlFor="email">이메일</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="example@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="rounded-xl"
-          />
-        </div>
+        <FormInput
+          id="email"
+          label="이메일"
+          type="email"
+          placeholder="example@email.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
         {/* 비밀번호 입력 */}
-        <div className="space-y-2">
-          <Label htmlFor="password">비밀번호</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="6자 이상 입력해주세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-            className="rounded-xl"
-          />
-        </div>
+        <FormInput
+          id="password"
+          label="비밀번호"
+          type="password"
+          placeholder="6자 이상 입력해주세요"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={6}
+        />
 
         {/* 에러 메시지 표시 */}
         {error && (

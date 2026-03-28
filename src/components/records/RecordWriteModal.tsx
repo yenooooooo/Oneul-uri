@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2, MapPin } from "lucide-react";
 import PhotoUploader from "@/components/records/PhotoUploader";
 import { MOOD_OPTIONS } from "@/types/record";
 import type { CreateDateRecord } from "@/types";
 import { cn } from "@/lib/utils";
+import FormInput from "@/components/common/FormInput";
+import FormTextarea from "@/components/common/FormTextarea";
+import FormDatePicker from "@/components/common/FormDatePicker";
 
 /** RecordWriteModal 컴포넌트 props */
 interface RecordWriteModalProps {
@@ -55,26 +56,18 @@ export default function RecordWriteModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 space-y-4">
+        <form onSubmit={handleSubmit} className="px-4 py-6 space-y-4">
           {/* 제목 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="title">제목</Label>
-            <Input id="title" placeholder="오늘의 데이트 한 줄 제목"
-              value={title} onChange={(e) => setTitle(e.target.value)}
-              required className="rounded-xl" />
-          </div>
+          <FormInput id="title" label="제목" placeholder="오늘의 데이트 한 줄 제목"
+            value={title} onChange={(e) => setTitle(e.target.value)} required />
 
           {/* 날짜 */}
-          <div className="space-y-1.5 overflow-hidden">
-            <Label htmlFor="date">날짜</Label>
-            <Input id="date" type="date" value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required className="rounded-xl w-full [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
-          </div>
+          <FormDatePicker id="date" label="날짜" value={date}
+            onChange={(e) => setDate(e.target.value)} required />
 
           {/* 감정 태그 */}
-          <div className="space-y-1.5">
-            <Label>오늘의 기분</Label>
+          <div className="space-y-2">
+            <span className="text-sm font-medium text-gray-700">오늘의 기분</span>
             <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
               {MOOD_OPTIONS.map((m) => (
                 <button key={m.value} type="button"
@@ -93,27 +86,17 @@ export default function RecordWriteModal({
           </div>
 
           {/* 장소 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="location">장소</Label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-txt-tertiary" />
-              <Input id="location" placeholder="어디서 만났나요?"
-                value={location} onChange={(e) => setLocation(e.target.value)}
-                className="rounded-xl pl-9" />
-            </div>
-          </div>
+          <FormInput id="location" label="장소" placeholder="어디서 만났나요?"
+            value={location} onChange={(e) => setLocation(e.target.value)}
+            icon={<MapPin className="w-4 h-4" />} />
 
           {/* 메모 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="memo">메모</Label>
-            <textarea id="memo" placeholder="오늘의 기억을 남겨보세요"
-              value={memo} onChange={(e) => setMemo(e.target.value)} rows={4}
-              className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
-          </div>
+          <FormTextarea id="memo" label="메모" placeholder="오늘의 기억을 남겨보세요"
+            value={memo} onChange={(e) => setMemo(e.target.value)} rows={4} />
 
           {/* 사진 */}
-          <div className="space-y-1.5">
-            <Label>사진 (최대 5장)</Label>
+          <div className="space-y-2">
+            <span className="text-sm font-medium text-gray-700">사진 (최대 5장)</span>
             <PhotoUploader photos={photos} onChange={setPhotos} />
           </div>
 

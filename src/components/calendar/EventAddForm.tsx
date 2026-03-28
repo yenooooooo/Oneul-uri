@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
 
 /** EventAddForm 컴포넌트 props */
 interface EventAddFormProps {
@@ -65,21 +64,18 @@ export default function EventAddForm({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 제목 */}
-          <div className="space-y-1.5">
-            <Label htmlFor="event-title">제목</Label>
-            <Input
-              id="event-title"
-              placeholder="무슨 일정인가요?"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="event-title"
+            label="제목"
+            placeholder="무슨 일정인가요?"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
           {/* 카테고리 선택 */}
-          <div className="space-y-1.5">
-            <Label>카테고리</Label>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">카테고리</label>
             <div className="flex gap-2">
               {CATEGORIES.map((cat) => (
                 <button
@@ -99,28 +95,22 @@ export default function EventAddForm({
           </div>
 
           {/* 시간 (선택) */}
-          <div className="space-y-1.5">
-            <Label htmlFor="event-time">시간 (선택)</Label>
-            <Input
-              id="event-time"
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="event-time"
+            label="시간 (선택)"
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          />
 
           {/* 메모 (선택) */}
-          <div className="space-y-1.5">
-            <Label htmlFor="event-memo">메모 (선택)</Label>
-            <Input
-              id="event-memo"
-              placeholder="메모를 남겨보세요"
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
-              className="rounded-xl"
-            />
-          </div>
+          <FormInput
+            id="event-memo"
+            label="메모 (선택)"
+            placeholder="메모를 남겨보세요"
+            value={memo}
+            onChange={(e) => setMemo(e.target.value)}
+          />
 
           <Button
             type="submit"

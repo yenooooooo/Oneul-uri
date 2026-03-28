@@ -3,11 +3,12 @@
 import { useState } from "react";
 import type { CreatePetDiary, PetDiaryCategory } from "@/types";
 import { PET_DIARY_CATEGORIES } from "@/types/pet";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import FormInput from "@/components/common/FormInput";
+import FormTextarea from "@/components/common/FormTextarea";
+import FormDatePicker from "@/components/common/FormDatePicker";
+import FormCategorySelect from "@/components/common/FormCategorySelect";
 
 interface Props {
   onSubmit: (data: CreatePetDiary) => Promise<boolean>;
@@ -35,48 +36,32 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 bg-cream flex flex-col">
-      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto px-4 py-6">
         {/* 헤더 */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold font-serif-ko">다이어리 작성</h3>
           <button onClick={onClose} className="p-1 text-txt-tertiary"><X className="w-5 h-5" /></button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* 날짜 */}
-          <div className="space-y-1">
-            <Label htmlFor="diary-date">날짜</Label>
-            <Input id="diary-date" type="date" value={date}
-              onChange={(e) => setDate(e.target.value)} required className="rounded-xl" />
-          </div>
+          <FormDatePicker id="diary-date" label="날짜" value={date}
+            onChange={(e) => setDate(e.target.value)} required />
 
           {/* 카테고리 */}
-          <div className="space-y-1">
-            <Label>카테고리</Label>
-            <div className="flex gap-2">
-              {(Object.entries(PET_DIARY_CATEGORIES) as [PetDiaryCategory, { emoji: string; label: string }][]).map(([key, cat]) => (
-                <button key={key} type="button" onClick={() => setCategory(key)}
-                  className={cn("flex-1 py-2 rounded-xl text-xs font-medium transition-colors",
-                    category === key ? "bg-coral-500 text-white" : "bg-surface-low text-txt-secondary"
-                  )}>{cat.emoji} {cat.label}</button>
-              ))}
-            </div>
-          </div>
+          <FormCategorySelect label="카테고리" value={category}
+            onChange={(v) => setCategory(v as PetDiaryCategory)}
+            options={Object.entries(PET_DIARY_CATEGORIES).map(([key, cat]) => ({
+              value: key, label: cat.label, emoji: cat.emoji,
+            }))} />
 
           {/* 제목 */}
-          <div className="space-y-1">
-            <Label htmlFor="diary-title">제목</Label>
-            <Input id="diary-title" placeholder="오늘의 한마디" value={title}
-              onChange={(e) => setTitle(e.target.value)} required className="rounded-xl" />
-          </div>
+          <FormInput id="diary-title" label="제목" placeholder="오늘의 한마디"
+            value={title} onChange={(e) => setTitle(e.target.value)} required />
 
           {/* 내용 */}
-          <div className="space-y-1">
-            <Label htmlFor="diary-content">내용 (선택)</Label>
-            <textarea id="diary-content" placeholder="자세한 이야기를 적어보세요"
-              value={content} onChange={(e) => setContent(e.target.value)} rows={3}
-              className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring" />
-          </div>
+          <FormTextarea id="diary-content" label="내용 (선택)" placeholder="자세한 이야기를 적어보세요"
+            value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
 
           <Button type="submit" disabled={saving || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">

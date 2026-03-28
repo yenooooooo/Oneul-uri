@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import type { WalletGoal } from "@/types/wallet";
 
 /** GoalEditForm 컴포넌트 props */
@@ -52,26 +52,16 @@ export default function GoalEditForm({ goal, onSubmit, onClose }: GoalEditFormPr
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-goal-title">목표 이름</Label>
-            <Input id="edit-goal-title" value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required className="rounded-xl" />
-          </div>
+          <FormInput id="edit-goal-title" label="목표 이름" value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required />
 
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-goal-amount">목표 금액 (원)</Label>
-            <Input id="edit-goal-amount" type="number" value={targetAmount}
-              onChange={(e) => setTargetAmount(e.target.value)}
-              required min={1} className="rounded-xl text-lg" />
-          </div>
+          <FormInput id="edit-goal-amount" label="목표 금액 (원)" type="number" value={targetAmount}
+            onChange={(e) => setTargetAmount(e.target.value)}
+            required min={1} className="text-lg" />
 
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-goal-date">목표 달성 날짜 (선택)</Label>
-            <Input id="edit-goal-date" type="date" value={targetDate}
-              onChange={(e) => setTargetDate(e.target.value)}
-              className="rounded-xl" />
-          </div>
+          <FormDatePicker id="edit-goal-date" label="목표 달성 날짜 (선택)" value={targetDate}
+            onChange={(e) => setTargetDate(e.target.value)} />
 
           <Button type="submit" disabled={loading || !title || !targetAmount}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">

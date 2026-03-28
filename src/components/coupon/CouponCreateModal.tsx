@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
 import { COUPON_EMOJIS } from "@/types/coupon";
@@ -59,17 +59,11 @@ export default function CouponCreateModal({ onSubmit, onClose }: CouponCreateMod
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label>쿠폰 이름</Label>
-            <Input placeholder="예: 치킨 쏘기" value={title}
-              onChange={(e) => setTitle(e.target.value)} required className="rounded-xl" />
-          </div>
+          <FormInput label="쿠폰 이름" placeholder="예: 치킨 쏘기" value={title}
+            onChange={(e) => setTitle(e.target.value)} required />
 
-          <div className="space-y-1.5">
-            <Label>설명 (선택)</Label>
-            <Input placeholder="예: 치킨 1마리 사주기" value={desc}
-              onChange={(e) => setDesc(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput label="설명 (선택)" placeholder="예: 치킨 1마리 사주기" value={desc}
+            onChange={(e) => setDesc(e.target.value)} />
 
           <Button type="submit" disabled={loading || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">

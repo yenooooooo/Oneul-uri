@@ -8,7 +8,7 @@ import { useCouple } from "@/hooks/useCouple";
 import { MEMO_CATEGORIES, MEMO_COLORS } from "@/types/memo";
 import type { CoupleMemo, MemoItem } from "@/types/memo";
 import { ArrowLeft, Pin, Trash2, Plus, Check, Loader2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { cn } from "@/lib/utils";
 
 /**
@@ -134,10 +134,10 @@ export default function MemoDetailPage() {
 
         {/* 아이템 추가 입력 */}
         <div className="flex gap-2">
-          <Input placeholder="항목 추가" value={newItemText}
+          <FormInput placeholder="항목 추가" value={newItemText}
             onChange={(e) => setNewItemText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAddItem()}
-            className="rounded-xl flex-1 bg-white/70" />
+            className="flex-1 bg-white/70" />
           <button onClick={handleAddItem}
             className="w-10 h-10 bg-coral-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
             <Plus className="w-4 h-4" />

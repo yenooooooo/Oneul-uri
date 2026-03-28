@@ -9,7 +9,7 @@ import { useRoulette } from "@/hooks/useRoulette";
 import { useCalendar } from "@/hooks/useCalendar";
 import { ROULETTE_CATEGORIES } from "@/lib/constants";
 import { Plus, X, Loader2, Clock } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -129,12 +129,12 @@ export default function RoulettePage() {
               <div className="bg-surface-low rounded-2xl space-y-3">
                 {/* 새 항목 추가 */}
                 <div className="flex gap-2">
-                  <Input
+                  <FormInput
                     placeholder="새 항목 입력"
                     value={newItemLabel}
                     onChange={(e) => setNewItemLabel(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleAddItem()}
-                    className="rounded-xl flex-1"
+                    className="flex-1"
                   />
                   <button
                     onClick={handleAddItem}

@@ -3,9 +3,9 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDatePlans } from "@/hooks/useDatePlans";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import FormInput from "@/components/common/FormInput";
+import FormDatePicker from "@/components/common/FormDatePicker";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
 /** Suspense 래퍼 — useSearchParams는 Suspense 필요 */
@@ -54,30 +54,23 @@ function NewPlanForm() {
 
       <form onSubmit={handleSubmit} className="px-4 space-y-4">
         {/* 제목 */}
-        <div className="space-y-1.5">
-          <Label htmlFor="plan-title">데이트 제목</Label>
-          <Input
-            id="plan-title"
-            placeholder="예: 홍대 데이트, 제주도 여행 Day1"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            className="rounded-xl"
-          />
-        </div>
+        <FormInput
+          id="plan-title"
+          label="데이트 제목"
+          placeholder="예: 홍대 데이트, 제주도 여행 Day1"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
 
         {/* 날짜 */}
-        <div className="space-y-1.5">
-          <Label htmlFor="plan-date">날짜</Label>
-          <Input
-            id="plan-date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="rounded-xl"
-          />
-        </div>
+        <FormDatePicker
+          id="plan-date"
+          label="날짜"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
 
         <Button
           type="submit"

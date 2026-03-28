@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
 import type { CalendarEvent } from "@/types";
 
 /** 카테고리 옵션 */
@@ -55,15 +54,12 @@ export default function EventEditForm({ event, onSubmit, onClose }: EventEditFor
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-title">제목</Label>
-            <Input id="edit-title" value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required className="rounded-xl" />
-          </div>
+          <FormInput id="edit-title" label="제목" value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required />
 
-          <div className="space-y-1.5">
-            <Label>카테고리</Label>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">카테고리</label>
             <div className="flex gap-2">
               {CATEGORIES.map((cat) => (
                 <button key={cat.value} type="button"
@@ -79,17 +75,11 @@ export default function EventEditForm({ event, onSubmit, onClose }: EventEditFor
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-time">시간 (선택)</Label>
-            <Input id="edit-time" type="time" value={time}
-              onChange={(e) => setTime(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput id="edit-time" label="시간 (선택)" type="time" value={time}
+            onChange={(e) => setTime(e.target.value)} />
 
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-memo">메모 (선택)</Label>
-            <Input id="edit-memo" value={memo}
-              onChange={(e) => setMemo(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput id="edit-memo" label="메모 (선택)" value={memo}
+            onChange={(e) => setMemo(e.target.value)} />
 
           <Button type="submit" disabled={loading || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">

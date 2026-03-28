@@ -9,7 +9,7 @@ import { useCouple } from "@/hooks/useCouple";
 import { MEMO_CATEGORIES } from "@/types/memo";
 import type { MemoCategory } from "@/types/memo";
 import { ArrowLeft, Plus, Loader2, StickyNote } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import FormInput from "@/components/common/FormInput";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -61,10 +61,9 @@ export default function MemosPage() {
         {/* 새 메모 추가 폼 */}
         {showAdd && (
           <div className="bg-surface-low rounded-2xl space-y-3">
-            <Input placeholder="메모 제목" value={newTitle}
+            <FormInput placeholder="메모 제목" value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleCreate()}
-              className="rounded-xl" />
+              onKeyDown={(e) => e.key === "Enter" && handleCreate()} />
             <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
               {CATEGORY_KEYS.map((key) => {
                 const cat = MEMO_CATEGORIES[key];

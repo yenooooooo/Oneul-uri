@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { X, Loader2, Dices } from "lucide-react";
+import FormInput from "@/components/common/FormInput";
 import { PLAN_CATEGORIES } from "@/types/planner";
 import type { PlanCategory, CreatePlanItem, DatePlanItem } from "@/types/planner";
 import { cn } from "@/lib/utils";
@@ -71,14 +71,12 @@ export default function PlanItemModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 시간 */}
-          <div className="space-y-1.5">
-            <Label>시간 (선택)</Label>
-            <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput label="시간 (선택)" type="time" value={time}
+            onChange={(e) => setTime(e.target.value)} />
 
           {/* 카테고리 선택 */}
-          <div className="space-y-1.5">
-            <Label>카테고리</Label>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">카테고리</label>
             <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
               {CATEGORY_KEYS.map((key) => {
                 const cat = PLAN_CATEGORIES[key];
@@ -96,12 +94,12 @@ export default function PlanItemModal({
           </div>
 
           {/* 제목 + 룰렛 버튼 */}
-          <div className="space-y-1.5">
-            <Label>제목</Label>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">제목</label>
             <div className="flex gap-2">
               <Input placeholder="예: 초밥 맛집" value={title}
                 onChange={(e) => { setTitle(e.target.value); setIsRoulette(false); }}
-                required className="rounded-xl flex-1" />
+                required className="flex-1" />
               {onRoulette && (
                 <button type="button" onClick={handleRoulette}
                   className="w-10 h-10 bg-yellow-warm/20 rounded-xl flex items-center justify-center text-yellow-warm flex-shrink-0">
@@ -112,18 +110,12 @@ export default function PlanItemModal({
           </div>
 
           {/* 메모 */}
-          <div className="space-y-1.5">
-            <Label>메모 (선택)</Label>
-            <Input placeholder="웨이팅 길어서 일찍 가야 함" value={memo}
-              onChange={(e) => setMemo(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput label="메모 (선택)" placeholder="웨이팅 길어서 일찍 가야 함" value={memo}
+            onChange={(e) => setMemo(e.target.value)} />
 
           {/* 링크 */}
-          <div className="space-y-1.5">
-            <Label>링크 (선택)</Label>
-            <Input placeholder="네이버 지도 링크, 전화번호 등" value={link}
-              onChange={(e) => setLink(e.target.value)} className="rounded-xl" />
-          </div>
+          <FormInput label="링크 (선택)" placeholder="네이버 지도 링크, 전화번호 등" value={link}
+            onChange={(e) => setLink(e.target.value)} />
 
           <Button type="submit" disabled={loading || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white">
