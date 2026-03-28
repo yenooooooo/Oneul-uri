@@ -5,6 +5,7 @@ import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
 import FormInput from "@/components/common/FormInput";
+import FormCategorySelect from "@/components/common/FormCategorySelect";
 
 /** EventAddForm 컴포넌트 props */
 interface EventAddFormProps {
@@ -74,25 +75,12 @@ export default function EventAddForm({
           />
 
           {/* 카테고리 선택 */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">카테고리</label>
-            <div className="flex gap-2">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.value}
-                  type="button"
-                  onClick={() => setCategory(cat.value)}
-                  className={`flex-1 py-2 rounded-xl text-sm border transition-colors ${
-                    category === cat.value
-                      ? "bg-coral-50 border-coral-300 text-coral-500"
-                      : "bg-white border-coral-100 text-txt-secondary"
-                  }`}
-                >
-                  {cat.emoji} {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          <FormCategorySelect
+            label="카테고리"
+            options={CATEGORIES}
+            value={category}
+            onChange={setCategory}
+          />
 
           {/* 시간 (선택) */}
           <FormInput

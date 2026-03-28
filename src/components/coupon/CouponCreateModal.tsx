@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import FormInput from "@/components/common/FormInput";
-import { Label } from "@/components/ui/label";
 import { X, Loader2 } from "lucide-react";
 import { COUPON_EMOJIS } from "@/types/coupon";
 import { cn } from "@/lib/utils";
@@ -44,8 +43,8 @@ export default function CouponCreateModal({ onSubmit, onClose }: CouponCreateMod
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* 이모지 선택 */}
-          <div className="space-y-1.5">
-            <Label>아이콘</Label>
+          <div className="space-y-2">
+            <span className="text-sm font-medium text-gray-700">아이콘</span>
             <div className="flex gap-2 flex-wrap">
               {COUPON_EMOJIS.map((e) => (
                 <button key={e} type="button" onClick={() => setEmoji(e)}

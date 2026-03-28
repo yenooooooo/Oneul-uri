@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import { Button } from "@/components/ui/button";
 import FormInput from "@/components/common/FormInput";
-import { Label } from "@/components/ui/label";
 import { X, Loader2, Trash2 } from "lucide-react";
 import type { CouponType } from "@/types/coupon";
 import type { Couple } from "@/types";
@@ -56,7 +55,7 @@ export default function CouponGiveModal({
         <div className="space-y-5">
           {/* 승자 선택 */}
           <div className="space-y-2">
-            <Label>누가 이겼나요?</Label>
+            <span className="text-sm font-medium text-gray-700">누가 이겼나요?</span>
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => setWinnerId(userId)}
                 className={cn("py-3 rounded-2xl text-sm font-medium transition-all",
@@ -77,7 +76,7 @@ export default function CouponGiveModal({
 
           {/* 쿠폰 선택 */}
           <div className="space-y-2">
-            <Label>어떤 쿠폰?</Label>
+            <span className="text-sm font-medium text-gray-700">어떤 쿠폰?</span>
             <div className="space-y-2 max-h-40 overflow-y-auto p-1">
               {types.map((t) => (
                 <button key={t.id} onClick={() => setSelectedType(t.id)}

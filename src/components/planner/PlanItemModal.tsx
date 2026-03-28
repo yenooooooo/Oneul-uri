@@ -102,7 +102,7 @@ export default function PlanItemModal({
                 required className="flex-1" />
               {onRoulette && (
                 <button type="button" onClick={handleRoulette}
-                  className="w-10 h-10 bg-yellow-warm/20 rounded-xl flex items-center justify-center text-yellow-warm flex-shrink-0">
+                  className="w-12 h-12 bg-yellow-warm/20 rounded-xl flex items-center justify-center text-yellow-warm flex-shrink-0">
                   <Dices className="w-5 h-5" />
                 </button>
               )}
