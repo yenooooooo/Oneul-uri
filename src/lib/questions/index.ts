@@ -3,19 +3,32 @@ import { TEXT_HONEST } from "./text-honest";
 import { TEXT_BETWEEN } from "./text-between";
 import { TEXT_IFONLY } from "./text-ifonly";
 import { TEXT_TMI } from "./text-tmi";
+import { TEXT_EXTRA_1 } from "./text-extra1";
+import { TEXT_EXTRA_2 } from "./text-extra2";
+import { TEXT_EXTRA_3 } from "./text-extra3";
 import { CHOICE_QUESTIONS } from "./choice";
+import { CHOICE_EXTRA_1 } from "./choice-extra1";
+import { CHOICE_EXTRA_2 } from "./choice-extra2";
+import { CHOICE_EXTRA_3 } from "./choice-extra3";
 import { SCALE_QUESTIONS } from "./scale";
+import { SCALE_EXTRA_1 } from "./scale-extra1";
+import { SCALE_EXTRA_2 } from "./scale-extra2";
 
 /** 전체 자유서술 질문 풀 */
 export const TEXT_POOL: Question[] = [
   ...TEXT_HONEST, ...TEXT_BETWEEN, ...TEXT_IFONLY, ...TEXT_TMI,
+  ...TEXT_EXTRA_1, ...TEXT_EXTRA_2, ...TEXT_EXTRA_3,
 ];
 
 /** 전체 양자택일 질문 풀 */
-export const CHOICE_POOL: Question[] = CHOICE_QUESTIONS;
+export const CHOICE_POOL: Question[] = [
+  ...CHOICE_QUESTIONS, ...CHOICE_EXTRA_1, ...CHOICE_EXTRA_2, ...CHOICE_EXTRA_3,
+];
 
 /** 전체 점수형 질문 풀 */
-export const SCALE_POOL: Question[] = SCALE_QUESTIONS;
+export const SCALE_POOL: Question[] = [
+  ...SCALE_QUESTIONS, ...SCALE_EXTRA_1, ...SCALE_EXTRA_2,
+];
 
 /** 전체 질문 (ID로 빠르게 조회) */
 const ALL_QUESTIONS = [...TEXT_POOL, ...CHOICE_POOL, ...SCALE_POOL];
