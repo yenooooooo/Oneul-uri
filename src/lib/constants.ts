@@ -45,5 +45,15 @@ export const ROULETTE_CATEGORIES = [
 /** 사진 업로드 제한 */
 export const MAX_PHOTOS = 5;
 
+/** 반려견 성별 옵션 */
+export const PET_GENDER_OPTIONS = [
+  { value: "male" as const, label: "남아", emoji: "♂️" },
+  { value: "female" as const, label: "여아", emoji: "♀️" },
+  { value: "unknown" as const, label: "모름", emoji: "❓" },
+];
+
+/** 반려견 다이어리 사진 최대 수 */
+export const MAX_PET_DIARY_PHOTOS = 3;
+
 /** 편지 최대 글자 수 */
 export const MAX_LETTER_LENGTH = 2000;

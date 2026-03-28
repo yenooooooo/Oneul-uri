@@ -70,6 +70,14 @@ export interface Couple {
   created_at: string;
 }
 
+export type {
+  Pet, CreatePet, UpdatePet,
+  PetDiary, CreatePetDiary,
+  PetHealth, CreatePetHealth,
+  PetGender, PetDiaryCategory, PetHealthType,
+} from "./pet";
+export { PET_DIARY_CATEGORIES, PET_HEALTH_TYPES } from "./pet";
+
 /** 사용자 프로필 (인증 후 표시용) */
 export interface UserProfile {
   id: string;
