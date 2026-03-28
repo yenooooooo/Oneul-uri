@@ -85,12 +85,16 @@ export default function PetDiaryTimeline({ diaries, onAdd, onDelete }: Props) {
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                    {/* 사진 미리보기 */}
-                    {diary.photos?.length > 0 && (
-                      <div className="flex gap-2 mt-3">
+                    {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드 */}
+                    {diary.photos?.length === 1 && (
+                      <img src={diary.photos[0]} alt=""
+                        className="w-full h-40 rounded-xl object-cover mt-3" loading="lazy" />
+                    )}
+                    {diary.photos?.length > 1 && (
+                      <div className="grid grid-cols-3 gap-1.5 mt-3">
                         {diary.photos.slice(0, 3).map((url, i) => (
                           <img key={`${diary.id}-${i}`} src={url} alt=""
-                            className="w-16 h-16 rounded-xl object-cover" loading="lazy" />
+                            className="w-full aspect-square rounded-xl object-cover" loading="lazy" />
                         ))}
                       </div>
                     )}

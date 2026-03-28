@@ -6,6 +6,7 @@ import { PET_DIARY_CATEGORIES } from "@/types/pet";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
 import { useLockScroll } from "@/hooks/useLockScroll";
+import PhotoUploader from "@/components/records/PhotoUploader";
 import FormInput from "@/components/common/FormInput";
 import FormTextarea from "@/components/common/FormTextarea";
 import FormDatePicker from "@/components/common/FormDatePicker";
@@ -25,13 +26,14 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState<PetDiaryCategory>("daily");
+  const [photos, setPhotos] = useState<string[]>([]); // 사진 URL 배열
   const [saving, setSaving] = useState(false);
 
   /** 폼 제출 */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const ok = await onSubmit({ date, title, content: content || undefined, category });
+    const ok = await onSubmit({ date, title, content: content || undefined, category, photos });
     setSaving(false);
     if (ok) onClose();
   };
@@ -64,6 +66,12 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
           {/* 내용 */}
           <FormTextarea id="diary-content" label="내용 (선택)" placeholder="자세한 이야기를 적어보세요"
             value={content} onChange={(e) => setContent(e.target.value)} rows={3} />
+
+          {/* 사진 (최대 3장) */}
+          <div className="space-y-2">
+            <span className="text-sm font-medium text-gray-700">사진 (최대 3장)</span>
+            <PhotoUploader photos={photos} onChange={setPhotos} />
+          </div>
 
           <Button type="submit" disabled={saving || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">
