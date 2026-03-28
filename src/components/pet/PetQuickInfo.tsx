@@ -20,12 +20,12 @@ export default function PetQuickInfo({ pet, upcomingHealth }: Props) {
   const cards = [
     pet.birthday && {
       emoji: "🎂", label: "생일",
-      value: formatDate(pet.birthday, "short"),
+      value: formatDate(pet.birthday, "dot"),
       color: "bg-pink-50 border-pink-100",
     },
     pet.adoption_date && {
       emoji: "🏠", label: "입양일",
-      value: formatDate(pet.adoption_date, "short"),
+      value: formatDate(pet.adoption_date, "dot"),
       color: "bg-amber-50 border-amber-100",
     },
     pet.weight_kg && {

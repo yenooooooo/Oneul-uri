@@ -63,7 +63,7 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
 
   return (
     <div className="fixed inset-0 z-50 bg-cream flex flex-col">
-      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto">
+      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto pb-8">
         {/* 헤더 */}
         <div className="flex items-center justify-between p-4 border-b border-coral-50">
           <h2 className="text-lg font-bold font-serif-ko">{isEdit ? "프로필 수정" : "반려견 등록"}</h2>
