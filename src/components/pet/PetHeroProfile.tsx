@@ -4,6 +4,7 @@ import type { Pet } from "@/types";
 import { calculateDday } from "@/lib/utils";
 import { PET_GENDER_OPTIONS } from "@/lib/constants";
 import { Pencil } from "lucide-react";
+import FadeImage from "@/components/common/FadeImage";
 
 interface Props {
   pet: Pet;
@@ -38,8 +39,8 @@ export default function PetHeroProfile({ pet, onEdit }: Props) {
         {/* 프로필 사진 */}
         <div className="w-28 h-28 rounded-full overflow-hidden bg-white shadow-card border-4 border-white">
           {pet.photo_url ? (
-            <img src={pet.photo_url} alt={pet.name}
-              className="w-full h-full object-cover" />
+            <FadeImage src={pet.photo_url} alt={pet.name}
+              className="w-full h-full rounded-full" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-5xl bg-amber-50">
               🐶

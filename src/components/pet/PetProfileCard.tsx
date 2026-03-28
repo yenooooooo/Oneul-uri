@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Pet } from "@/types";
 import { calculateDday } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import FadeImage from "@/components/common/FadeImage";
 
 interface Props {
   pet: Pet;
@@ -23,8 +24,8 @@ export default function PetProfileCard({ pet }: Props) {
         {/* 프로필 사진/이모지 */}
         <div className="w-16 h-16 rounded-full overflow-hidden bg-white shadow-soft border-2 border-white flex-shrink-0">
           {pet.photo_url ? (
-            <img src={pet.photo_url} alt={pet.name}
-              className="w-full h-full object-cover" />
+            <FadeImage src={pet.photo_url} alt={pet.name}
+              className="w-full h-full rounded-full" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-3xl bg-amber-50">
               🐶

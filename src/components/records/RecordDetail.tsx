@@ -10,6 +10,7 @@ import { MOOD_OPTIONS } from "@/types/record";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import RecordWriteModal from "@/components/records/RecordWriteModal";
 import CommentSection from "@/components/records/CommentSection";
+import FadeImage from "@/components/common/FadeImage";
 
 /** RecordDetail 컴포넌트 props */
 interface RecordDetailProps {
@@ -56,11 +57,11 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
       {record.photos.length > 0 && (
         <div className="flex gap-2 overflow-x-auto px-4 pb-3 scrollbar-hide">
           {record.photos.map((url, i) => (
-            <img
+            <FadeImage
               key={url}
               src={url}
               alt={`사진 ${i + 1}`}
-              className="w-72 h-48 rounded-2xl object-cover flex-shrink-0"
+              className="w-72 h-48 rounded-2xl flex-shrink-0"
             />
           ))}
         </div>

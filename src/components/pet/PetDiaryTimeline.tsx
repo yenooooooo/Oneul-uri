@@ -6,6 +6,7 @@ import { PET_DIARY_CATEGORIES } from "@/types/pet";
 import { formatDate } from "@/lib/utils";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
+import FadeImage from "@/components/common/FadeImage";
 
 interface Props {
   diaries: PetDiary[];
@@ -99,14 +100,14 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                     </div>
                     {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드 */}
                     {diary.photos?.length === 1 && (
-                      <img src={diary.photos[0]} alt=""
-                        className="w-full h-40 rounded-xl object-cover mt-3" loading="lazy" />
+                      <FadeImage src={diary.photos[0]} alt=""
+                        className="w-full h-40 rounded-xl mt-3" />
                     )}
                     {diary.photos?.length > 1 && (
                       <div className="grid grid-cols-3 gap-1.5 mt-3">
                         {diary.photos.slice(0, 3).map((url, i) => (
-                          <img key={`${diary.id}-${i}`} src={url} alt=""
-                            className="w-full aspect-square rounded-xl object-cover" loading="lazy" />
+                          <FadeImage key={`${diary.id}-${i}`} src={url} alt=""
+                            className="w-full rounded-xl" aspect="1/1" />
                         ))}
                       </div>
                     )}

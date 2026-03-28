@@ -5,6 +5,7 @@ import { Camera } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { MOOD_OPTIONS } from "@/types/record";
 import type { DateRecord } from "@/types";
+import FadeImage from "@/components/common/FadeImage";
 
 interface RecordCardProps {
   record: DateRecord;
@@ -24,9 +25,8 @@ export default function RecordCard({ record }: RecordCardProps) {
       <article className="group">
         {thumbnail && (
           <div className="aspect-[4/3] rounded-2xl overflow-hidden relative">
-            <img src={thumbnail} alt={record.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-active:scale-105"
-              loading="lazy" />
+            <FadeImage src={thumbnail} alt={record.title}
+              className="w-full h-full rounded-2xl" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5 right-5">
               <span className="text-white/70 text-xs font-bold tracking-widest uppercase mb-1.5 block">

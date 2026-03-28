@@ -8,6 +8,7 @@ import StationeryPicker from "@/components/penpal/StationeryPicker";
 import { ArrowLeft, Loader2, Send, ImagePlus, X } from "lucide-react";
 import { uploadPhoto } from "@/lib/supabase/storage";
 import { MAX_LETTER_LENGTH } from "@/lib/constants";
+import FadeImage from "@/components/common/FadeImage";
 import { toast } from "sonner";
 import type { StationeryType } from "@/types";
 
@@ -152,8 +153,8 @@ function WriteLetterForm() {
 
         {/* 첨부 사진 미리보기 */}
         {photoUrl && (
-          <div className="relative mt-3 rounded-xl overflow-hidden">
-            <img src={photoUrl} alt="첨부" className="w-full h-40 object-cover" />
+          <div className="relative mt-3">
+            <FadeImage src={photoUrl} alt="첨부" className="w-full h-40 rounded-xl" />
             <button
               onClick={() => setPhotoUrl(null)}
               className="absolute top-2 right-2 w-6 h-6 bg-black/50 rounded-full flex items-center justify-center"

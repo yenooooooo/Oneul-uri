@@ -19,6 +19,7 @@ import CoupleProfileCard from "@/components/common/CoupleProfileCard";
 import HomeSkeleton from "@/components/common/HomeSkeleton";
 import { Loader2, ChevronRight, Settings, ClipboardList, MapPin, StickyNote, BarChart3, Heart, PawPrint } from "lucide-react";
 import { formatDate, formatCurrency } from "@/lib/utils";
+import FadeImage from "@/components/common/FadeImage";
 
 /**
  * 홈 — stitch(2) Editorial Keepsake 레이아웃
@@ -142,8 +143,8 @@ export default function HomePage() {
                   /* 사진 기록 — 큰 세로 카드 */
                   <Link key={record.id} href={`/records/${record.id}`}
                     className="flex-none w-64 h-80 relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform">
-                    <img src={record.photos[0]} alt={record.title}
-                      className="w-full h-full object-cover" loading="lazy" />
+                    <FadeImage src={record.photos[0]} alt={record.title}
+                      className="w-full h-full" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-5">
                       <span className="text-white/60 text-[10px] font-medium mb-1">
                         {formatDate(record.date, "dot")}
