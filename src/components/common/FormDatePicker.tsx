@@ -23,10 +23,13 @@ export default function FormDatePicker({ label, className, id, ...props }: FormD
         id={id}
         type="date"
         className={cn(
-          "w-full [&::-webkit-date-and-time-value]:text-left",
-          "[&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:p-0 [&::-webkit-calendar-picker-indicator]:opacity-50",
+          "w-full max-w-full box-border",
+          "[&::-webkit-date-and-time-value]:text-left",
+          "[&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:h-4 [&::-webkit-calendar-picker-indicator]:p-0 [&::-webkit-calendar-picker-indicator]:m-0 [&::-webkit-calendar-picker-indicator]:opacity-50",
+          "[&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden",
           className
         )}
+        style={{ WebkitAppearance: "none", maxWidth: "100%" }}
         {...props}
       />
     </div>
