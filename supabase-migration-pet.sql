@@ -90,6 +90,11 @@ CREATE POLICY "pet_diaries_insert" ON pet_diaries FOR INSERT WITH CHECK (
     SELECT id FROM couples WHERE user1_id = auth.uid() OR user2_id = auth.uid()
   )
 );
+CREATE POLICY "pet_diaries_update" ON pet_diaries FOR UPDATE USING (
+  couple_id IN (
+    SELECT id FROM couples WHERE user1_id = auth.uid() OR user2_id = auth.uid()
+  )
+);
 CREATE POLICY "pet_diaries_delete" ON pet_diaries FOR DELETE USING (
   couple_id IN (
     SELECT id FROM couples WHERE user1_id = auth.uid() OR user2_id = auth.uid()
@@ -103,6 +108,11 @@ CREATE POLICY "pet_health_select" ON pet_health FOR SELECT USING (
   )
 );
 CREATE POLICY "pet_health_insert" ON pet_health FOR INSERT WITH CHECK (
+  couple_id IN (
+    SELECT id FROM couples WHERE user1_id = auth.uid() OR user2_id = auth.uid()
+  )
+);
+CREATE POLICY "pet_health_update" ON pet_health FOR UPDATE USING (
   couple_id IN (
     SELECT id FROM couples WHERE user1_id = auth.uid() OR user2_id = auth.uid()
   )
