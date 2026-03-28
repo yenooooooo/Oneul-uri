@@ -109,12 +109,12 @@ export default function PetRegisterForm({ onSubmit, onClose, initialData, isEdit
             <div className="space-y-1 overflow-hidden">
               <Label htmlFor="pet-bday">생일</Label>
               <Input id="pet-bday" type="date" value={birthday}
-                onChange={(e) => setBirthday(e.target.value)} className="rounded-xl w-full" />
+                onChange={(e) => setBirthday(e.target.value)} className="rounded-xl w-full text-sm px-2 [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
             </div>
             <div className="space-y-1 overflow-hidden">
               <Label htmlFor="pet-adopt">입양일</Label>
               <Input id="pet-adopt" type="date" value={adoptionDate}
-                onChange={(e) => setAdoptionDate(e.target.value)} className="rounded-xl w-full" />
+                onChange={(e) => setAdoptionDate(e.target.value)} className="rounded-xl w-full text-sm px-2 [&::-webkit-calendar-picker-indicator]:w-4 [&::-webkit-calendar-picker-indicator]:p-0" />
             </div>
           </div>
 
