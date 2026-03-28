@@ -34,8 +34,8 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-end justify-center">
-      <div className="bg-cream w-full max-w-lg rounded-t-3xl p-6 space-y-4 animate-slide-up">
+    <div className="fixed inset-0 z-50 bg-cream flex flex-col">
+      <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto p-6 space-y-4">
         {/* 헤더 */}
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold font-serif-ko">다이어리 작성</h3>
