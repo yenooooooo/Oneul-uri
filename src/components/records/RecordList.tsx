@@ -83,7 +83,7 @@ export default function RecordList({
       {groups.map((group, gi) => (
         <section key={group.key}>
           {/* 월 헤더 — stitch 초대형 세리프 */}
-          <div className="sticky top-16 z-20 py-3 bg-surface/90 backdrop-blur-sm mb-8">
+          <div className="py-3 mb-8">
             <h3 className={`font-serif-ko text-3xl font-black flex items-baseline gap-3 ${
               gi === 0 ? "text-txt-primary" : "text-txt-primary/40"
             }`}>
