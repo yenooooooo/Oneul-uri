@@ -128,6 +128,22 @@ export function usePet() {
     }
   };
 
+  /** 일기 수정 */
+  const updateDiary = async (id: string, data: CreatePetDiary): Promise<boolean> => {
+    if (!pet) return false;
+    try {
+      const { error } = await supabase.from("pet_diaries")
+        .update({ ...data, photos: data.photos ?? [] }).eq("id", id);
+      if (error) { toast.error("수정에 실패했어요."); return false; }
+      toast.success("일기가 수정되었어요!");
+      await fetchDiaries(pet.id);
+      return true;
+    } catch (e) {
+      console.error("[usePet/updateDiary] 예외:", e);
+      return false;
+    }
+  };
+
   /** 일기 삭제 */
   const deleteDiary = async (id: string): Promise<boolean> => {
     try {
@@ -160,6 +176,21 @@ export function usePet() {
     }
   };
 
+  /** 건강 기록 수정 */
+  const updateHealth = async (id: string, data: CreatePetHealth): Promise<boolean> => {
+    if (!pet) return false;
+    try {
+      const { error } = await supabase.from("pet_health").update(data).eq("id", id);
+      if (error) { toast.error("수정에 실패했어요."); return false; }
+      toast.success("기록이 수정되었어요!");
+      await fetchHealth(pet.id);
+      return true;
+    } catch (e) {
+      console.error("[usePet/updateHealth] 예외:", e);
+      return false;
+    }
+  };
+
   /** 건강 기록 삭제 */
   const deleteHealth = async (id: string): Promise<boolean> => {
     try {
@@ -180,6 +211,8 @@ export function usePet() {
 
   return {
     pet, diaries, healthRecords, upcomingHealth, loading,
-    createPet, updatePet, addDiary, deleteDiary, addHealth, deleteHealth,
+    createPet, updatePet,
+    addDiary, updateDiary, deleteDiary,
+    addHealth, updateHealth, deleteHealth,
   };
 }

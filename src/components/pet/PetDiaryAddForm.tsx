@@ -15,18 +15,20 @@ import FormCategorySelect from "@/components/common/FormCategorySelect";
 interface Props {
   onSubmit: (data: CreatePetDiary) => Promise<boolean>;
   onClose: () => void;
+  initialData?: { date: string; title: string; content?: string; category: PetDiaryCategory; photos?: string[] };
+  isEdit?: boolean;
 }
 
 /**
- * 성장 일기 작성 모달 — 날짜, 카테고리, 제목, 내용
+ * 성장 일기 작성/수정 모달 — 날짜, 카테고리, 제목, 내용, 사진
  */
-export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
+export default function PetDiaryAddForm({ onSubmit, onClose, initialData, isEdit }: Props) {
   useLockScroll(); // 뒷배경 스크롤 방지
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState<PetDiaryCategory>("daily");
-  const [photos, setPhotos] = useState<string[]>([]); // 사진 URL 배열
+  const [date, setDate] = useState(initialData?.date ?? new Date().toISOString().split("T")[0]);
+  const [title, setTitle] = useState(initialData?.title ?? "");
+  const [content, setContent] = useState(initialData?.content ?? "");
+  const [category, setCategory] = useState<PetDiaryCategory>(initialData?.category ?? "daily");
+  const [photos, setPhotos] = useState<string[]>(initialData?.photos ?? []);
   const [saving, setSaving] = useState(false);
 
   /** 폼 제출 */
@@ -43,7 +45,7 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
       <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto px-4 py-6">
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold font-serif-ko">다이어리 작성</h3>
+          <h3 className="text-lg font-bold font-serif-ko">{isEdit ? "다이어리 수정" : "다이어리 작성"}</h3>
           <button onClick={onClose} className="p-1 text-txt-tertiary"><X className="w-5 h-5" /></button>
         </div>
 
@@ -75,7 +77,7 @@ export default function PetDiaryAddForm({ onSubmit, onClose }: Props) {
 
           <Button type="submit" disabled={saving || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : "저장하기"}
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : isEdit ? "수정하기" : "저장하기"}
           </Button>
         </form>
       </div>

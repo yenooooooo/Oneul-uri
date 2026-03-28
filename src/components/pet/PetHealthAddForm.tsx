@@ -14,20 +14,22 @@ import FormCategorySelect from "@/components/common/FormCategorySelect";
 interface Props {
   onSubmit: (data: CreatePetHealth) => Promise<boolean>;
   onClose: () => void;
+  initialData?: { type: PetHealthType; date: string; title: string; hospital?: string; cost?: number; next_date?: string; memo?: string };
+  isEdit?: boolean;
 }
 
 /**
- * 건강 기록 추가 모달 — 종류, 날짜, 제목, 병원, 비용, 다음 예정일
+ * 건강 기록 추가/수정 모달 — 종류, 날짜, 제목, 병원, 비용, 다음 예정일
  */
-export default function PetHealthAddForm({ onSubmit, onClose }: Props) {
+export default function PetHealthAddForm({ onSubmit, onClose, initialData, isEdit }: Props) {
   useLockScroll(); // 뒷배경 스크롤 방지
-  const [type, setType] = useState<PetHealthType>("vaccination");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-  const [title, setTitle] = useState("");
-  const [hospital, setHospital] = useState("");
-  const [cost, setCost] = useState("");
-  const [nextDate, setNextDate] = useState("");
-  const [memo, setMemo] = useState("");
+  const [type, setType] = useState<PetHealthType>(initialData?.type ?? "vaccination");
+  const [date, setDate] = useState(initialData?.date ?? new Date().toISOString().split("T")[0]);
+  const [title, setTitle] = useState(initialData?.title ?? "");
+  const [hospital, setHospital] = useState(initialData?.hospital ?? "");
+  const [cost, setCost] = useState(initialData?.cost?.toString() ?? "");
+  const [nextDate, setNextDate] = useState(initialData?.next_date ?? "");
+  const [memo, setMemo] = useState(initialData?.memo ?? "");
   const [saving, setSaving] = useState(false);
 
   /** 폼 제출 */
@@ -50,7 +52,7 @@ export default function PetHealthAddForm({ onSubmit, onClose }: Props) {
       <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto px-4 py-6">
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold font-serif-ko">건강 기록</h3>
+          <h3 className="text-lg font-bold font-serif-ko">{isEdit ? "건강 기록 수정" : "건강 기록"}</h3>
           <button onClick={onClose} className="p-1 text-txt-tertiary"><X className="w-5 h-5" /></button>
         </div>
 
@@ -88,7 +90,7 @@ export default function PetHealthAddForm({ onSubmit, onClose }: Props) {
 
           <Button type="submit" disabled={saving || !title}
             className="w-full rounded-full bg-coral-500 hover:bg-coral-600 text-white py-3">
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : "저장하기"}
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : isEdit ? "수정하기" : "저장하기"}
           </Button>
         </form>
       </div>

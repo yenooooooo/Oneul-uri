@@ -4,19 +4,20 @@ import { useState } from "react";
 import type { PetDiary, PetDiaryCategory } from "@/types";
 import { PET_DIARY_CATEGORIES } from "@/types/pet";
 import { formatDate } from "@/lib/utils";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   diaries: PetDiary[];
   onAdd: () => void;
+  onEdit: (diary: PetDiary) => void;
   onDelete: (id: string) => void;
 }
 
 /**
  * 성장 일기 타임라인 — 카테고리 필터 + 세로 타임라인
  */
-export default function PetDiaryTimeline({ diaries, onAdd, onDelete }: Props) {
+export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: Props) {
   const [filter, setFilter] = useState<PetDiaryCategory | "all">("all"); // 카테고리 필터
 
   // 필터 적용
@@ -80,10 +81,16 @@ export default function PetDiaryTimeline({ diaries, onAdd, onDelete }: Props) {
                           <p className="text-xs text-txt-secondary mt-1 line-clamp-2">{diary.content}</p>
                         )}
                       </div>
-                      <button onClick={() => onDelete(diary.id)}
-                        className="p-1.5 text-txt-tertiary ml-2 flex-shrink-0">
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex gap-1 ml-2 flex-shrink-0">
+                        <button onClick={() => onEdit(diary)}
+                          className="p-1.5 text-txt-tertiary">
+                          <Pencil className="w-3.5 h-3.5" />
+                        </button>
+                        <button onClick={() => onDelete(diary.id)}
+                          className="p-1.5 text-txt-tertiary">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                     {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드 */}
                     {diary.photos?.length === 1 && (

@@ -3,19 +3,20 @@
 import type { PetHealth } from "@/types";
 import { PET_HEALTH_TYPES } from "@/types/pet";
 import { formatDate, formatCurrency } from "@/lib/utils";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 
 interface Props {
   records: PetHealth[];
   upcoming: PetHealth[];
   onAdd: () => void;
+  onEdit: (record: PetHealth) => void;
   onDelete: (id: string) => void;
 }
 
 /**
  * 건강 기록 섹션 — 다가오는 일정 + 지난 기록
  */
-export default function PetHealthList({ records, upcoming, onAdd, onDelete }: Props) {
+export default function PetHealthList({ records, upcoming, onAdd, onEdit, onDelete }: Props) {
   // 지난 기록 (다가오는 일정 제외)
   const upcomingIds = new Set(upcoming.map((h) => h.id));
   const pastRecords = records.filter((h) => !upcomingIds.has(h.id));
@@ -36,7 +37,7 @@ export default function PetHealthList({ records, upcoming, onAdd, onDelete }: Pr
         <div className="space-y-2">
           <p className="text-xs font-bold text-amber-600">📅 다가오는 일정</p>
           {upcoming.map((h) => (
-            <HealthCard key={h.id} record={h} onDelete={onDelete} highlight />
+            <HealthCard key={h.id} record={h} onEdit={onEdit} onDelete={onDelete} highlight />
           ))}
         </div>
       )}
@@ -48,7 +49,7 @@ export default function PetHealthList({ records, upcoming, onAdd, onDelete }: Pr
             <p className="text-xs font-bold text-txt-tertiary mt-2">지난 기록</p>
           )}
           {pastRecords.slice(0, 10).map((h) => (
-            <HealthCard key={h.id} record={h} onDelete={onDelete} />
+            <HealthCard key={h.id} record={h} onEdit={onEdit} onDelete={onDelete} />
           ))}
         </div>
       ) : upcoming.length === 0 && (
@@ -62,8 +63,8 @@ export default function PetHealthList({ records, upcoming, onAdd, onDelete }: Pr
 }
 
 /** 건강 기록 카드 (내부 컴포넌트) */
-function HealthCard({ record, onDelete, highlight }: {
-  record: PetHealth; onDelete: (id: string) => void; highlight?: boolean;
+function HealthCard({ record, onEdit, onDelete, highlight }: {
+  record: PetHealth; onEdit: (r: PetHealth) => void; onDelete: (id: string) => void; highlight?: boolean;
 }) {
   const type = PET_HEALTH_TYPES[record.type];
   return (
@@ -82,9 +83,14 @@ function HealthCard({ record, onDelete, highlight }: {
       {record.cost && (
         <span className="text-xs font-bold text-txt-secondary flex-shrink-0">{formatCurrency(record.cost)}</span>
       )}
-      <button onClick={() => onDelete(record.id)} className="p-1 text-txt-tertiary flex-shrink-0">
-        <Trash2 className="w-3.5 h-3.5" />
-      </button>
+      <div className="flex gap-0.5 flex-shrink-0">
+        <button onClick={() => onEdit(record)} className="p-1 text-txt-tertiary">
+          <Pencil className="w-3.5 h-3.5" />
+        </button>
+        <button onClick={() => onDelete(record.id)} className="p-1 text-txt-tertiary">
+          <Trash2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import PetHealthList from "@/components/pet/PetHealthList";
 import PetHealthAddForm from "@/components/pet/PetHealthAddForm";
 import PetTagSection from "@/components/pet/PetTagSection";
 import PetRegisterForm from "@/components/pet/PetRegisterForm";
+import type { PetDiary, PetHealth } from "@/types";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
 /**
@@ -21,16 +22,24 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 export default function PetPage() {
   const {
     pet, diaries, healthRecords, upcomingHealth, loading,
-    createPet, updatePet, addDiary, deleteDiary, addHealth, deleteHealth,
+    createPet, updatePet,
+    addDiary, updateDiary, deleteDiary,
+    addHealth, updateHealth, deleteHealth,
   } = usePet();
 
   const [showRegister, setShowRegister] = useState(false); // 등록/수정 폼
   const [showDiaryForm, setShowDiaryForm] = useState(false); // 일기 작성
   const [showHealthForm, setShowHealthForm] = useState(false); // 건강 기록 추가
   const [isEdit, setIsEdit] = useState(false); // 수정 모드 여부
+  const [editDiary, setEditDiary] = useState<PetDiary | null>(null); // 수정할 일기
+  const [editHealth, setEditHealth] = useState<PetHealth | null>(null); // 수정할 건강 기록
 
-  /** 수정 버튼 핸들러 */
+  /** 프로필 수정 */
   const handleEdit = () => { setIsEdit(true); setShowRegister(true); };
+  /** 일기 수정 */
+  const handleEditDiary = (d: PetDiary) => { setEditDiary(d); setShowDiaryForm(true); };
+  /** 건강 기록 수정 */
+  const handleEditHealth = (h: PetHealth) => { setEditHealth(h); setShowHealthForm(true); };
 
   if (loading) {
     return (
@@ -67,8 +76,8 @@ export default function PetPage() {
           <>
             <PetHeroProfile pet={pet} onEdit={handleEdit} />
             <PetQuickInfo pet={pet} upcomingHealth={upcomingHealth} />
-            <PetDiaryTimeline diaries={diaries} onAdd={() => setShowDiaryForm(true)} onDelete={deleteDiary} />
-            <PetHealthList records={healthRecords} upcoming={upcomingHealth} onAdd={() => setShowHealthForm(true)} onDelete={deleteHealth} />
+            <PetDiaryTimeline diaries={diaries} onAdd={() => { setEditDiary(null); setShowDiaryForm(true); }} onEdit={handleEditDiary} onDelete={deleteDiary} />
+            <PetHealthList records={healthRecords} upcoming={upcomingHealth} onAdd={() => { setEditHealth(null); setShowHealthForm(true); }} onEdit={handleEditHealth} onDelete={deleteHealth} />
             <PetTagSection likes={pet.likes ?? []} dislikes={pet.dislikes ?? []} />
             {/* 하단 여백 */}
             <div className="h-8" />
@@ -95,14 +104,38 @@ export default function PetPage() {
         />
       )}
 
-      {/* 모달: 일기 작성 */}
+      {/* 모달: 일기 작성/수정 */}
       {showDiaryForm && (
-        <PetDiaryAddForm onSubmit={addDiary} onClose={() => setShowDiaryForm(false)} />
+        <PetDiaryAddForm
+          isEdit={!!editDiary}
+          initialData={editDiary ? {
+            date: editDiary.date, title: editDiary.title,
+            content: editDiary.content ?? undefined,
+            category: editDiary.category, photos: editDiary.photos,
+          } : undefined}
+          onSubmit={async (data) => {
+            if (editDiary) return await updateDiary(editDiary.id, data);
+            return await addDiary(data);
+          }}
+          onClose={() => { setShowDiaryForm(false); setEditDiary(null); }}
+        />
       )}
 
-      {/* 모달: 건강 기록 */}
+      {/* 모달: 건강 기록 추가/수정 */}
       {showHealthForm && (
-        <PetHealthAddForm onSubmit={addHealth} onClose={() => setShowHealthForm(false)} />
+        <PetHealthAddForm
+          isEdit={!!editHealth}
+          initialData={editHealth ? {
+            type: editHealth.type, date: editHealth.date, title: editHealth.title,
+            hospital: editHealth.hospital ?? undefined, cost: editHealth.cost ?? undefined,
+            next_date: editHealth.next_date ?? undefined, memo: editHealth.memo ?? undefined,
+          } : undefined}
+          onSubmit={async (data) => {
+            if (editHealth) return await updateHealth(editHealth.id, data);
+            return await addHealth(data);
+          }}
+          onClose={() => { setShowHealthForm(false); setEditHealth(null); }}
+        />
       )}
     </AppLayout>
   );
