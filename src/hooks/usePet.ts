@@ -133,7 +133,10 @@ export function usePet() {
     if (!pet) return false;
     try {
       const { error } = await supabase.from("pet_diaries")
-        .update({ ...data, photos: data.photos ?? [] }).eq("id", id);
+        .update({
+          date: data.date, title: data.title, category: data.category,
+          content: data.content || null, photos: data.photos ?? [],
+        }).eq("id", id);
       if (error) { toast.error("수정에 실패했어요."); return false; }
       toast.success("일기가 수정되었어요!");
       await fetchDiaries(pet.id);

@@ -19,6 +19,7 @@ interface Props {
  */
 export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: Props) {
   const [filter, setFilter] = useState<PetDiaryCategory | "all">("all"); // 카테고리 필터
+  const [expanded, setExpanded] = useState<string | null>(null); // 펼친 일기 ID
 
   // 필터 적용
   const filtered = filter === "all"
@@ -69,7 +70,8 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                   {/* 타임라인 도트 */}
                   <div className="absolute -left-6 top-3 w-4 h-4 rounded-full bg-coral-400 border-2 border-white" />
 
-                  <div className="bg-white rounded-2xl p-4 shadow-soft">
+                  <div className="bg-white rounded-2xl p-4 shadow-soft active:bg-gray-50 transition-colors"
+                    onClick={() => setExpanded(expanded === diary.id ? null : diary.id)}>
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
@@ -78,19 +80,22 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                         </div>
                         <h4 className="font-bold text-sm text-txt-primary">{diary.title}</h4>
                         {diary.content && (
-                          <p className="text-xs text-txt-secondary mt-1 line-clamp-2">{diary.content}</p>
+                          <p className={cn("text-xs text-txt-secondary mt-1", expanded === diary.id ? "" : "line-clamp-2")}>{diary.content}</p>
                         )}
                       </div>
-                      <div className="flex gap-1 ml-2 flex-shrink-0">
-                        <button onClick={() => onEdit(diary)}
-                          className="p-1.5 text-txt-tertiary">
-                          <Pencil className="w-3.5 h-3.5" />
-                        </button>
-                        <button onClick={() => onDelete(diary.id)}
-                          className="p-1.5 text-txt-tertiary">
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                      {/* 수정/삭제 — 펼쳤을 때만 표시 */}
+                      {expanded === diary.id && (
+                        <div className="flex gap-1 ml-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+                          <button onClick={() => onEdit(diary)}
+                            className="p-1.5 text-txt-tertiary">
+                            <Pencil className="w-3.5 h-3.5" />
+                          </button>
+                          <button onClick={() => onDelete(diary.id)}
+                            className="p-1.5 text-txt-tertiary">
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                     {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드 */}
                     {diary.photos?.length === 1 && (
