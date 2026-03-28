@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
@@ -104,21 +104,39 @@ export function useQuestions() {
     }
   };
 
-  /** 지난 질문 히스토리 로드 (최근 7일) */
-  const loadHistory = useCallback(async () => {
-    if (!coupleId || !user) return;
+  const [hasMoreHistory, setHasMoreHistory] = useState(true); // 더 불러올 히스토리 있는지
+  const [loadingHistory, setLoadingHistory] = useState(false); // 히스토리 로딩 중
+  const historyLoaded = useRef(0); // 지금까지 로드한 daily 수
+
+  /** 지난 질문 히스토리 로드 — 페이지네이션 (7일씩) */
+  const loadHistory = useCallback(async (append = false) => {
+    if (!coupleId || !user || loadingHistory) return;
+    setLoadingHistory(true);
     try {
+      const offset = append ? historyLoaded.current : 0;
+      const pageSize = 21; // 7일 × 3개
       const { data: dailies } = await supabase
         .from("couple_question_daily").select("*")
         .eq("couple_id", coupleId).lt("date", todayKST)
-        .order("date", { ascending: false }).limit(21); // 7일 × 3개
-      if (!dailies || dailies.length === 0) return;
+        .order("date", { ascending: false })
+        .range(offset, offset + pageSize - 1);
+
+      if (!dailies || dailies.length === 0) {
+        setHasMoreHistory(false);
+        setLoadingHistory(false);
+        return;
+      }
+
+      // 페이지 크기보다 적으면 더 이상 없음
+      if (dailies.length < pageSize) setHasMoreHistory(false);
+      historyLoaded.current = offset + dailies.length;
 
       const dailyIds = dailies.map((d: { id: string }) => d.id);
       const { data: answers } = await supabase
         .from("couple_answers").select("*").in("daily_id", dailyIds);
 
       // 날짜별 그룹핑
+      const newDays: { date: string; states: DailyState[] }[] = [];
       const dateMap = new Map<string, DailyState[]>();
       for (const d of dailies as { id: string; question_id: number; date: string }[]) {
         const q = QUESTION_MAP.get(d.question_id);
@@ -130,13 +148,24 @@ export function useQuestions() {
         if (!dateMap.has(d.date)) dateMap.set(d.date, []);
         dateMap.get(d.date)!.push({ question: q, myAnswer: my, partnerAnswer: partner, dailyId: d.id });
       }
-      setPastDays(Array.from(dateMap.entries()).map(([date, states]) => ({ date, states })));
+      dateMap.forEach((states, date) => newDays.push({ date, states }));
+
+      setPastDays((prev) => append ? [...prev, ...newDays] : newDays);
     } catch (e) {
       console.error("[useQuestions/loadHistory] 예외:", e);
+    } finally {
+      setLoadingHistory(false);
     }
-  }, [coupleId, user, todayKST]);
+  }, [coupleId, user, todayKST, loadingHistory]);
 
-  useEffect(() => { if (coupleId) loadHistory(); }, [coupleId, loadHistory]);
+  /** 더 보기 */
+  const loadMoreHistory = () => loadHistory(true);
 
-  return { dailyStates, pastDays, loading, todayKST, submitAnswer, reload: loadToday };
+  useEffect(() => { if (coupleId) loadHistory(); }, [coupleId]);
+
+  return {
+    dailyStates, pastDays, loading, todayKST,
+    submitAnswer, reload: loadToday,
+    loadMoreHistory, hasMoreHistory, loadingHistory,
+  };
 }

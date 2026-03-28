@@ -13,7 +13,10 @@ import Link from "next/link";
  * 오늘의 질문 3개 + 지난 질문 히스토리
  */
 export default function QuestionsPage() {
-  const { dailyStates, pastDays, loading, todayKST, submitAnswer } = useQuestions();
+  const {
+    dailyStates, pastDays, loading, todayKST,
+    submitAnswer, loadMoreHistory, hasMoreHistory, loadingHistory,
+  } = useQuestions();
   const { myNickname, partnerNickname } = useCouple();
 
   return (
@@ -62,6 +65,16 @@ export default function QuestionsPage() {
                     ))}
                   </div>
                 ))}
+
+                {/* 더 보기 버튼 */}
+                {hasMoreHistory && (
+                  <button onClick={loadMoreHistory} disabled={loadingHistory}
+                    className="w-full py-3 text-sm text-coral-400 font-medium">
+                    {loadingHistory
+                      ? <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+                      : "이전 질문 더 보기"}
+                  </button>
+                )}
               </section>
             )}
 
