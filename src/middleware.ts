@@ -33,10 +33,10 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // 세션 갱신 시도
+  // 세션 갱신 시도 — getSession()은 리프레시 토큰도 확인하여 만료된 세션 자동 갱신
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   // 인증이 필요 없는 경로 (로그인, 회원가입)
   const publicPaths = ["/auth/login", "/auth/signup"];
@@ -45,14 +45,14 @@ export async function middleware(request: NextRequest) {
   );
 
   // 미인증 사용자가 보호된 페이지에 접근 → 로그인으로 리다이렉트
-  if (!user && !isPublicPath) {
+  if (!session && !isPublicPath) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);
   }
 
   // 로그인된 사용자가 인증 페이지에 접근 → 홈으로 리다이렉트
-  if (user && isPublicPath) {
+  if (session && isPublicPath) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
