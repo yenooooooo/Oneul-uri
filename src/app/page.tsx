@@ -178,6 +178,19 @@ export default function HomePage() {
           )}
         </section>
 
+        {/* 커플 질문 바로가기 */}
+        <Link href="/questions"
+          className="block bg-gradient-to-r from-coral-50 via-pink-50 to-purple-50 rounded-3xl p-5 active:scale-[0.97] transition-transform">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-soft">💬</div>
+            <div className="flex-1">
+              <h4 className="font-bold text-txt-primary">오늘의 커플 질문</h4>
+              <p className="text-xs text-txt-secondary mt-0.5">매일 새로운 질문 3개가 기다려요</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-txt-tertiary" />
+          </div>
+        </Link>
+
         {/* 통장 + 룰렛 — 정사각형 그리드 */}
         <section className="grid grid-cols-2 gap-4">
           <Link href="/wallet"

@@ -1,3 +1,9 @@
+export type {
+  Question, DailyQuestion, CoupleAnswer,
+  AnswerType, QuestionCategory,
+} from "./question";
+export { QUESTION_CATEGORIES } from "./question";
+
 /** 타입 re-export — 모든 타입을 한 곳에서 import 가능 */
 export type {
   DateRecord,
