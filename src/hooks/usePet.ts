@@ -49,6 +49,7 @@ export function usePet() {
         .from("pet_diaries").select("*")
         .eq("pet_id", petId).order("date", { ascending: false });
       if (error) console.error("[usePet/fetchDiaries]:", error.message);
+      console.log("[usePet/fetchDiaries] 조회 결과:", data);
       setDiaries((data as PetDiary[]) ?? []);
     } catch (e) {
       console.error("[usePet/fetchDiaries] 예외:", e);
