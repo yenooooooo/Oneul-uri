@@ -24,7 +24,7 @@ export default function FormTextarea({ label, className, id, ...props }: FormTex
           "w-full min-h-[120px] rounded-xl border border-gray-200 bg-white px-4 py-3 text-base",
           "transition-colors duration-200 outline-none resize-none",
           "placeholder:text-muted-foreground",
-          "focus:border-coral-500 focus:ring-1 focus:ring-coral-500/20",
+          "focus:border-coral-500 focus:ring-1 focus:ring-inset focus:ring-coral-500/20",
           className
         )}
         {...props}

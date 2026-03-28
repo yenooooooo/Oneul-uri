@@ -84,7 +84,7 @@ export default function CommentSection({ recordId }: CommentSectionProps) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="댓글을 남겨보세요..."
-          className="flex-1 h-10 bg-white rounded-xl border border-gray-200 px-4 text-sm focus:border-coral-500 focus:ring-1 focus:ring-coral-500/20 focus:outline-none transition-colors duration-200"
+          className="flex-1 h-10 bg-white rounded-xl border border-gray-200 px-4 text-sm focus:border-coral-500 focus:ring-1 focus:ring-inset focus:ring-coral-500/20 focus:outline-none transition-colors duration-200"
         />
         <button
           onClick={handleSend}
@@ -145,7 +145,7 @@ function CommentItem({
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSave()}
-              className="flex-1 h-10 bg-white rounded-xl border border-gray-200 px-4 text-sm focus:border-coral-500 focus:ring-1 focus:ring-coral-500/20 focus:outline-none transition-colors duration-200"
+              className="flex-1 h-10 bg-white rounded-xl border border-gray-200 px-4 text-sm focus:border-coral-500 focus:ring-1 focus:ring-inset focus:ring-coral-500/20 focus:outline-none transition-colors duration-200"
               autoFocus
             />
             <button onClick={handleSave} className="text-xs text-coral-400 font-medium">저장</button>
