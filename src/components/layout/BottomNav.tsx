@@ -25,9 +25,13 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 px-5"
-      style={{ paddingBottom: "env(safe-area-inset-bottom, 8px)" }}>
+      style={{
+        paddingBottom: "env(safe-area-inset-bottom, 8px)",
+        transform: "translateZ(0)",       /* GPU 레이어 분리 — iOS fixed 안정화 */
+        WebkitTransform: "translateZ(0)",
+      }}>
       {/* 플로팅 아일랜드 */}
-      <div className="flex items-center justify-around h-14 bg-white/70 backdrop-blur-2xl rounded-2xl max-w-lg mx-auto"
+      <div className="flex items-center justify-around h-14 bg-white rounded-2xl max-w-lg mx-auto"
         style={{ boxShadow: "0 4px 24px rgba(174, 47, 52, 0.06)" }}>
         {TABS.map(({ href, label, Icon }) => {
           const isActive =
