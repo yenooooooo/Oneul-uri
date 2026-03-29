@@ -54,7 +54,8 @@ export default function RecordCard({ record }: RecordCardProps) {
           </div>
         )}
 
-        {/* 사진 없는 경우 — RecordList에서 RecordMiniCard로 처리 */}
+        {/* 기록 간 구분선 */}
+        <div className="mt-8 border-b border-gray-100" />
       </article>
     </Link>
   );
