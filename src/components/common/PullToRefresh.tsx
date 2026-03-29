@@ -130,10 +130,10 @@ export default function PullToRefresh({ children }: { children: React.ReactNode 
         </div>
       )}
 
-      {/* 콘텐츠 — 당기면 아래로 밀림 */}
+      {/* 콘텐츠 — 당기면 아래로 밀림 (marginTop 사용 — fixed 요소에 영향 없음) */}
       <div style={{
-        transform: displayDistance > 30 ? `translateY(${displayDistance}px)` : "none",
-        transition: pulling.current ? "none" : "transform 0.3s ease",
+        marginTop: displayDistance > 30 ? `${displayDistance}px` : "0px",
+        transition: pulling.current ? "none" : "margin-top 0.3s ease",
       }}>
         {children}
       </div>
