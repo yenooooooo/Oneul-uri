@@ -7,6 +7,7 @@ import ServiceWorkerRegister from "@/components/common/ServiceWorkerRegister";
 import PullToRefresh from "@/components/common/PullToRefresh";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import OfflineBanner from "@/components/common/OfflineBanner";
+import BottomNav from "@/components/layout/BottomNav";
 
 /**
  * 오늘우리 앱의 메타데이터 설정
@@ -47,7 +48,7 @@ export const viewport: Viewport = {
 
 /**
  * 루트 레이아웃 — 전체 앱을 감싸는 최상위 레이아웃
- * AuthProvider로 인증 상태 전역 관리 (단 한 번만 Supabase 세션 체크)
+ * BottomNav는 PullToRefresh 바깥에 배치 (fixed 안정성)
  */
 export default function RootLayout({
   children,
@@ -56,13 +57,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="antialiased">
+      <body className="antialiased overscroll-none">
         <ErrorBoundary>
           <AuthProvider>
             <CoupleProvider>
+              {/* 메인 콘텐츠 — PullToRefresh 래퍼 */}
               <PullToRefresh>
                 {children}
               </PullToRefresh>
+
+              {/* 하단 네비 — PullToRefresh 바깥, 최상위 레벨 */}
+              <BottomNav />
             </CoupleProvider>
           </AuthProvider>
         </ErrorBoundary>

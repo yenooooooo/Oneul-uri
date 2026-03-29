@@ -92,8 +92,8 @@
     font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* iOS PWA pull-to-refresh 활성화 */
-    overscroll-behavior-y: auto;
+    /* iOS PWA 스크롤 바운스 방지 — fixed 요소 안정화 */
+    overscroll-behavior: none;
   }
 
   html {

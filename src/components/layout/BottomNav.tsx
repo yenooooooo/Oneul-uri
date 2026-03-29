@@ -15,24 +15,31 @@ const TABS = [
   { href: "/wallet", label: "통장", Icon: Wallet },
 ] as const;
 
+/** 네비를 숨길 경로 (인증 페이지 등) */
+const HIDDEN_PATHS = ["/auth/login", "/auth/signup", "/couple"];
+
 /**
  * 하단 네비게이션 — 플로팅 아일랜드 스타일
- * 가장자리에서 떨어진 둥근 섬 형태 + 글래스모피즘
+ * layout.tsx 최상위에 배치, PullToRefresh 바깥
+ * transform/filter 없이 순수 fixed positioning
  */
 export default function BottomNav() {
   const pathname = usePathname();
   const { unreadCount } = usePenpal();
 
+  // 인증/커플 설정 페이지에서는 숨김
+  if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return null;
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 px-5"
-      style={{
-        paddingBottom: "env(safe-area-inset-bottom, 8px)",
-        transform: "translateZ(0)",       /* GPU 레이어 분리 — iOS fixed 안정화 */
-        WebkitTransform: "translateZ(0)",
-      }}>
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 px-5"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 8px)" }}
+    >
       {/* 플로팅 아일랜드 */}
-      <div className="flex items-center justify-around h-14 bg-white rounded-2xl max-w-lg mx-auto"
-        style={{ boxShadow: "0 4px 24px rgba(174, 47, 52, 0.06)" }}>
+      <div
+        className="flex items-center justify-around h-14 bg-white rounded-2xl max-w-lg mx-auto"
+        style={{ boxShadow: "0 4px 24px rgba(174, 47, 52, 0.06)" }}
+      >
         {TABS.map(({ href, label, Icon }) => {
           const isActive =
             href === "/" ? pathname === "/" : pathname.startsWith(href);

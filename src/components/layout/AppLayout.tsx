@@ -1,6 +1,5 @@
 "use client";
 
-import BottomNav from "@/components/layout/BottomNav";
 import PWAInstallBanner from "@/components/common/PWAInstallBanner";
 import { LAYOUT_BOTTOM_PADDING } from "@/lib/constants";
 
@@ -10,8 +9,8 @@ interface AppLayoutProps {
 }
 
 /**
- * 앱 공통 레이아웃 — 하단 네비게이션 + PWA 설치 배너 포함
- * 하단 여백: 네비 h-16 + safe area로 콘텐츠가 가려지지 않게 처리
+ * 앱 공통 레이아웃 — 콘텐츠 영역 + PWA 배너
+ * BottomNav는 layout.tsx 최상위에서 렌더링 (fixed 안정성)
  */
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
@@ -26,9 +25,6 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
       {/* PWA 설치 유도 배너 */}
       <PWAInstallBanner />
-
-      {/* 하단 네비게이션 */}
-      <BottomNav />
     </div>
   );
 }
