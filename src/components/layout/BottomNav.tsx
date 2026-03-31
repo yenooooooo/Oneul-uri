@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, BookOpen, Calendar, Mail, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePenpal } from "@/hooks/usePenpal";
-import { useModalState } from "@/hooks/useModalState";
 
 /** 하단 네비게이션 탭 정의 */
 const TABS = [
@@ -21,24 +21,32 @@ const HIDDEN_PATHS = ["/auth/login", "/auth/signup", "/couple"];
 
 /**
  * 하단 네비게이션 — 플로팅 아일랜드 스타일
- * layout.tsx 최상위에 배치, PullToRefresh 바깥
- * transform/filter 없이 순수 fixed positioning
+ * body overflow:hidden 감지 → 모달 열리면 자동 숨김
  */
 export default function BottomNav() {
   const pathname = usePathname();
   const { unreadCount } = usePenpal();
-  const { isModalOpen } = useModalState();
+  const [hidden, setHidden] = useState(false); // 모달 열림 시 숨김
 
-  // 인증/커플 설정 페이지 또는 모달 열림 시 숨김
+  /** body overflow 변화 감시 — MutationObserver */
+  useEffect(() => {
+    const check = () => setHidden(document.body.style.overflow === "hidden");
+    check(); // 초기 체크
+
+    const observer = new MutationObserver(check);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["style"] });
+    return () => observer.disconnect();
+  }, []);
+
+  // 인증 페이지 또는 모달 열림 시 숨김
   if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return null;
-  if (isModalOpen) return null;
+  if (hidden) return null;
 
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 px-5"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 8px)" }}
     >
-      {/* 플로팅 아일랜드 */}
       <div
         className="flex items-center justify-around h-14 bg-white rounded-2xl max-w-lg mx-auto"
         style={{ boxShadow: "0 4px 24px rgba(174, 47, 52, 0.06)" }}
@@ -49,14 +57,11 @@ export default function BottomNav() {
           const showBadge = href === "/penpal" && unreadCount > 0;
 
           return (
-            <Link
-              key={href}
-              href={href}
+            <Link key={href} href={href}
               className={cn(
                 "flex flex-col items-center justify-center gap-0.5 py-2 px-4 transition-all duration-200 active:scale-95",
                 isActive ? "text-coral-500" : "text-txt-tertiary"
-              )}
-            >
+              )}>
               <div className="relative">
                 <Icon className="w-5 h-5" />
                 {showBadge && (
