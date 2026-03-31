@@ -49,7 +49,6 @@ export function usePet() {
         .from("pet_diaries").select("*")
         .eq("pet_id", petId).order("date", { ascending: false });
       if (error) console.error("[usePet/fetchDiaries]:", error.message);
-      console.log("[usePet/fetchDiaries] 조회 결과:", data);
       setDiaries((data as PetDiary[]) ?? []);
     } catch (e) {
       console.error("[usePet/fetchDiaries] 예외:", e);
@@ -115,13 +114,11 @@ export function usePet() {
   const addDiary = async (data: CreatePetDiary): Promise<boolean> => {
     if (!pet || !user) return false;
     try {
-      const insertData = {
+      const { error } = await supabase.from("pet_diaries").insert({
         pet_id: pet.id, couple_id: coupleId, author_id: user.id,
         date: data.date, title: data.title, category: data.category,
         content: data.content || null, photos: data.photos ?? [],
-      };
-      console.log("[usePet/addDiary] 저장 데이터:", insertData);
-      const { error } = await supabase.from("pet_diaries").insert(insertData);
+      });
       if (error) { console.error("[usePet/addDiary] 실패:", error); toast.error("일기 저장에 실패했어요."); return false; }
       toast.success("일기가 저장되었어요!");
       await fetchDiaries(pet.id);
@@ -136,12 +133,10 @@ export function usePet() {
   const updateDiary = async (id: string, data: CreatePetDiary): Promise<boolean> => {
     if (!pet) return false;
     try {
-      const updateData = {
+      const { error } = await supabase.from("pet_diaries").update({
         date: data.date, title: data.title, category: data.category,
         content: data.content || null, photos: data.photos ?? [],
-      };
-      console.log("[usePet/updateDiary] 수정 데이터:", updateData);
-      const { error } = await supabase.from("pet_diaries").update(updateData).eq("id", id);
+      }).eq("id", id);
       if (error) { console.error("[usePet/updateDiary] 실패:", error); toast.error("수정에 실패했어요."); return false; }
       toast.success("일기가 수정되었어요!");
       await fetchDiaries(pet.id);
