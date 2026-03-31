@@ -9,8 +9,10 @@ import EventAddForm from "@/components/calendar/EventAddForm";
 import { useCalendar } from "@/hooks/useCalendar";
 import { useAnniversary } from "@/hooks/useAnniversary";
 import { useDatePlans } from "@/hooks/useDatePlans";
+import { useDateRecords } from "@/hooks/useDateRecords";
 import { useCouple } from "@/hooks/useCouple";
 import { useAuth } from "@/hooks/useAuth";
+import DayRecordLink from "@/components/calendar/DayRecordLink";
 import { Plus, ClipboardList, Sticker, Settings } from "lucide-react";
 import { calculateAnniversaryDday } from "@/lib/utils";
 import { FAB_BOTTOM } from "@/lib/constants";
@@ -46,6 +48,7 @@ export default function CalendarPage() {
   const { stickers: stickerMap, upsertSticker, removeSticker } = useCalendarStickers(year, month);
   const { anniversaries } = useAnniversary();
   const { planDates, getPlanForDate } = useDatePlans();
+  const { records } = useDateRecords();
 
   const anniversaryMap = useMemo(() => {
     const map = new Map<string, Anniversary[]>();
@@ -61,16 +64,25 @@ export default function CalendarPage() {
     return map;
   }, [anniversaries, year]);
 
+  // 기록이 있는 날짜 Set
+  const recordDates = useMemo(() => new Set(records.map((r) => r.date)), [records]);
+
   const allMarkedDates = useMemo(() => {
     const dates = new Set(eventDates);
     anniversaryMap.forEach((_, d) => dates.add(d));
     planDates.forEach((d) => dates.add(d));
+    recordDates.forEach((d) => dates.add(d));
     return dates;
-  }, [eventDates, anniversaryMap, planDates]);
+  }, [eventDates, anniversaryMap, planDates, recordDates]);
 
   const anniversaryDates = useMemo(() => new Set(anniversaryMap.keys()), [anniversaryMap]);
   const selectedEvents = selectedDate ? getEventsForDate(selectedDate) : [];
   const selectedPlan = selectedDate ? getPlanForDate(selectedDate) : null;
+  // 선택한 날짜의 데이트 기록
+  const selectedRecords = useMemo(() => {
+    if (!selectedDate) return [];
+    return records.filter((r) => r.date === selectedDate);
+  }, [selectedDate, records]);
 
   // 다가오는 기념일 칩 (최대 4개)
   // 다가오는 기념일 — D-day 가까운 순 정렬
@@ -219,6 +231,9 @@ export default function CalendarPage() {
                 </div>
               </section>
             )}
+
+            {/* 선택 날짜의 데이트 기록 */}
+            {selectedDate && <DayRecordLink records={selectedRecords} />}
           </>
         )}
       </div>
