@@ -19,6 +19,15 @@ export default function AnniversaryPage() {
     generateAutoAnniversaries, addAnniversary, deleteAnniversary,
   } = useAnniversary();
   const [showAdd, setShowAdd] = useState(false); // 추가 폼 표시
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null); // 삭제 확인 대상 ID
+
+  // 삭제 확인 모달 열릴 때 스크롤 방지
+  useEffect(() => {
+    if (deleteTarget) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
+  }, [deleteTarget]);
 
   // 페이지 진입 시 자동 기념일 생성 (없으면)
   useEffect(() => {
@@ -57,7 +66,7 @@ export default function AnniversaryPage() {
                     <AnniversaryCard
                       key={a.id}
                       anniversary={a}
-                      onDelete={deleteAnniversary}
+                      onDelete={setDeleteTarget}
                     />
                   ))}
                 </div>
@@ -79,7 +88,7 @@ export default function AnniversaryPage() {
                     <AnniversaryCard
                       key={a.id}
                       anniversary={a}
-                      onDelete={deleteAnniversary}
+                      onDelete={setDeleteTarget}
                     />
                   ))}
                 </div>
@@ -95,6 +104,22 @@ export default function AnniversaryPage() {
           onSubmit={addAnniversary}
           onClose={() => setShowAdd(false)}
         />
+      )}
+
+      {/* 삭제 확인 모달 */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
+            <p className="font-semibold text-txt-primary">정말 삭제할까요?</p>
+            <p className="text-sm text-txt-secondary">삭제하면 되돌릴 수 없어요</p>
+            <div className="flex gap-3">
+              <button onClick={() => setDeleteTarget(null)}
+                className="flex-1 py-2.5 rounded-full bg-gray-100 text-txt-secondary font-medium">취소</button>
+              <button onClick={() => { deleteAnniversary(deleteTarget); setDeleteTarget(null); }}
+                className="flex-1 py-2.5 rounded-full bg-red-500 text-white font-medium">삭제</button>
+            </div>
+          </div>
+        </div>
       )}
     </AppLayout>
   );

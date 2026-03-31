@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { PetDiary, PetDiaryCategory } from "@/types";
 import { PET_DIARY_CATEGORIES } from "@/types/pet";
 import { formatDate } from "@/lib/utils";
@@ -21,6 +21,15 @@ interface Props {
 export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: Props) {
   const [filter, setFilter] = useState<PetDiaryCategory | "all">("all"); // 카테고리 필터
   const [expanded, setExpanded] = useState<string | null>(null); // 펼친 일기 ID
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null); // 삭제 확인 대상 ID
+
+  // 삭제 확인 모달 열릴 때 스크롤 방지
+  useEffect(() => {
+    if (deleteTarget) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
+  }, [deleteTarget]);
 
   // 필터 적용
   const filtered = filter === "all"
@@ -91,7 +100,7 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                             className="p-1.5 text-txt-tertiary">
                             <Pencil className="w-3.5 h-3.5" />
                           </button>
-                          <button onClick={() => onDelete(diary.id)}
+                          <button onClick={() => setDeleteTarget(diary.id)}
                             className="p-1.5 text-txt-tertiary">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -115,6 +124,22 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* 삭제 확인 모달 */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
+            <p className="font-semibold text-txt-primary">정말 삭제할까요?</p>
+            <p className="text-sm text-txt-secondary">삭제하면 되돌릴 수 없어요</p>
+            <div className="flex gap-3">
+              <button onClick={() => setDeleteTarget(null)}
+                className="flex-1 py-2.5 rounded-full bg-gray-100 text-txt-secondary font-medium">취소</button>
+              <button onClick={() => { onDelete(deleteTarget); setDeleteTarget(null); }}
+                className="flex-1 py-2.5 rounded-full bg-red-500 text-white font-medium">삭제</button>
+            </div>
           </div>
         </div>
       )}

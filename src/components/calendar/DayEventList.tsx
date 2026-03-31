@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Trash2, Clock, Pencil } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import type { CalendarEvent, Couple } from "@/types";
@@ -31,6 +31,15 @@ export default function DayEventList({
   date, events, couple, userId, onUpdate, onDelete,
 }: DayEventListProps) {
   const [editEvent, setEditEvent] = useState<CalendarEvent | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null); // 삭제 확인 대상 ID
+
+  // 삭제 확인 모달 열릴 때 스크롤 방지
+  useEffect(() => {
+    if (deleteTarget) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
+  }, [deleteTarget]);
 
   /** 작성자 닉네임 반환 */
   const getAuthorName = (authorId: string): string | null => {
@@ -100,7 +109,7 @@ export default function DayEventList({
               <button onClick={() => setEditEvent(event)} className="p-1 text-txt-tertiary">
                 <Pencil className="w-3.5 h-3.5" />
               </button>
-              <button onClick={() => onDelete(event.id)} className="p-1 text-txt-tertiary hover:text-error">
+              <button onClick={() => setDeleteTarget(event.id)} className="p-1 text-txt-tertiary hover:text-error">
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -118,6 +127,22 @@ export default function DayEventList({
           }}
           onClose={() => setEditEvent(null)}
         />
+      )}
+
+      {/* 삭제 확인 모달 */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
+            <p className="font-semibold text-txt-primary">정말 삭제할까요?</p>
+            <p className="text-sm text-txt-secondary">삭제하면 되돌릴 수 없어요</p>
+            <div className="flex gap-3">
+              <button onClick={() => setDeleteTarget(null)}
+                className="flex-1 py-2.5 rounded-full bg-gray-100 text-txt-secondary font-medium">취소</button>
+              <button onClick={() => { onDelete(deleteTarget); setDeleteTarget(null); }}
+                className="flex-1 py-2.5 rounded-full bg-red-500 text-white font-medium">삭제</button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

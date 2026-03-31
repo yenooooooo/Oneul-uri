@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AppLayout from "@/components/layout/AppLayout";
 import { useBookmarks } from "@/hooks/useBookmarks";
@@ -23,6 +23,15 @@ export default function PlacesPage() {
   const [newName, setNewName] = useState("");
   const [newCategory, setNewCategory] = useState<PlaceCategory>("food");
   const [newMemo, setNewMemo] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null); // 삭제 확인 대상 ID
+
+  // 삭제 확인 모달 열릴 때 스크롤 방지
+  useEffect(() => {
+    if (deleteTarget) {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = ""; };
+    }
+  }, [deleteTarget]);
 
   /** 새 장소 추가 */
   const handleAdd = async () => {
@@ -105,7 +114,7 @@ export default function PlacesPage() {
                       <p className="text-xs text-txt-secondary mt-1">{place.memo}</p>
                     )}
                   </div>
-                  <button onClick={() => deletePlace(place.id)}
+                  <button onClick={() => setDeleteTarget(place.id)}
                     className="p-1 text-txt-tertiary hover:text-error">
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -115,6 +124,22 @@ export default function PlacesPage() {
           </div>
         )}
       </div>
+
+      {/* 삭제 확인 모달 */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
+            <p className="font-semibold text-txt-primary">정말 삭제할까요?</p>
+            <p className="text-sm text-txt-secondary">삭제하면 되돌릴 수 없어요</p>
+            <div className="flex gap-3">
+              <button onClick={() => setDeleteTarget(null)}
+                className="flex-1 py-2.5 rounded-full bg-gray-100 text-txt-secondary font-medium">취소</button>
+              <button onClick={() => { deletePlace(deleteTarget); setDeleteTarget(null); }}
+                className="flex-1 py-2.5 rounded-full bg-red-500 text-white font-medium">삭제</button>
+            </div>
+          </div>
+        </div>
+      )}
     </AppLayout>
   );
 }
