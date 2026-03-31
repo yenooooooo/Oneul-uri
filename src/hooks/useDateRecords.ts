@@ -119,12 +119,13 @@ export function useDateRecords() {
         .select().single();
       if (error) { toast.error("기록 저장에 실패했어요."); return null; }
       const newRecord = data as DateRecord;
-      setRecords((prev) =>
-        [newRecord, ...prev].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
+      const updated = [newRecord, ...records].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
+      setRecords(updated);
       setTotalCount((prev) => prev + 1);
+      // 캐시도 갱신하여 페이지 이동 후 복귀 시 유지
+      setCache(`records-${coupleId}`, { records: updated.slice(0, PAGE_SIZE), count: (totalCount + 1) });
       toast.success("기록이 저장되었어요!");
       return newRecord;
     } catch (error) {
@@ -141,7 +142,9 @@ export function useDateRecords() {
         .update({ ...input, updated_at: new Date().toISOString() })
         .eq("id", id);
       if (error) { toast.error("기록 수정에 실패했어요."); return false; }
-      setRecords((prev) => prev.map((r) => (r.id === id ? { ...r, ...input } : r)));
+      const updated = records.map((r) => (r.id === id ? { ...r, ...input } : r));
+      setRecords(updated);
+      setCache(`records-${coupleId}`, { records: updated.slice(0, PAGE_SIZE), count: totalCount });
       toast.success("기록이 수정되었어요!");
       return true;
     } catch (error) {
@@ -155,8 +158,10 @@ export function useDateRecords() {
     try {
       const { error } = await supabase.from("date_records").delete().eq("id", id);
       if (error) { toast.error("기록 삭제에 실패했어요."); return false; }
-      setRecords((prev) => prev.filter((r) => r.id !== id));
+      const updated = records.filter((r) => r.id !== id);
+      setRecords(updated);
       setTotalCount((prev) => prev - 1);
+      setCache(`records-${coupleId}`, { records: updated.slice(0, PAGE_SIZE), count: totalCount - 1 });
       toast.success("기록이 삭제되었어요.");
       return true;
     } catch (error) {
