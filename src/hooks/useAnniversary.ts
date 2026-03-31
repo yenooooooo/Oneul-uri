@@ -191,7 +191,9 @@ export function useAnniversary() {
         toast.error("기념일 삭제에 실패했어요.");
         return false;
       }
-      setAnniversaries((prev) => prev.filter((a) => a.id !== id));
+      const updated = anniversaries.filter((a) => a.id !== id);
+      setAnniversaries(updated);
+      setCache(`anniversaries-${coupleId}`, updated);
       toast.success("기념일이 삭제되었어요.");
       return true;
     } catch (error) {
