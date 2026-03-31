@@ -4,6 +4,7 @@ import { useQuestions } from "@/hooks/useQuestions";
 import { useCouple } from "@/hooks/useCouple";
 import AppLayout from "@/components/layout/AppLayout";
 import QuestionCard from "@/components/questions/QuestionCard";
+import PastQuestionsAccordion from "@/components/questions/PastQuestionsAccordion";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
@@ -48,34 +49,17 @@ export default function QuestionsPage() {
               ))}
             </section>
 
-            {/* 지난 질문 히스토리 */}
+            {/* 지난 질문 히스토리 — 아코디언 */}
             {pastDays.length > 0 && (
-              <section className="space-y-6">
-                <h2 className="text-sm font-bold text-txt-tertiary">지난 질문</h2>
-                {pastDays.map((day) => (
-                  <div key={day.date} className="space-y-3">
-                    <p className="text-xs text-txt-tertiary font-medium">
-                      {formatDate(day.date, "long")}
-                    </p>
-                    {day.states.map((state) => (
-                      <QuestionCard key={state.question.id} {...state}
-                        onSubmit={submitAnswer}
-                        myNickname={myNickname ?? "나"}
-                        partnerNickname={partnerNickname ?? "상대"} />
-                    ))}
-                  </div>
-                ))}
-
-                {/* 더 보기 버튼 */}
-                {hasMoreHistory && (
-                  <button onClick={loadMoreHistory} disabled={loadingHistory}
-                    className="w-full py-3 text-sm text-coral-400 font-medium">
-                    {loadingHistory
-                      ? <Loader2 className="w-4 h-4 animate-spin mx-auto" />
-                      : "이전 질문 더 보기"}
-                  </button>
-                )}
-              </section>
+              <PastQuestionsAccordion
+                pastDays={pastDays}
+                submitAnswer={submitAnswer}
+                myNickname={myNickname ?? "나"}
+                partnerNickname={partnerNickname ?? "상대"}
+                hasMore={hasMoreHistory}
+                loadingMore={loadingHistory}
+                onLoadMore={loadMoreHistory}
+              />
             )}
 
             {/* 하단 여백 */}
