@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Loader2, MapPin } from "lucide-react";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import PhotoUploader from "@/components/records/PhotoUploader";
 import { MOOD_OPTIONS } from "@/types/record";
 import type { CreateDateRecord } from "@/types";
@@ -25,6 +26,7 @@ interface RecordWriteModalProps {
 export default function RecordWriteModal({
   onSubmit, onClose, initialData,
 }: RecordWriteModalProps) {
+  useLockScroll(); // 전체 화면 모달 — 뒷배경 스크롤 방지 + BottomNav 숨김
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [date, setDate] = useState(
     initialData?.date ?? new Date().toISOString().split("T")[0]

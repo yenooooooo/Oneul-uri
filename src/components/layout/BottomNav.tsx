@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Home, BookOpen, Calendar, Mail, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePenpal } from "@/hooks/usePenpal";
+import { useModalState } from "@/hooks/useModalState";
 
 /** 하단 네비게이션 탭 정의 */
 const TABS = [
@@ -26,9 +27,11 @@ const HIDDEN_PATHS = ["/auth/login", "/auth/signup", "/couple"];
 export default function BottomNav() {
   const pathname = usePathname();
   const { unreadCount } = usePenpal();
+  const { isModalOpen } = useModalState();
 
-  // 인증/커플 설정 페이지에서는 숨김
+  // 인증/커플 설정 페이지 또는 모달 열림 시 숨김
   if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return null;
+  if (isModalOpen) return null;
 
   return (
     <nav

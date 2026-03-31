@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, MapPin, Calendar, Trash2, Pencil, Bookmark } from "lucide-react";
+import { useModalState } from "@/hooks/useModalState";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
 import type { DateRecord, UpdateDateRecord } from "@/types";
@@ -27,8 +28,21 @@ interface RecordDetailProps {
 export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetailProps) {
   const router = useRouter();
   const { bookmarkPlace, isBookmarked } = useBookmarks();
+  const { openModal, closeModal } = useModalState();
   const [showEdit, setShowEdit] = useState(false); // 수정 모달 표시
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // 삭제 확인
+
+  // 삭제 확인 모달 열릴 때 스크롤 방지 + BottomNav 숨김
+  useEffect(() => {
+    if (showDeleteConfirm) {
+      document.body.style.overflow = "hidden";
+      openModal();
+      return () => {
+        document.body.style.overflow = "";
+        closeModal();
+      };
+    }
+  }, [showDeleteConfirm, openModal, closeModal]);
 
   /** 삭제 처리 */
   const handleDelete = async () => {

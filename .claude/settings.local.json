@@ -36,7 +36,15 @@
       "Bash(npx tsc:*)",
       "Bash(find /c/Users/ailee/github/Oneul-uri/src -type f \\\\\\( -name \"*.ts\" -o -name \"*.tsx\" \\\\\\) -exec wc -l {} +)",
       "Bash(xargs wc:*)",
-      "Bash(ls -la \"C:/Users/ailee/github/Oneul-uri/stitch\\(2\\)/\")"
+      "Bash(ls -la \"C:/Users/ailee/github/Oneul-uri/stitch\\(2\\)/\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(find /c/Users/ailee/github/Oneul-uri/src/hooks -type f -name *.ts -o -name *.tsx -o -name *.js -o -name *.jsx)",
+      "Bash(gh api:*)",
+      "Bash(find C:/Users/ailee/github/Oneul-uri/src -type f \\\\\\(-name *.tsx -o -name *.jsx -o -name *.ts -o -name *.js \\\\\\))",
+      "Bash(grep:*)",
+      "Bash(node:*)"
     ]
   }
 }

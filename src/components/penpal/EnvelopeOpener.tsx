@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { useLockScroll } from "@/hooks/useLockScroll";
 import type { PenpalLetter } from "@/types";
 
 /** EnvelopeOpener 컴포넌트 props */
@@ -28,13 +29,8 @@ const STATIONERY_STYLES: Record<string, string> = {
  * Step 3: 편지 내용 표시 (손글씨 폰트)
  */
 export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpenerProps) {
+  useLockScroll(); // 오버레이 열릴 때 뒷배경 스크롤 방지 + BottomNav 숨김
   const [isOpened, setIsOpened] = useState(false); // 봉투 열림 상태
-
-  // 오버레이 열릴 때 뒷배경 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
 
   // 편지지 배경 클래스
   const bgClass = STATIONERY_STYLES[letter.stationery] ?? STATIONERY_STYLES.default;

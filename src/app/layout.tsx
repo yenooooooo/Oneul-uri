@@ -8,6 +8,7 @@ import PullToRefresh from "@/components/common/PullToRefresh";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import OfflineBanner from "@/components/common/OfflineBanner";
 import BottomNav from "@/components/layout/BottomNav";
+import { ModalStateProvider } from "@/hooks/useModalState";
 
 /**
  * 오늘우리 앱의 메타데이터 설정
@@ -61,13 +62,15 @@ export default function RootLayout({
         <ErrorBoundary>
           <AuthProvider>
             <CoupleProvider>
-              {/* 메인 콘텐츠 — PullToRefresh 래퍼 */}
-              <PullToRefresh>
-                {children}
-              </PullToRefresh>
+              <ModalStateProvider>
+                {/* 메인 콘텐츠 — PullToRefresh 래퍼 */}
+                <PullToRefresh>
+                  {children}
+                </PullToRefresh>
 
-              {/* 하단 네비 — PullToRefresh 바깥, 최상위 레벨 */}
-              <BottomNav />
+                {/* 하단 네비 — PullToRefresh 바깥, 모달 열리면 숨김 */}
+                <BottomNav />
+              </ModalStateProvider>
             </CoupleProvider>
           </AuthProvider>
         </ErrorBoundary>
