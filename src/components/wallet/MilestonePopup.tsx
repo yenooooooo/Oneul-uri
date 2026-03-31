@@ -41,7 +41,7 @@ export default function MilestonePopup({ percent, onClose }: MilestonePopupProps
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center animate-fade-up"
+      className="fixed inset-0 z-[60] bg-black/50 flex items-center justify-center animate-fade-up"
     >
       <div className="bg-white rounded-3xl p-8 text-center max-w-xs mx-6 shadow-float">
         {/* 이모지 */}

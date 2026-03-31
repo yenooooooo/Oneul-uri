@@ -114,7 +114,7 @@ export default function RecordDetail({ record, onUpdate, onDelete }: RecordDetai
 
       {/* 삭제 확인 모달 */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-6">
+        <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
           <div className="bg-surface-low rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
             <p className="font-semibold text-txt-primary">
               이 기록을 삭제할까요?

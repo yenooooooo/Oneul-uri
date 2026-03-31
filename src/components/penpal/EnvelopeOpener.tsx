@@ -40,7 +40,7 @@ export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpe
   const bgClass = STATIONERY_STYLES[letter.stationery] ?? STATIONERY_STYLES.default;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[60] bg-black/60 flex items-center justify-center p-6">
       {/* 닫기 버튼 */}
       <button
         onClick={onClose}

@@ -41,7 +41,7 @@ export default function PetDiaryAddForm({ onSubmit, onClose, initialData, isEdit
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-cream flex flex-col">
+    <div className="fixed inset-0 z-[60] bg-cream flex flex-col">
       <div className="flex-1 w-full max-w-lg mx-auto overflow-y-auto px-4 py-6">
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-4">

@@ -58,7 +58,7 @@ export default function PlanItemModal({
   // 이 컴포넌트를 사용하는 곳에서 onRoulette 결과를 받아 setTitle로 반영
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[60] bg-black/40 flex items-end sm:items-center justify-center">
       <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] overflow-y-auto p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-txt-primary">

@@ -37,7 +37,7 @@ export default function PlanCompleteModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-6">
+    <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
       <div className="bg-white rounded-3xl p-6 w-full max-w-xs text-center space-y-4">
         <PartyPopper className="w-12 h-12 text-coral-400 mx-auto" />
 

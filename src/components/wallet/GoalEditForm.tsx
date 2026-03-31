@@ -42,7 +42,7 @@ export default function GoalEditForm({ goal, onSubmit, onClose }: GoalEditFormPr
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-6">
+    <div className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center px-6">
       <div className="bg-white rounded-3xl p-6 w-full max-w-sm">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-txt-primary">목표 수정</h3>
