@@ -144,7 +144,8 @@ export default function PlanDetailPage() {
 
       {/* 하단 고정 버튼 */}
       {!isCompleted && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-cream-dark px-4 py-3 flex gap-3 max-w-lg mx-auto">
+        <div className="fixed left-0 right-0 z-50 bg-white border-t border-cream-dark px-4 py-3 flex gap-3 max-w-lg mx-auto"
+          style={{ bottom: "calc(4rem + env(safe-area-inset-bottom, 8px))" }}>
           <button onClick={() => setShowAddModal(true)}
             className="flex-1 bg-white border border-coral-200 text-coral-400 rounded-full py-3 font-medium flex items-center justify-center gap-1">
             <Plus className="w-4 h-4" /> 일정 추가
