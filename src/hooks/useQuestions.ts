@@ -96,7 +96,24 @@ export function useQuestions() {
       const { error } = await supabase.from("couple_answers").insert(row);
       if (error) { toast.error("답변 저장에 실패했어요."); return false; }
       toast.success("답변이 저장되었어요!");
-      await loadToday(); // 새로고침
+
+      // 오늘 질문이면 오늘만 새로고침, 지난 질문이면 해당 항목만 갱신
+      const isTodayQ = dailyStates.some((s) => s.dailyId === dailyId);
+      if (isTodayQ) {
+        await loadToday();
+      } else {
+        // 지난 질문 — 해당 dailyId 답변만 다시 조회하여 pastDays 갱신
+        const { data: freshAnswers } = await supabase
+          .from("couple_answers").select("*").eq("daily_id", dailyId);
+        const my = (freshAnswers ?? []).find((a: CoupleAnswer) => a.user_id === user.id) ?? null;
+        const partner = (freshAnswers ?? []).find((a: CoupleAnswer) => a.user_id !== user.id) ?? null;
+        setPastDays((prev) => prev.map((day) => ({
+          ...day,
+          states: day.states.map((s) =>
+            s.dailyId === dailyId ? { ...s, myAnswer: my, partnerAnswer: partner } : s
+          ),
+        })));
+      }
       return true;
     } catch (e) {
       console.error("[useQuestions/submitAnswer] 예외:", e);
