@@ -3,6 +3,10 @@
 > **커플 전용 데이트 기록 & 소통 앱** — 우리 둘만의 공간에서 추억을 쌓고, 소통하고, 함께 성장하는 올인원 커플 플랫폼
 
 <p align="center">
+  <a href="https://oneul-uri.vercel.app/"><img src="https://img.shields.io/badge/🔗_Live_Demo-오늘우리_바로가기-FF6B6B?style=for-the-badge" alt="Live Demo" /></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" alt="Next.js 14" />
   <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react" alt="React 18" />
   <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase" alt="Supabase" />
