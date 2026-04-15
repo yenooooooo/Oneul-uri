@@ -48,7 +48,13 @@ export function CoupleProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  useEffect(() => { refetch(); }, [userId]);
+  // userId 변경 시 loading을 명시적으로 true로 리셋 후 refetch 수행
+  // 이렇게 하지 않으면 auth 해석 완료 직후 coupleLoading=false가 잠깐 유지되며
+  // 홈 페이지가 /couple로 잘못 리다이렉트(플래시)하는 문제 발생
+  useEffect(() => {
+    setLoading(true);
+    refetch();
+  }, [userId]);
 
   return (
     <CoupleContext.Provider value={{ couple, loading, setCouple, refetch }}>

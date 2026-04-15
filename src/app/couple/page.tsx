@@ -17,10 +17,10 @@ export default function CouplePage() {
   const router = useRouter();
   const { couple, loading, createSpace, joinSpace } = useCouple();
 
-  // 이미 커플 스페이스가 있으면 홈으로 이동
+  // 이미 커플 스페이스가 있으면 홈으로 이동 (replace — 히스토리 오염 방지)
   useEffect(() => {
     if (!loading && couple) {
-      router.push("/");
+      router.replace("/");
     }
   }, [couple, loading, router]);
 

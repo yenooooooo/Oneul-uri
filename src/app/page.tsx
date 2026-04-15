@@ -40,7 +40,8 @@ export default function HomePage() {
   const { pet } = usePet();
 
   useEffect(() => {
-    if (!authLoading && !coupleLoading && user && !couple) router.push("/couple");
+    // replace 사용 — 뒤로가기 히스토리 오염 방지 + 혹시 재발동 시 안정성 ↑
+    if (!authLoading && !coupleLoading && user && !couple) router.replace("/couple");
   }, [authLoading, coupleLoading, user, couple, router]);
 
   useEffect(() => { if (couple) generateAutoAnniversaries(); }, [couple]);
