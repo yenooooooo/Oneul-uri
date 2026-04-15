@@ -13,6 +13,8 @@ import { CHOICE_EXTRA_3 } from "./choice-extra3";
 import { SCALE_QUESTIONS } from "./scale";
 import { SCALE_EXTRA_1 } from "./scale-extra1";
 import { SCALE_EXTRA_2 } from "./scale-extra2";
+import { SCALE_EXTRA_3 } from "./scale-extra3";
+import { SCALE_EXTRA_4 } from "./scale-extra4";
 
 /** 전체 자유서술 질문 풀 */
 export const TEXT_POOL: Question[] = [
@@ -25,9 +27,10 @@ export const CHOICE_POOL: Question[] = [
   ...CHOICE_QUESTIONS, ...CHOICE_EXTRA_1, ...CHOICE_EXTRA_2, ...CHOICE_EXTRA_3,
 ];
 
-/** 전체 점수형 질문 풀 */
+/** 전체 점수형 질문 풀 (기존 200 + 확장 200 = 총 400개) */
 export const SCALE_POOL: Question[] = [
   ...SCALE_QUESTIONS, ...SCALE_EXTRA_1, ...SCALE_EXTRA_2,
+  ...SCALE_EXTRA_3, ...SCALE_EXTRA_4,
 ];
 
 /** 전체 질문 (ID로 빠르게 조회) */
