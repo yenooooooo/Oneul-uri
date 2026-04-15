@@ -7,7 +7,78 @@
 -- user2(수민): 22f74434-3a18-4ba9-b4d0-8c1e8641d9bc
 
 -- ================================================
--- 0. 기존 데모 데이터 정리 (재실행 가능)
+-- 0-A. 데모 Auth 사용자 생성 (Supabase auth.users + auth.identities)
+-- 이미 존재하면 건너뛰고, 없으면 새로 생성
+-- ================================================
+DO $$
+BEGIN
+  -- 연호 (demo1)
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = '7ae5c79f-582d-4031-939a-1066d9108a6c') THEN
+    INSERT INTO auth.users (
+      id, instance_id, email, encrypted_password,
+      email_confirmed_at, created_at, updated_at,
+      raw_app_meta_data, raw_user_meta_data,
+      aud, role
+    ) VALUES (
+      '7ae5c79f-582d-4031-939a-1066d9108a6c',
+      '00000000-0000-0000-0000-000000000000',
+      'demo1@oneuluri.com',
+      crypt('demo1234', gen_salt('bf')),
+      now(), now(), now(),
+      '{"provider":"email","providers":["email"]}',
+      '{}',
+      'authenticated',
+      'authenticated'
+    );
+
+    INSERT INTO auth.identities (
+      id, user_id, provider_id, provider,
+      identity_data, last_sign_in_at, created_at, updated_at
+    ) VALUES (
+      '7ae5c79f-582d-4031-939a-1066d9108a6c',
+      '7ae5c79f-582d-4031-939a-1066d9108a6c',
+      'demo1@oneuluri.com',
+      'email',
+      '{"sub":"7ae5c79f-582d-4031-939a-1066d9108a6c","email":"demo1@oneuluri.com"}',
+      now(), now(), now()
+    );
+  END IF;
+
+  -- 수민 (demo2)
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = '22f74434-3a18-4ba9-b4d0-8c1e8641d9bc') THEN
+    INSERT INTO auth.users (
+      id, instance_id, email, encrypted_password,
+      email_confirmed_at, created_at, updated_at,
+      raw_app_meta_data, raw_user_meta_data,
+      aud, role
+    ) VALUES (
+      '22f74434-3a18-4ba9-b4d0-8c1e8641d9bc',
+      '00000000-0000-0000-0000-000000000000',
+      'demo2@oneuluri.com',
+      crypt('demo1234', gen_salt('bf')),
+      now(), now(), now(),
+      '{"provider":"email","providers":["email"]}',
+      '{}',
+      'authenticated',
+      'authenticated'
+    );
+
+    INSERT INTO auth.identities (
+      id, user_id, provider_id, provider,
+      identity_data, last_sign_in_at, created_at, updated_at
+    ) VALUES (
+      '22f74434-3a18-4ba9-b4d0-8c1e8641d9bc',
+      '22f74434-3a18-4ba9-b4d0-8c1e8641d9bc',
+      'demo2@oneuluri.com',
+      'email',
+      '{"sub":"22f74434-3a18-4ba9-b4d0-8c1e8641d9bc","email":"demo2@oneuluri.com"}',
+      now(), now(), now()
+    );
+  END IF;
+END $$;
+
+-- ================================================
+-- 0-B. 기존 데모 데이터 정리 (재실행 가능)
 -- ================================================
 DELETE FROM record_comments WHERE couple_id = 'c460c7bc-8330-4587-b923-bb28954e1513';
 DELETE FROM couple_answers WHERE daily_id IN (SELECT id FROM couple_question_daily WHERE couple_id = 'c460c7bc-8330-4587-b923-bb28954e1513');

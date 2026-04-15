@@ -38,7 +38,16 @@ function WriteLetterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const replyToId = searchParams.get("replyTo"); // 답장 원본 ID
-  const replyPreview = searchParams.get("replyPreview"); // 원문 미리보기
+  const [replyPreview, setReplyPreview] = useState<string | null>(null); // 원문 미리보기
+
+  // sessionStorage에서 답장 원문 미리보기 읽기 (인코딩 이슈 회피)
+  useEffect(() => {
+    if (!replyToId) return;
+    try {
+      const preview = sessionStorage.getItem(`penpal-reply-${replyToId}`);
+      if (preview) setReplyPreview(preview);
+    } catch {}
+  }, [replyToId]);
 
   const { sendLetter } = usePenpal();
   const { partnerNickname, isPartnerConnected, loading: coupleLoading } = useCouple();
@@ -125,7 +134,7 @@ function WriteLetterForm() {
         <div className="mx-4 mb-2 bg-cream-dark rounded-xl px-4 py-2.5">
           <p className="text-xs text-txt-tertiary mb-0.5">↩ 답장 원문</p>
           <p className="text-sm text-txt-secondary line-clamp-2 font-handwriting">
-            {decodeURIComponent(replyPreview)}
+            {replyPreview}
           </p>
         </div>
       )}

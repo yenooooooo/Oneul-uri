@@ -142,8 +142,13 @@ export default function PenpalPage() {
           onClose={() => setOpenLetter(null)}
           onReply={(letter) => {
             setOpenLetter(null);
-            const preview = encodeURIComponent(letter.content.slice(0, 50));
-            router.push(`/penpal/write?replyTo=${letter.id}&replyPreview=${preview}`);
+            try {
+              sessionStorage.setItem(
+                `penpal-reply-${letter.id}`,
+                Array.from(letter.content).slice(0, 50).join("")
+              );
+            } catch {}
+            router.push(`/penpal/write?replyTo=${letter.id}`);
           }}
         />
       )}
