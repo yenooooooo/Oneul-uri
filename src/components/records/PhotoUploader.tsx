@@ -10,13 +10,15 @@ import { toast } from "sonner";
 interface PhotoUploaderProps {
   photos: string[]; // 현재 사진 URL 배열
   onChange: (photos: string[]) => void; // 사진 변경 콜백
+  maxPhotos?: number; // 최대 사진 수 (기본값: MAX_PHOTOS=5)
 }
 
 /**
- * 사진 업로드 컴포넌트 — 최대 5장까지 업로드 + 미리보기 + 삭제
+ * 사진 업로드 컴포넌트 — 최대 장수 제한 + 미리보기 + 삭제
  * Supabase Storage에 직접 업로드
+ * @param maxPhotos - 호출부에서 지정 가능 (예: 반려견 일기는 3장)
  */
-export default function PhotoUploader({ photos, onChange }: PhotoUploaderProps) {
+export default function PhotoUploader({ photos, onChange, maxPhotos = MAX_PHOTOS }: PhotoUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null); // 파일 input ref
   const [uploading, setUploading] = useState(false); // 업로드 중 상태
 
@@ -26,10 +28,15 @@ export default function PhotoUploader({ photos, onChange }: PhotoUploaderProps) 
     if (!files || files.length === 0) return;
 
     // 최대 사진 수 체크
-    const remaining = MAX_PHOTOS - photos.length;
+    const remaining = maxPhotos - photos.length;
     if (remaining <= 0) {
-      toast.error(`사진은 최대 ${MAX_PHOTOS}장까지 추가할 수 있어요.`);
+      toast.error(`사진은 최대 ${maxPhotos}장까지 추가할 수 있어요.`);
       return;
+    }
+
+    // 선택 수가 남은 수보다 많으면 안내
+    if (files.length > remaining) {
+      toast.info(`최대 ${maxPhotos}장까지만 추가할 수 있어 ${remaining}장만 업로드해요.`);
     }
 
     setUploading(true);
@@ -82,7 +89,7 @@ export default function PhotoUploader({ photos, onChange }: PhotoUploaderProps) 
         ))}
 
         {/* 추가 버튼 (최대 수량 미만일 때만 표시) */}
-        {photos.length < MAX_PHOTOS && (
+        {photos.length < maxPhotos && (
           <button
             type="button"
             onClick={() => inputRef.current?.click()}

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
 import { useLockScroll } from "@/hooks/useLockScroll";
 import PhotoUploader from "@/components/records/PhotoUploader";
+import { MAX_PET_DIARY_PHOTOS } from "@/lib/constants";
 import FormInput from "@/components/common/FormInput";
 import FormTextarea from "@/components/common/FormTextarea";
 import FormDatePicker from "@/components/common/FormDatePicker";
@@ -71,8 +72,8 @@ export default function PetDiaryAddForm({ onSubmit, onClose, initialData, isEdit
 
           {/* 사진 (최대 3장) */}
           <div className="space-y-2">
-            <span className="text-sm font-medium text-gray-700">사진 (최대 3장)</span>
-            <PhotoUploader photos={photos} onChange={setPhotos} />
+            <span className="text-sm font-medium text-gray-700">사진 (최대 {MAX_PET_DIARY_PHOTOS}장)</span>
+            <PhotoUploader photos={photos} onChange={setPhotos} maxPhotos={MAX_PET_DIARY_PHOTOS} />
           </div>
 
           <Button type="submit" disabled={saving || !title}

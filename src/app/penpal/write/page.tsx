@@ -65,10 +65,16 @@ function WriteLetterForm() {
   const [uploading, setUploading] = useState(false); // 사진 업로드 중
   const [sending, setSending] = useState(false); // 발송 중
 
-  /** 사진 첨부 핸들러 */
+  /** 사진 첨부 핸들러 — 편지는 1장만 허용 */
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    // 여러 장 선택 시 안내 — 편지 첨부는 1장만
+    if (files.length > 1) {
+      toast.info("편지에는 사진을 1장만 첨부할 수 있어요.");
+    }
+    const file = files[0];
 
     setUploading(true);
     const url = await uploadPhoto(file, "penpal-attachments");
@@ -78,6 +84,9 @@ function WriteLetterForm() {
       toast.error("사진 업로드에 실패했어요.");
     }
     setUploading(false);
+
+    // 같은 파일 재선택 가능하게 input 초기화
+    e.target.value = "";
   };
 
   /** 편지 발송 핸들러 */
