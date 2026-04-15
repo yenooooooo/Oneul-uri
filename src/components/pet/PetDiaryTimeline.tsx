@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FadeImage from "@/components/common/FadeImage";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 interface Props {
   diaries: PetDiary[];
@@ -22,6 +23,7 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
   const [filter, setFilter] = useState<PetDiaryCategory | "all">("all"); // 카테고리 필터
   const [expanded, setExpanded] = useState<string | null>(null); // 펼친 일기 ID
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null); // 삭제 확인 대상 ID
+  const [lightboxUrl, setLightboxUrl] = useState<string | null>(null); // 전체화면 뷰어
 
   // 삭제 확인 모달 열릴 때 스크롤 방지
   useEffect(() => {
@@ -107,16 +109,20 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
                         </div>
                       )}
                     </div>
-                    {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드 */}
+                    {/* 사진 미리보기 — 1장이면 크게, 여러 장이면 그리드. 탭하면 전체화면 */}
                     {diary.photos?.length === 1 && (
-                      <FadeImage src={diary.photos[0]} alt=""
-                        className="w-full h-40 rounded-xl mt-3" />
+                      <div className="mt-3" onClick={(e) => { e.stopPropagation(); setLightboxUrl(diary.photos[0]); }}>
+                        <FadeImage src={diary.photos[0]} alt=""
+                          className="w-full h-40 rounded-xl cursor-pointer" />
+                      </div>
                     )}
                     {diary.photos?.length > 1 && (
-                      <div className="grid grid-cols-3 gap-1.5 mt-3">
+                      <div className="grid grid-cols-3 gap-1.5 mt-3" onClick={(e) => e.stopPropagation()}>
                         {diary.photos.slice(0, 3).map((url, i) => (
-                          <FadeImage key={`${diary.id}-${i}`} src={url} alt=""
-                            className="w-full rounded-xl" aspect="1/1" />
+                          <div key={`${diary.id}-${i}`} onClick={() => setLightboxUrl(url)}>
+                            <FadeImage src={url} alt=""
+                              className="w-full rounded-xl cursor-pointer" aspect="1/1" />
+                          </div>
                         ))}
                       </div>
                     )}
@@ -126,6 +132,11 @@ export default function PetDiaryTimeline({ diaries, onAdd, onEdit, onDelete }: P
             })}
           </div>
         </div>
+      )}
+
+      {/* 전체화면 뷰어 */}
+      {lightboxUrl && (
+        <ImageLightbox src={lightboxUrl} onClose={() => setLightboxUrl(null)} />
       )}
 
       {/* 삭제 확인 모달 */}

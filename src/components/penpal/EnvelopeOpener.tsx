@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { useLockScroll } from "@/hooks/useLockScroll";
+import ImageLightbox from "@/components/common/ImageLightbox";
 import type { PenpalLetter } from "@/types";
 
 /** EnvelopeOpener 컴포넌트 props */
@@ -31,6 +32,7 @@ const STATIONERY_STYLES: Record<string, string> = {
 export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpenerProps) {
   useLockScroll(); // 오버레이 열릴 때 뒷배경 스크롤 방지 + BottomNav 숨김
   const [isOpened, setIsOpened] = useState(false); // 봉투 열림 상태
+  const [lightboxOpen, setLightboxOpen] = useState(false); // 첨부 사진 전체화면
 
   // 편지지 배경 클래스
   const bgClass = STATIONERY_STYLES[letter.stationery] ?? STATIONERY_STYLES.default;
@@ -88,15 +90,16 @@ export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpe
               </p>
             </div>
 
-            {/* 첨부 사진 */}
+            {/* 첨부 사진 — 탭하면 전체화면 */}
             {letter.photo_url && (
-              <div className="mt-4 rounded-xl overflow-hidden">
+              <button type="button" onClick={() => setLightboxOpen(true)}
+                className="mt-4 rounded-xl overflow-hidden active:scale-[0.98] transition-transform">
                 <img
                   src={letter.photo_url}
                   alt="첨부 사진"
                   className="w-full h-48 object-cover"
                 />
-              </div>
+              </button>
             )}
 
             {/* 답장 + 닫기 */}
@@ -118,6 +121,11 @@ export default function EnvelopeOpener({ letter, onClose, onReply }: EnvelopeOpe
             </div>
           </div>
         </div>
+      )}
+
+      {/* 첨부 사진 전체화면 뷰어 */}
+      {lightboxOpen && letter.photo_url && (
+        <ImageLightbox src={letter.photo_url} alt="첨부 사진" onClose={() => setLightboxOpen(false)} />
       )}
 
       {/* 봉투 열기 + 편지 슬라이드업 CSS 애니메이션 */}

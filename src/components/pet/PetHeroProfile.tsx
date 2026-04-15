@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import type { Pet } from "@/types";
 import { calculateDday } from "@/lib/utils";
 import { PET_GENDER_OPTIONS } from "@/lib/constants";
 import { Pencil } from "lucide-react";
 import FadeImage from "@/components/common/FadeImage";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 interface Props {
   pet: Pet;
@@ -16,6 +18,8 @@ interface Props {
  * 그라데이션 배경 + 라운드 카드
  */
 export default function PetHeroProfile({ pet, onEdit }: Props) {
+  const [lightboxOpen, setLightboxOpen] = useState(false); // 전체화면 뷰어
+
   // 입양 D-day 계산 (입양일이 있을 때만)
   const adoptionDday = pet.adoption_date ? calculateDday(pet.adoption_date) : null;
 
@@ -36,8 +40,13 @@ export default function PetHeroProfile({ pet, onEdit }: Props) {
       </button>
 
       <div className="flex flex-col items-center pt-8 pb-6 px-6">
-        {/* 프로필 사진 */}
-        <div className="w-28 h-28 rounded-full overflow-hidden bg-white shadow-card border-4 border-white">
+        {/* 프로필 사진 — 탭하면 전체화면 (사진 있을 때만) */}
+        <button
+          type="button"
+          onClick={() => pet.photo_url && setLightboxOpen(true)}
+          disabled={!pet.photo_url}
+          className="w-28 h-28 rounded-full overflow-hidden bg-white shadow-card border-4 border-white active:scale-95 transition-transform disabled:cursor-default"
+        >
           {pet.photo_url ? (
             <FadeImage src={pet.photo_url} alt={pet.name}
               className="w-full h-full rounded-full" />
@@ -46,7 +55,7 @@ export default function PetHeroProfile({ pet, onEdit }: Props) {
               🐶
             </div>
           )}
-        </div>
+        </button>
 
         {/* 이름 + 품종 */}
         <h2 className="mt-4 text-2xl font-bold font-serif-ko text-txt-primary">{pet.name}</h2>
@@ -83,6 +92,11 @@ export default function PetHeroProfile({ pet, onEdit }: Props) {
           </p>
         )}
       </div>
+
+      {/* 전체화면 뷰어 */}
+      {lightboxOpen && pet.photo_url && (
+        <ImageLightbox src={pet.photo_url} alt={pet.name} onClose={() => setLightboxOpen(false)} />
+      )}
     </section>
   );
 }

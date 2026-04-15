@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import FadeImage from "@/components/common/FadeImage";
+import ImageLightbox from "@/components/common/ImageLightbox";
 
 interface Props {
   photos: string[];
@@ -14,6 +15,7 @@ interface Props {
 export default function PhotoGallery({ photos }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0); // 현재 보이는 사진 인덱스
+  const [lightboxUrl, setLightboxUrl] = useState<string | null>(null); // 전체화면 뷰어
 
   /** 스크롤 이벤트로 현재 인덱스 계산 */
   useEffect(() => {
@@ -37,8 +39,11 @@ export default function PhotoGallery({ photos }: Props) {
       <div ref={scrollRef}
         className="flex gap-2 overflow-x-auto px-4 pb-1 scrollbar-hide snap-x snap-mandatory">
         {photos.map((url, i) => (
-          <FadeImage key={url} src={url} alt={`사진 ${i + 1}`}
-            className="w-72 h-48 rounded-2xl flex-shrink-0 snap-center" />
+          <button key={url} type="button" onClick={() => setLightboxUrl(url)}
+            className="flex-shrink-0 snap-center active:scale-[0.98] transition-transform">
+            <FadeImage src={url} alt={`사진 ${i + 1}`}
+              className="w-72 h-48 rounded-2xl" />
+          </button>
         ))}
       </div>
 
@@ -52,6 +57,11 @@ export default function PhotoGallery({ photos }: Props) {
               }`} />
           ))}
         </div>
+      )}
+
+      {/* 전체화면 뷰어 */}
+      {lightboxUrl && (
+        <ImageLightbox src={lightboxUrl} onClose={() => setLightboxUrl(null)} />
       )}
     </div>
   );
