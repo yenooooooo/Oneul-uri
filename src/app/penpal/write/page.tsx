@@ -7,7 +7,7 @@ import { useCouple } from "@/hooks/useCouple";
 import StationeryPicker from "@/components/penpal/StationeryPicker";
 import { ArrowLeft, Loader2, Send, ImagePlus, X } from "lucide-react";
 import { uploadPhoto } from "@/lib/supabase/storage";
-import { MAX_LETTER_LENGTH } from "@/lib/constants";
+import { MAX_LETTER_LENGTH, LAYOUT_BOTTOM_PADDING } from "@/lib/constants";
 import FadeImage from "@/components/common/FadeImage";
 import { toast } from "sonner";
 import type { StationeryType } from "@/types";
@@ -113,7 +113,8 @@ function WriteLetterForm() {
   const bgClass = BG_STYLES[stationery] ?? BG_STYLES.default;
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col">
+    <div className="min-h-screen bg-cream flex flex-col"
+      style={{ paddingBottom: LAYOUT_BOTTOM_PADDING }}>
       {/* 상단 바 */}
       <div className="flex items-center justify-between px-4 py-3">
         <button onClick={() => router.back()} className="p-1">
