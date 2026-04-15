@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
 import { MAX_PHOTOS } from "@/lib/constants";
+import { toast } from "sonner";
 
 /** 허용되는 이미지 MIME 타입 */
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic"];
@@ -19,13 +20,17 @@ export async function uploadPhoto(
 ): Promise<string | null> {
   // 파일 타입 검증
   if (!ALLOWED_TYPES.includes(file.type)) {
-    console.error("[storage/uploadPhoto] 지원하지 않는 파일 형식:", file.type);
+    const msg = `[DEBUG] 형식 미지원: "${file.type || "(empty)"}" / 파일명 ${file.name}`;
+    console.error("[storage/uploadPhoto]", msg);
+    toast.error(msg, { duration: 10000 });
     return null;
   }
 
   // 파일 크기 검증
   if (file.size > MAX_FILE_SIZE) {
-    console.error("[storage/uploadPhoto] 파일 크기 초과:", file.size);
+    const msg = `[DEBUG] 크기 초과: ${(file.size / 1024 / 1024).toFixed(2)}MB (최대 5MB)`;
+    console.error("[storage/uploadPhoto]", msg);
+    toast.error(msg, { duration: 10000 });
     return null;
   }
 
@@ -42,7 +47,9 @@ export async function uploadPhoto(
       .upload(path, file, { cacheControl: "3600", upsert: false });
 
     if (error) {
-      console.error("[storage/uploadPhoto] 업로드 실패:", error.message);
+      const msg = `[DEBUG] Supabase: ${error.message} / bucket=${bucket}`;
+      console.error("[storage/uploadPhoto]", msg);
+      toast.error(msg, { duration: 15000 });
       return null;
     }
 
@@ -50,7 +57,9 @@ export async function uploadPhoto(
     const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(path);
     return urlData.publicUrl;
   } catch (error) {
-    console.error("[storage/uploadPhoto] 예외 발생:", error);
+    const msg = `[DEBUG] 예외: ${error instanceof Error ? error.message : String(error)}`;
+    console.error("[storage/uploadPhoto]", msg);
+    toast.error(msg, { duration: 15000 });
     return null;
   }
 }
