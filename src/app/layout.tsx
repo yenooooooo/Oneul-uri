@@ -1,5 +1,19 @@
 import type { Metadata, Viewport } from "next";
+import { Nanum_Pen_Script } from "next/font/google";
 import "./globals.css";
+
+/**
+ * 손글씨 폰트 (펜팔 전용) — Google Fonts에서 preload
+ * display: swap — fallback 폰트로 먼저 그리고 로드 완료 시 교체
+ * CSS 변수로 노출해서 globals.css의 .font-handwriting이 사용
+ */
+const nanumPenScript = Nanum_Pen_Script({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-handwriting",
+  preload: true,
+});
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/components/common/AuthProvider";
 import { CoupleProvider } from "@/components/common/CoupleProvider";
@@ -56,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={nanumPenScript.variable}>
       <body className="antialiased overscroll-none">
         <ErrorBoundary>
           <AuthProvider>

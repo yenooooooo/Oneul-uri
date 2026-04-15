@@ -102,8 +102,9 @@
 }
 
 /* ===== 손글씨 폰트 유틸리티 (펜팔 전용) ===== */
+/* next/font/google 가 주입한 --font-handwriting CSS 변수 사용 */
 .font-handwriting {
-  font-family: 'Nanum Pen Script', cursive;
+  font-family: var(--font-handwriting), 'Nanum Pen Script', cursive;
 }
 
 /* ===== 감성 세리프 폰트 유틸리티 ===== */
