@@ -152,7 +152,7 @@ function WriteLetterForm() {
           onChange={(e) => setContent(e.target.value)}
           placeholder="소중한 마음을 담아 편지를 써보세요..."
           maxLength={MAX_LETTER_LENGTH}
-          className="flex-1 bg-transparent font-handwriting text-lg leading-relaxed text-txt-primary placeholder:text-txt-tertiary/50 focus:outline-none resize-none caret-coral-500"
+          className="flex-1 bg-transparent font-handwriting text-lg leading-normal text-txt-primary placeholder:text-txt-tertiary/50 focus:outline-none resize-none caret-coral-500"
         />
 
         {/* 글자 수 */}
